@@ -19,6 +19,9 @@
 		DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
 		DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */; };
 		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
+		DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0851193A159400217F45 /* WOALoginViewController.m */; };
+		DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0854193A173B00217F45 /* WOAPropertyInfo.m */; };
+		DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0910193A28F600217F45 /* WOABrandData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,12 @@
 		DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobileTests-Info.plist"; sourceTree = "<group>"; };
 		DC2D3FDA193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAMobileTests.m; sourceTree = "<group>"; };
+		DC8B0850193A159400217F45 /* WOALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOALoginViewController.h; sourceTree = "<group>"; };
+		DC8B0851193A159400217F45 /* WOALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOALoginViewController.m; sourceTree = "<group>"; };
+		DC8B0853193A173B00217F45 /* WOAPropertyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAPropertyInfo.h; sourceTree = "<group>"; };
+		DC8B0854193A173B00217F45 /* WOAPropertyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAPropertyInfo.m; sourceTree = "<group>"; };
+		DC8B090F193A28F600217F45 /* WOABrandData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOABrandData.h; sourceTree = "<group>"; };
+		DC8B0910193A28F600217F45 /* WOABrandData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOABrandData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +120,12 @@
 				DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */,
 				DC2D3FC9193A10C300069BB8 /* Images.xcassets */,
 				DC2D3FBE193A10C300069BB8 /* Supporting Files */,
+				DC8B0850193A159400217F45 /* WOALoginViewController.h */,
+				DC8B0851193A159400217F45 /* WOALoginViewController.m */,
+				DC8B0853193A173B00217F45 /* WOAPropertyInfo.h */,
+				DC8B0854193A173B00217F45 /* WOAPropertyInfo.m */,
+				DC8B090F193A28F600217F45 /* WOABrandData.h */,
+				DC8B0910193A28F600217F45 /* WOABrandData.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -240,8 +255,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,
 				DC2D3FC8193A10C300069BB8 /* WOAAppDelegate.m in Sources */,
 				DC2D3FC4193A10C300069BB8 /* main.m in Sources */,
+				DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */,
+				DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +376,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
 				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
@@ -371,6 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
 				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
@@ -438,6 +458,7 @@
 				DC2D3FE2193A10C300069BB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC2D3FE3193A10C300069BB8 /* Build configuration list for PBXNativeTarget "WOAMobileTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +467,7 @@
 				DC2D3FE5193A10C300069BB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

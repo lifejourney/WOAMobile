@@ -13,3 +13,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @end
+
+/**issue
+1. seesion expired, auto relogin (should keep the password) or swith to login view
+ 
+ */
