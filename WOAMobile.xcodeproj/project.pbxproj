@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
+		DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */; };
+		DC2D3FBC193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
+		DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FC0193A10C300069BB8 /* InfoPlist.strings */; };
+		DC2D3FC4193A10C300069BB8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FC3193A10C300069BB8 /* main.m */; };
+		DC2D3FC8193A10C300069BB8 /* WOAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */; };
+		DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FC9193A10C300069BB8 /* Images.xcassets */; };
+		DC2D3FD1193A10C300069BB8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FD0193A10C300069BB8 /* XCTest.framework */; };
+		DC2D3FD2193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
+		DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
+		DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */; };
+		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC2D3FD4193A10C300069BB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC2D3FAC193A10C300069BB8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC2D3FB3193A10C300069BB8;
+			remoteInfo = WOAMobile;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC2D3FB7193A10C300069BB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DC2D3FBB193A10C300069BB8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DC2D3FBF193A10C300069BB8 /* WOAMobile-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobile-Info.plist"; sourceTree = "<group>"; };
+		DC2D3FC1193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC2D3FC3193A10C300069BB8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DC2D3FC5193A10C300069BB8 /* WOAMobile-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WOAMobile-Prefix.pch"; sourceTree = "<group>"; };
+		DC2D3FC6193A10C300069BB8 /* WOAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOAAppDelegate.h; sourceTree = "<group>"; };
+		DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAAppDelegate.m; sourceTree = "<group>"; };
+		DC2D3FC9193A10C300069BB8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DC2D3FCF193A10C300069BB8 /* WOAMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WOAMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC2D3FD0193A10C300069BB8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobileTests-Info.plist"; sourceTree = "<group>"; };
+		DC2D3FDA193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAMobileTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC2D3FB1193A10C300069BB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */,
+				DC2D3FBC193A10C300069BB8 /* UIKit.framework in Frameworks */,
+				DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC2D3FCC193A10C300069BB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FD1193A10C300069BB8 /* XCTest.framework in Frameworks */,
+				DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */,
+				DC2D3FD2193A10C300069BB8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DC2D3FAB193A10C300069BB8 = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FBD193A10C300069BB8 /* WOAMobile */,
+				DC2D3FD6193A10C300069BB8 /* WOAMobileTests */,
+				DC2D3FB6193A10C300069BB8 /* Frameworks */,
+				DC2D3FB5193A10C300069BB8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DC2D3FB5193A10C300069BB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FB4193A10C300069BB8 /* WOAMobile.app */,
+				DC2D3FCF193A10C300069BB8 /* WOAMobileTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC2D3FB6193A10C300069BB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FB7193A10C300069BB8 /* Foundation.framework */,
+				DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */,
+				DC2D3FBB193A10C300069BB8 /* UIKit.framework */,
+				DC2D3FD0193A10C300069BB8 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DC2D3FBD193A10C300069BB8 /* WOAMobile */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FC6193A10C300069BB8 /* WOAAppDelegate.h */,
+				DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */,
+				DC2D3FC9193A10C300069BB8 /* Images.xcassets */,
+				DC2D3FBE193A10C300069BB8 /* Supporting Files */,
+			);
+			path = WOAMobile;
+			sourceTree = "<group>";
+		};
+		DC2D3FBE193A10C300069BB8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FBF193A10C300069BB8 /* WOAMobile-Info.plist */,
+				DC2D3FC0193A10C300069BB8 /* InfoPlist.strings */,
+				DC2D3FC3193A10C300069BB8 /* main.m */,
+				DC2D3FC5193A10C300069BB8 /* WOAMobile-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC2D3FD6193A10C300069BB8 /* WOAMobileTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */,
+				DC2D3FD7193A10C300069BB8 /* Supporting Files */,
+			);
+			path = WOAMobileTests;
+			sourceTree = "<group>";
+		};
+		DC2D3FD7193A10C300069BB8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */,
+				DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC2D3FB3193A10C300069BB8 /* WOAMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC2D3FE0193A10C300069BB8 /* Build configuration list for PBXNativeTarget "WOAMobile" */;
+			buildPhases = (
+				DC2D3FB0193A10C300069BB8 /* Sources */,
+				DC2D3FB1193A10C300069BB8 /* Frameworks */,
+				DC2D3FB2193A10C300069BB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WOAMobile;
+			productName = WOAMobile;
+			productReference = DC2D3FB4193A10C300069BB8 /* WOAMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DC2D3FCE193A10C300069BB8 /* WOAMobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC2D3FE3193A10C300069BB8 /* Build configuration list for PBXNativeTarget "WOAMobileTests" */;
+			buildPhases = (
+				DC2D3FCB193A10C300069BB8 /* Sources */,
+				DC2D3FCC193A10C300069BB8 /* Frameworks */,
+				DC2D3FCD193A10C300069BB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC2D3FD5193A10C300069BB8 /* PBXTargetDependency */,
+			);
+			name = WOAMobileTests;
+			productName = WOAMobileTests;
+			productReference = DC2D3FCF193A10C300069BB8 /* WOAMobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC2D3FAC193A10C300069BB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = WOA;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = steven.zhuang;
+				TargetAttributes = {
+					DC2D3FCE193A10C300069BB8 = {
+						TestTargetID = DC2D3FB3193A10C300069BB8;
+					};
+				};
+			};
+			buildConfigurationList = DC2D3FAF193A10C300069BB8 /* Build configuration list for PBXProject "WOAMobile" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DC2D3FAB193A10C300069BB8;
+			productRefGroup = DC2D3FB5193A10C300069BB8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC2D3FB3193A10C300069BB8 /* WOAMobile */,
+				DC2D3FCE193A10C300069BB8 /* WOAMobileTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC2D3FB2193A10C300069BB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
+				DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC2D3FCD193A10C300069BB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC2D3FB0193A10C300069BB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FC8193A10C300069BB8 /* WOAAppDelegate.m in Sources */,
+				DC2D3FC4193A10C300069BB8 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC2D3FCB193A10C300069BB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC2D3FD5193A10C300069BB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC2D3FB3193A10C300069BB8 /* WOAMobile */;
+			targetProxy = DC2D3FD4193A10C300069BB8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DC2D3FC0193A10C300069BB8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC2D3FC1193A10C300069BB8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC2D3FDA193A10C300069BB8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC2D3FDE193A10C300069BB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DC2D3FDF193A10C300069BB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC2D3FE1193A10C300069BB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
+				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DC2D3FE2193A10C300069BB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
+				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DC2D3FE4193A10C300069BB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WOAMobile.app/WOAMobile";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "WOAMobileTests/WOAMobileTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DC2D3FE5193A10C300069BB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WOAMobile.app/WOAMobile";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
+				INFOPLIST_FILE = "WOAMobileTests/WOAMobileTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC2D3FAF193A10C300069BB8 /* Build configuration list for PBXProject "WOAMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC2D3FDE193A10C300069BB8 /* Debug */,
+				DC2D3FDF193A10C300069BB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC2D3FE0193A10C300069BB8 /* Build configuration list for PBXNativeTarget "WOAMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC2D3FE1193A10C300069BB8 /* Debug */,
+				DC2D3FE2193A10C300069BB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DC2D3FE3193A10C300069BB8 /* Build configuration list for PBXNativeTarget "WOAMobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC2D3FE4193A10C300069BB8 /* Debug */,
+				DC2D3FE5193A10C300069BB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC2D3FAC193A10C300069BB8 /* Project object */;
+}
