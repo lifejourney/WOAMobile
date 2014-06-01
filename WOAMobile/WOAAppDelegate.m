@@ -7,13 +7,48 @@
 //
 
 #import "WOAAppDelegate.h"
+#import "WOARootViewController.h"
+
+
+@interface WOAAppDelegate ()
+
+@end
+
 
 @implementation WOAAppDelegate
+
+@synthesize rootViewController=_rootViewController;
+
+#pragma mark - lifecycle
+
+- (instancetype) init
+{
+    if (self = [super init])
+    {
+    }
+    
+    return self;
+}
+
+#pragma mark - Properties
+
+- (WOARootViewController*) rootViewController
+{
+    return _rootViewController;
+}
+
+#pragma mark - application delegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    _rootViewController = [[WOARootViewController alloc] init];
+    self.window.rootViewController = _rootViewController;
+    //TO-DO
+    //[self.window addSubview: _rootViewController.view];
+    
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -46,4 +81,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Public
+
 @end
+
+
+
+
