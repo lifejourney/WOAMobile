@@ -23,6 +23,16 @@
     return self;
 }
 
+- (instancetype) init
+{
+    if (self = [self initWithNibName: @"WOALoginViewController" bundle: [NSBundle mainBundle]])
+    {
+        
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

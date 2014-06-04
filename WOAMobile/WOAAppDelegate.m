@@ -53,7 +53,7 @@
     
     [self.window makeKeyAndVisible];
     
-    //[self presentLoginViewControllerWithLatestAccount: NO];
+    [self presentLoginViewControllerWithLatestAccount: NO];
     
     return YES;
 }

@@ -45,6 +45,7 @@
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
 		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
+		DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
 		DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAAboutViewController.m; sourceTree = "<group>"; };
 		DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAAboutViewController.xib; sourceTree = "<group>"; };
+		DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOALoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 				DC2D3FBE193A10C300069BB8 /* Supporting Files */,
 				DC8B0850193A159400217F45 /* WOALoginViewController.h */,
 				DC8B0851193A159400217F45 /* WOALoginViewController.m */,
+				DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */,
 				DC8B0983193B89B700217F45 /* WOALoadingViewController.h */,
 				DC8B0984193B89B700217F45 /* WOALoadingViewController.m */,
 				DC8B0989193B89B700217F45 /* WOARootViewController.h */,
@@ -358,6 +361,7 @@
 			files = (
 				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
 				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,
+				DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */,
 				DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
