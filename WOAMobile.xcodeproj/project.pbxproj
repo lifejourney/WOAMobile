@@ -42,6 +42,7 @@
 		DC8B09AE193B89B800217F45 /* WOAWorkflowFormDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0998193B89B800217F45 /* WOAWorkflowFormDetailViewController.m */; };
 		DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */; };
 		DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */; };
+		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,8 @@
 		DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowFormListViewController.m; sourceTree = "<group>"; };
 		DC8B099B193B89B800217F45 /* WOAWorkflowTypeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAWorkflowTypeListViewController.h; sourceTree = "<group>"; };
 		DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowTypeListViewController.m; sourceTree = "<group>"; };
+		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
+		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 				DC8B0988193B89B700217F45 /* WOAReviewWorkflowViewController.m */,
 				DC8B0997193B89B800217F45 /* WOAWorkflowFormDetailViewController.h */,
 				DC8B0998193B89B800217F45 /* WOAWorkflowFormDetailViewController.m */,
+				DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */,
+				DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */,
 				DC8B0985193B89B700217F45 /* WOAMoreFeatureViewController.h */,
 				DC8B0986193B89B700217F45 /* WOAMoreFeatureViewController.m */,
 				DC8B0853193A173B00217F45 /* WOAPropertyInfo.h */,
@@ -384,6 +389,7 @@
 				DC8B099F193B89B800217F45 /* WOAHTTPConnection.m in Sources */,
 				DC8B09A6193B89B800217F45 /* WOAReviewWorkflowViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
+				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
 				DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */,
 				DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */,

@@ -11,6 +11,6 @@
 
 @interface WOACheckForUpdate : NSObject <UIAlertViewDelegate>
 
-- (void) checkingUpdateFromAppStore: (BOOL)forceUpdate;
++ (void) checkingUpdateFromAppStore: (BOOL)forceUpdate;
 
 @end

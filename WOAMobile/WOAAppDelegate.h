@@ -24,6 +24,10 @@
 
 @end
 
+/**before public
+ remove pragram mark
+ 
+ */
 /**issue
 1. seesion expired, auto relogin (should keep the password) or swith to login view
  
@@ -37,6 +41,8 @@
 
 /** Research
  tabBarItem怎样只有标题，没有图片
+ tableView, reuseIdentifier
+ 
  */
 
 /**
@@ -91,5 +97,6 @@
 
  5.31: 4h
  6.1: 8h
- 6.3: 
+ 6.3: 2h
+ 6.4: 8h
 */

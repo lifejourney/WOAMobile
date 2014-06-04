@@ -11,31 +11,67 @@
 
 #define kSelfAppleID @"827404068"
 
-@interface WOACheckForUpdate ()
-
-@property (nonatomic, assign) BOOL forceUpdate;
-
-- (void) showAlertWithAppStoreVersion: (NSString*)currentAppStoreVersion;
-
-@end
-
+static BOOL isForceUpdate = NO;
+static BOOL isNewVersionAvailable = NO;
 
 @implementation WOACheckForUpdate
 
-#pragma mark UIAlertView delegate
-
-- (void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
++ (void) showAlertForAlreadyNewest;
 {
-    BOOL gotoAppStore = NO;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"已经是最新版本"
+                                                        message: nil
+                                                       delegate: self
+                                              cancelButtonTitle: @"确定"
+                                              otherButtonTitles: nil, nil];
     
-    if (self.forceUpdate)
+    [alertView show];
+}
+
++ (void) showAlertWithAppStoreVersion: (NSString*)currentAppStoreVersion
+{
+    //NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey: (NSString*)kCFBundleNameKey];
+    
+    NSString *msgTitle = @"有可用更新";
+    NSString *msgContent = [NSString stringWithFormat: @"最新版本: %@", currentAppStoreVersion];
+    UIAlertView *alertView;
+    
+    if (isForceUpdate)
     {
-        gotoAppStore = YES;
+        alertView = [[UIAlertView alloc] initWithTitle: msgTitle
+                                               message: msgContent
+                                              delegate: self
+                                     cancelButtonTitle: @"确定"
+                                     otherButtonTitles: nil, nil];
     }
     else
     {
-        if (buttonIndex == 1)
+        alertView = [[UIAlertView alloc] initWithTitle: msgTitle
+                                               message: msgContent
+                                              delegate: self
+                                     cancelButtonTitle: @"以后再说"
+                                     otherButtonTitles: @"确定", nil];
+    }
+    
+    [alertView show];
+}
+
+#pragma mark UIAlertView delegate
+
++ (void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    BOOL gotoAppStore = NO;
+    
+    if (isNewVersionAvailable)
+    {
+        if (isForceUpdate)
+        {
             gotoAppStore = YES;
+        }
+        else
+        {
+            if (buttonIndex == 1)
+                gotoAppStore = YES;
+        }
     }
     
     if (gotoAppStore)
@@ -49,9 +85,9 @@
 
 #pragma mark - Public
 
-- (void) checkingUpdateFromAppStore: (BOOL)forceUpdate
++ (void) checkingUpdateFromAppStore: (BOOL)forceUpdate
 {
-    self.forceUpdate = forceUpdate;
+    isForceUpdate = forceUpdate;
     
     NSString *storeString = [NSString stringWithFormat: @"http://itunes.apple.com/lookup?id=%@", kSelfAppleID];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: storeString]];
@@ -71,50 +107,23 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSArray *versionsInAppStore = [[appData valueForKey: @"results"] valueForKey: @"version"];
+                NSString *currentAppStoreVersion;
                 
                 if (versionsInAppStore && [versionsInAppStore count] > 0)
                 {
-                    NSString *currentAppStoreVersion = [versionsInAppStore firstObject];
+                    currentAppStoreVersion = [versionsInAppStore firstObject];
                     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: (NSString*)kCFBundleVersionKey];
                     
-                    if ([currentVersion compare: currentAppStoreVersion options: NSNumericSearch] == NSOrderedAscending)
-                    {
-                        [self showAlertWithAppStoreVersion: currentAppStoreVersion];
-                    }
+                    isNewVersionAvailable = ([currentVersion compare: currentAppStoreVersion options: NSNumericSearch] == NSOrderedAscending);
                 }
+                
+                if (isNewVersionAvailable)
+                    [self showAlertWithAppStoreVersion: currentAppStoreVersion];
+                else
+                    [self showAlertForAlreadyNewest];
             });
         }
     }];
-}
-
-#pragma mark - Private
-
-- (void) showAlertWithAppStoreVersion: (NSString *)currentAppStoreVersion
-{
-    //NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey: (NSString*)kCFBundleNameKey];
-    
-    NSString *msgTitle = @"有可用更新";
-    NSString *msgContent = [NSString stringWithFormat: @"最新版本: %@", currentAppStoreVersion];
-    UIAlertView *alertView;
-    
-    if (self.forceUpdate)
-    {
-        alertView = [[UIAlertView alloc] initWithTitle: msgTitle
-                                               message: msgContent
-                                              delegate: self
-                                     cancelButtonTitle: @"确定"
-                                     otherButtonTitles: nil, nil];
-    }
-    else
-    {
-        alertView = [[UIAlertView alloc] initWithTitle: msgTitle
-                                               message: msgContent
-                                              delegate: self
-                                     cancelButtonTitle: @"以后再说"
-                                     otherButtonTitles: @"确定", nil];
-    }
-    
-    [alertView show];
 }
 
 @end

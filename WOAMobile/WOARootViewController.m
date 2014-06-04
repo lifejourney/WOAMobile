@@ -60,7 +60,9 @@
         _appliedWorkflowNavC.tabBarItem.title = @"搜索";
         [self.vcArray addObject: _appliedWorkflowNavC];
         
-        _moreFeatureNavC = [[UINavigationController alloc] init];
+        WOAMoreFeatureViewController *moreFeatureVC = [[WOAMoreFeatureViewController alloc] init];
+        moreFeatureVC.navigationItem.title = @"更多";
+        _moreFeatureNavC = [[UINavigationController alloc] initWithRootViewController: moreFeatureVC];
         _moreFeatureNavC.tabBarItem.title = @"更多";
         [self.vcArray addObject: _moreFeatureNavC];
         
