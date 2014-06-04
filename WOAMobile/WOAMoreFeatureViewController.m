@@ -9,6 +9,7 @@
 #import "WOAMoreFeatureViewController.h"
 #import "WOAMenuItemModel.h"
 #import "WOACheckForUpdate.h"
+#import "WOAAboutViewController.h"
 
 
 #define kWOAMenuItemKey_Draft @"draft"
@@ -151,6 +152,9 @@
     }
     else if ([itemID isEqualToString: kWOAMenuItemKey_About])
     {
+        WOAAboutViewController *aboutVC = [[WOAAboutViewController alloc] init];
+        
+        [self presentViewController: aboutVC animated: YES completion: ^{}];
     }
 }
 

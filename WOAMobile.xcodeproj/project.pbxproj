@@ -43,6 +43,8 @@
 		DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */; };
 		DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
+		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
+		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,9 @@
 		DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowTypeListViewController.m; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
 		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
+		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
+		DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAAboutViewController.m; sourceTree = "<group>"; };
+		DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAAboutViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +244,9 @@
 				432C2C28193F156F008F25F7 /* WOACheckForUpdate.h */,
 				432C2C29193F156F008F25F7 /* WOACheckForUpdate.m */,
 				43306981193D6F5A009006A4 /* thirdparty */,
+				DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */,
+				DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */,
+				DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -349,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
+				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,
 				DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +397,7 @@
 				DC8B099E193B89B800217F45 /* WOAFlowDefine.m in Sources */,
 				DC8B099F193B89B800217F45 /* WOAHTTPConnection.m in Sources */,
 				DC8B09A6193B89B800217F45 /* WOAReviewWorkflowViewController.m in Sources */,
+				DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
 				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
