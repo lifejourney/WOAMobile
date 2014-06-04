@@ -7,6 +7,9 @@
 //
 
 #import "WOARootViewController.h"
+#import "WOAWorkflowTypeListViewController.h"
+#import "WOAWorkflowFormListViewController.h"
+#import "WOAMoreFeatureViewController.h"
 
 
 @interface WOARootViewController ()
@@ -43,9 +46,23 @@
     {
         self.vcArray = [[NSMutableArray alloc] init];
         
-        _initiateWorkflowNavC = [[UINavigationController alloc] init];
+        WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
+        typeListVC.navigationItem.title = @"新建工作";
+        _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
         _initiateWorkflowNavC.tabBarItem.title = @"新建";
         [self.vcArray addObject: _initiateWorkflowNavC];
+        
+        _todoWorkflowNavC = [[UINavigationController alloc] init];
+        _todoWorkflowNavC.tabBarItem.title = @"代办";
+        [self.vcArray addObject: _todoWorkflowNavC];
+        
+        _appliedWorkflowNavC = [[UINavigationController alloc] init];
+        _appliedWorkflowNavC.tabBarItem.title = @"搜索";
+        [self.vcArray addObject: _appliedWorkflowNavC];
+        
+        _moreFeatureNavC = [[UINavigationController alloc] init];
+        _moreFeatureNavC.tabBarItem.title = @"更多";
+        [self.vcArray addObject: _moreFeatureNavC];
         
         self.delegate = self;
         self.viewControllers = self.vcArray;

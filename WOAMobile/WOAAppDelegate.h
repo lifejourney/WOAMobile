@@ -10,6 +10,7 @@
 
 
 @class WOARootViewController;
+@class WOAAccountCredential;
 
 
 @interface WOAAppDelegate : UIResponder <UIApplicationDelegate>
@@ -17,6 +18,9 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic, readonly) WOARootViewController *rootViewController;
+
+- (void) presentLoginViewControllerWithLatestAccount: (BOOL)animated;
+- (void) presentLoginViewController: (WOAAccountCredential*)accountCredential animated: (BOOL)animated;
 
 @end
 
@@ -87,5 +91,5 @@
 
  5.31: 4h
  6.1: 8h
- 
+ 6.3: 
 */

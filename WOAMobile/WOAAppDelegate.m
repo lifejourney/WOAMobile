@@ -8,6 +8,7 @@
 
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
+#import "WOALoginViewController.h"
 
 
 @interface WOAAppDelegate ()
@@ -43,14 +44,17 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    self.window.backgroundColor = [UIColor whiteColor];
+    
     _rootViewController = [[WOARootViewController alloc] init];
     self.window.rootViewController = _rootViewController;
     //TO-DO
     //[self.window addSubview: _rootViewController.view];
     
-    
-    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //[self presentLoginViewControllerWithLatestAccount: NO];
+    
     return YES;
 }
 
@@ -82,6 +86,29 @@
 }
 
 #pragma mark - Public
+
+- (void) presentLoginViewControllerWithLatestAccount: (BOOL)animated
+{
+    WOAAccountCredential *accoutCredential = [WOAAccountCredential accountCredentialWithAccountID: @"Hello"
+                                                                                         password: @"123456"];
+    
+    [self presentLoginViewController: accoutCredential animated: animated];
+}
+
+- (void) presentLoginViewController: (WOAAccountCredential *)accountCredential animated: (BOOL)animated
+{
+    WOALoginViewController *loginVC = [[WOALoginViewController alloc] init];
+    
+    loginVC.accountCredential = accountCredential;
+    
+    UIViewController *presentedVC = self.rootViewController.presentedViewController;
+    if (!presentedVC)
+        presentedVC = self.rootViewController;
+    
+    [presentedVC presentViewController: loginVC
+                              animated: animated
+                            completion: ^{}];
+}
 
 @end
 
