@@ -9,9 +9,12 @@
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
 #import "WOALoginViewController.h"
+#import "WOALoadingViewController.h"
 
 
 @interface WOAAppDelegate ()
+
+@property (nonatomic, strong) WOALoadingViewController *loadingVC;
 
 @end
 
@@ -26,6 +29,7 @@
 {
     if (self = [super init])
     {
+        self.loadingVC = nil;
     }
     
     return self;
@@ -36,6 +40,15 @@
 - (WOARootViewController*) rootViewController
 {
     return _rootViewController;
+}
+
+- (UIViewController*) presentedViewController
+{
+    UIViewController *presentedVC = self.rootViewController.presentedViewController;
+    if (!presentedVC)
+        presentedVC = self.rootViewController;
+    
+    return presentedVC;
 }
 
 #pragma mark - application delegate
@@ -50,6 +63,8 @@
     self.window.rootViewController = _rootViewController;
     //TO-DO
     //[self.window addSubview: _rootViewController.view];
+    
+    self.loadingVC = [[WOALoadingViewController alloc] init];
     
     [self.window makeKeyAndVisible];
     
@@ -91,13 +106,21 @@
 {
     WOALoginViewController *loginVC = [[WOALoginViewController alloc] init];
     
-    UIViewController *presentedVC = self.rootViewController.presentedViewController;
-    if (!presentedVC)
-        presentedVC = self.rootViewController;
+    UIViewController *presentedVC = [self presentedViewController];
     
     [presentedVC presentViewController: loginVC
                               animated: animated
                             completion: ^{}];
+}
+
+- (void) showLoadingViewController
+{
+    [[[UIApplication sharedApplication] keyWindow] addSubview: self.loadingVC.view];
+}
+
+- (void) hideLoadingViewController
+{
+    [self.loadingVC.view removeFromSuperview];
 }
 
 @end

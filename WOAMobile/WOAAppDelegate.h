@@ -20,6 +20,8 @@
 @property (strong, nonatomic, readonly) WOARootViewController *rootViewController;
 
 - (void) presentLoginViewController: (BOOL)animated;
+- (void) showLoadingViewController;
+- (void) hideLoadingViewController;
 
 @end
 

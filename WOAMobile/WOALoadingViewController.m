@@ -8,9 +8,11 @@
 
 #import "WOALoadingViewController.h"
 
+
 @interface WOALoadingViewController ()
 
 @end
+
 
 @implementation WOALoadingViewController
 
@@ -23,27 +25,30 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (instancetype) init
+{
+    if (self = [self initWithNibName: @"WOALoadingViewController" bundle: [NSBundle mainBundle]])
+    {
+    }
+    
+    return self;
+}
+
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+- (void) viewDidAppear: (BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.loadingIndicatorView startAnimating];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void) viewDidDisappear: (BOOL)animated
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self.loadingIndicatorView stopAnimating];
 }
-*/
+
 
 @end

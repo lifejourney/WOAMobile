@@ -10,4 +10,6 @@
 
 @interface WOALoadingViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *loadingIndicatorView;
+
 @end

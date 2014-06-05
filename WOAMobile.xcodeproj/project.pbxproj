@@ -10,6 +10,7 @@
 		432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 432C2C29193F156F008F25F7 /* WOACheckForUpdate.m */; };
 		43306998193D72D9009006A4 /* WOASessionTokens.m in Sources */ = {isa = PBXBuildFile; fileRef = 43306997193D72D9009006A4 /* WOASessionTokens.m */; };
 		4330699B193D72F1009006A4 /* WOAAccountCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 4330699A193D72F1009006A4 /* WOAAccountCredential.m */; };
+		436A405019405F4F005BBF09 /* WOALoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */; };
 		DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
 		DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */; };
 		DC2D3FBC193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
@@ -65,6 +66,7 @@
 		43306997193D72D9009006A4 /* WOASessionTokens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASessionTokens.m; sourceTree = "<group>"; };
 		43306999193D72F1009006A4 /* WOAAccountCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAccountCredential.h; sourceTree = "<group>"; };
 		4330699A193D72F1009006A4 /* WOAAccountCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAAccountCredential.m; sourceTree = "<group>"; };
+		436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WOALoadingViewController.xib; path = ../WOALoadingViewController.xib; sourceTree = "<group>"; };
 		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2D3FB7193A10C300069BB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -202,6 +204,7 @@
 				DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */,
 				DC8B0983193B89B700217F45 /* WOALoadingViewController.h */,
 				DC8B0984193B89B700217F45 /* WOALoadingViewController.m */,
+				436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */,
 				DC8B0989193B89B700217F45 /* WOARootViewController.h */,
 				DC8B098A193B89B700217F45 /* WOARootViewController.m */,
 				DC8B0995193B89B800217F45 /* WOAWorkflowCategoryViewController.h */,
@@ -360,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
+				436A405019405F4F005BBF09 /* WOALoadingViewController.xib in Resources */,
 				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,
 				DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */,
 				DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */,

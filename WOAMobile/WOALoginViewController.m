@@ -7,6 +7,7 @@
 //
 
 #import "WOALoginViewController.h"
+#import "WOAAppDelegate.h"
 #import "WOAPropertyInfo.h"
 
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
 
 - (IBAction) onLoginAction: (id)sender;
+
+@property (nonatomic, strong) UIResponder *latestResponder;
 
 - (BOOL) validateInput;
 
@@ -109,11 +112,22 @@
     return YES;
 }
 
+- (void) textFieldDidBeginEditing: (UITextField *)textField
+{
+    self.latestResponder = textField;
+}
+
+
 - (IBAction) onLoginAction: (id)sender
 {
     if ([self validateInput])
     {
         [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
+     
+        [self.latestResponder resignFirstResponder];
+        
+        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        [appDelegate showLoadingViewController];
     }
 }
 
