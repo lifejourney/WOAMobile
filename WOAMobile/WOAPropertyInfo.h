@@ -11,6 +11,7 @@
 
 @interface WOAPropertyInfo : NSObject
 
-+ (NSString*) latestLoginAccount;
++ (NSString*) latestLoginAccountID;
++ (void) saveLatestLoginAccount: (NSString*)accountID;
 
 @end

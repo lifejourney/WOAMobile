@@ -7,8 +7,21 @@
 //
 
 #import "WOALoginViewController.h"
+#import "WOAPropertyInfo.h"
 
-@interface WOALoginViewController ()
+
+@interface WOALoginViewController () <UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UILabel *appTitleLabel;
+@property (nonatomic, strong) IBOutlet UITextField *accountTextField;
+@property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, strong) IBOutlet UIButton *loginButton;
+
+- (IBAction) onLoginAction: (id)sender;
+
+- (BOOL) validateInput;
+
+- (void) tapOutsideKeyboardAction;
 
 @end
 
@@ -18,7 +31,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -27,21 +39,46 @@
 {
     if (self = [self initWithNibName: @"WOALoginViewController" bundle: [NSBundle mainBundle]])
     {
-        
     }
     
     return self;
+}
+
+- (BOOL) validateInput
+{
+    return YES;
+}
+
+- (void) tapOutsideKeyboardAction
+{
+    if ([self.accountTextField isFirstResponder])
+    {
+        [self.accountTextField resignFirstResponder];
+    }
+    
+    if ([self.passwordTextField isFirstResponder])
+    {
+        [self.passwordTextField resignFirstResponder];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 100, 40)];
-    label.text = @"Hey";
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapOutsideKeyboardAction)];
+    [self.view addGestureRecognizer: tapGesture];
     
-    [self.view addSubview: label];
-    // Do any additional setup after loading the view.
+    NSString *latestAccountID = [WOAPropertyInfo latestLoginAccountID];
+    if (latestAccountID)
+    {
+        self.accountTextField.text = latestAccountID;
+    }
+    
+    if ([self.accountTextField.text length] > 0)
+        [self.passwordTextField becomeFirstResponder];
+    else
+        [self.accountTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,15 +87,38 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (BOOL) textField: (UITextField *)textField shouldChangeCharactersInRange: (NSRange)range replacementString: (NSString *)string
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSString *resultString = [textField.text stringByReplacingCharactersInRange: range withString: string];
+    
+    if ([resultString length] > 0)
+    {
+        
+    }
+    
+    return YES;
 }
-*/
+
+- (BOOL) textFieldShouldReturn: (UITextField *)textField
+{
+    if (textField == self.accountTextField)
+    {
+        [self.passwordTextField becomeFirstResponder];
+    }
+    
+    return YES;
+}
+
+- (IBAction) onLoginAction: (id)sender
+{
+    if ([self validateInput])
+    {
+        [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
+    }
+}
 
 @end
+
+
+
+

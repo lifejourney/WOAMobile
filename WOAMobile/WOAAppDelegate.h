@@ -19,8 +19,7 @@
 
 @property (strong, nonatomic, readonly) WOARootViewController *rootViewController;
 
-- (void) presentLoginViewControllerWithLatestAccount: (BOOL)animated;
-- (void) presentLoginViewController: (WOAAccountCredential*)accountCredential animated: (BOOL)animated;
+- (void) presentLoginViewController: (BOOL)animated;
 
 @end
 
@@ -29,7 +28,7 @@
  
  */
 /**issue
-1. seesion expired, auto relogin (should keep the password) or swith to login view
+1. length for account and password
  
  */
 

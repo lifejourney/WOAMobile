@@ -24,6 +24,4 @@
 
 @property (nonatomic, weak) id<WOALoginViewControllerDelegate> delegate;
 
-@property (nonatomic, strong) WOAAccountCredential *accountCredential;
-
 @end

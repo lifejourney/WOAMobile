@@ -10,6 +10,6 @@
 
 @interface WOAAboutViewController : UIViewController
 
-- (IBAction) onReturnButton: (id)sender;
+- (IBAction) onReturnAction: (id)sender;
 
 @end

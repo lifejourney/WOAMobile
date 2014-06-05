@@ -45,7 +45,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction) onReturnButton: (id)sender
+- (IBAction) onReturnAction: (id)sender
 {
     [self.presentingViewController dismissViewControllerAnimated: YES completion: ^{}];
 }

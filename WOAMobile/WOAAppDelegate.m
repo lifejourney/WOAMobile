@@ -53,7 +53,7 @@
     
     [self.window makeKeyAndVisible];
     
-    [self presentLoginViewControllerWithLatestAccount: NO];
+    [self presentLoginViewController: NO];
     
     return YES;
 }
@@ -87,19 +87,9 @@
 
 #pragma mark - Public
 
-- (void) presentLoginViewControllerWithLatestAccount: (BOOL)animated
-{
-    WOAAccountCredential *accoutCredential = [WOAAccountCredential accountCredentialWithAccountID: @"Hello"
-                                                                                         password: @"123456"];
-    
-    [self presentLoginViewController: accoutCredential animated: animated];
-}
-
-- (void) presentLoginViewController: (WOAAccountCredential *)accountCredential animated: (BOOL)animated
+- (void) presentLoginViewController: (BOOL)animated
 {
     WOALoginViewController *loginVC = [[WOALoginViewController alloc] init];
-    
-    loginVC.accountCredential = accountCredential;
     
     UIViewController *presentedVC = self.rootViewController.presentedViewController;
     if (!presentedVC)
