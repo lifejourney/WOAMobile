@@ -7,6 +7,7 @@
 //
 
 #import "WOACheckForUpdate.h"
+#import "WOAAppDelegate.h"
 
 
 #define kSelfAppleID @"827404068"
@@ -95,6 +96,9 @@ static BOOL isNewVersionAvailable = NO;
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate showTransparentLoadingView];
+    
     [NSURLConnection sendAsynchronousRequest: request
                                        queue: queue
                            completionHandler: ^(NSURLResponse *response, NSData *data, NSError *error)
@@ -106,6 +110,8 @@ static BOOL isNewVersionAvailable = NO;
                                                                       error: nil];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [appDelegate hideLoadingViewController];
+                
                 NSArray *versionsInAppStore = [[appData valueForKey: @"results"] valueForKey: @"version"];
                 NSString *currentAppStoreVersion;
                 

@@ -147,9 +147,21 @@
     [self.loginVC dismissViewControllerAnimated: animated completion: ^{}];
 }
 
+- (void) showLoadingViewController: (CGFloat)backgroundAlpha
+{
+    self.loadingVC.view.alpha = backgroundAlpha;
+    
+    [[[UIApplication sharedApplication] keyWindow] addSubview: self.loadingVC.view];
+}
+
 - (void) showLoadingViewController
 {
-    [[[UIApplication sharedApplication] keyWindow] addSubview: self.loadingVC.view];
+    [self showLoadingViewController: 0.3];
+}
+
+- (void) showTransparentLoadingView
+{
+    [self showLoadingViewController: 0];
 }
 
 - (void) hideLoadingViewController

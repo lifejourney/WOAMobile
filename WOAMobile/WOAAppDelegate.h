@@ -25,6 +25,7 @@
 - (void) presentLoginViewController: (BOOL)animated;
 - (void) dismissLoginViewController: (BOOL)animated;
 - (void) showLoadingViewController;
+- (void) showTransparentLoadingView;
 - (void) hideLoadingViewController;
 - (void) switchToInitiateWorkflow;
 - (void) switchToTodoWorkflow;
@@ -116,4 +117,6 @@
  6.1: 8h
  6.3: 2h
  6.4: 8h
+ 6.5: 8h
+ 6.6: 8h
 */
