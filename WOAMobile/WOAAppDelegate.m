@@ -82,11 +82,26 @@
     
     self.loadingVC = [[WOALoadingViewController alloc] init];
     
+    UIRemoteNotificationType apnsType = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: apnsType];
+    
     [self.window makeKeyAndVisible];
     
     [self presentLoginViewController: NO];
     
     return YES;
+}
+
+- (void) application: (UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken: (NSData *)deviceToken
+{
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken");
+}
+
+- (void) application: (UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)error
+{
+    self.deviceToken = nil;
+    
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

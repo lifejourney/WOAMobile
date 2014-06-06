@@ -17,7 +17,9 @@
 
 @property (nonatomic, strong, readonly) WOARootViewController *rootViewController;
 
-@property (strong) NSString *sessionID;
+@property (copy) NSString *sessionID;
+@property (nonatomic, copy) NSString *deviceToken;
+@property (nonatomic, assign) BOOL isLaunchByAPNS;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 - (void) presentLoginViewController: (BOOL)animated;
@@ -43,12 +45,15 @@
  -- sessionID --> string type
  -- should define the component order? Test JSON order and dictionary key order?
  -- what would return for session invalid.
+
  */
 
 /** RC Research
  RCMenuController
  AppDelegate:
     tabBarController
+ 
+ deviceToken: translate
  */
 
 /** Research

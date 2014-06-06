@@ -47,7 +47,7 @@
 
 - (IBAction) onReturnAction: (id)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated: YES completion: ^{}];
+    [self dismissViewControllerAnimated: YES completion: ^{}];
 }
 
 @end
