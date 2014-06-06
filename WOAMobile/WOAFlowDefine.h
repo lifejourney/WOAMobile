@@ -27,12 +27,15 @@ typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)
 {
     WOAHTTPRequestResult_Unknown,
     WOAHTTPRequestResult_Success,
+    WOAHTTPRequestResult_NotFound,
     WOAHTTPRequestResult_Unauthorized,
     WOAHTTPRequestResult_SessionInvalid,
     WOAHTTPRequestResult_NetError,
     WOAHTTPRequestResult_RequestError,
     WOAHTTPRequestResult_ServerError,
     WOAHTTPRequestResult_SaveFileError,
+    WOAHTTPRequestResult_JSONSerializationError,
+    WOAHTTPRequestResult_JSONParseError,
     WOAHTTPRequestResult_Cancelled
 };
 

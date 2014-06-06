@@ -11,17 +11,24 @@
 
 @class WOARootViewController;
 @class WOAAccountCredential;
+@class WOASession;
 
 
 @interface WOAAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
-@property (strong, nonatomic, readonly) WOARootViewController *rootViewController;
+@property (nonatomic, strong, readonly) WOARootViewController *rootViewController;
+
+@property (nonatomic, strong) WOASession *flowSession;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 - (void) presentLoginViewController: (BOOL)animated;
+- (void) dismissLoginViewController: (BOOL)animated;
 - (void) showLoadingViewController;
 - (void) hideLoadingViewController;
+- (void) switchToInitiateWorkflow;
+- (void) switchToTodoWorkflow;
 
 @end
 

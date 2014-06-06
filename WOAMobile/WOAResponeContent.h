@@ -15,4 +15,7 @@
 @property (nonatomic, assign) WOAFLowActionType flowActionType;
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
 
+@property (nonatomic, assign) WOAHTTPRequestResult requestResult;
+@property (nonatomic, assign) NSInteger HTTPStatus;
+
 @end

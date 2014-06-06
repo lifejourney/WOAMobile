@@ -10,4 +10,7 @@
 
 @interface WOAHTTPRequester : NSObject
 
++ (NSMutableURLRequest*) URLRequestWithBodyData: (NSData*)bodyData;
++ (NSMutableURLRequest*) URLRequestWithBodyString: (NSString*)bodyString;
+
 @end

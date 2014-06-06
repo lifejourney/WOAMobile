@@ -11,7 +11,7 @@
 
 @interface WOASessionTokens : NSObject
 
-@property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, copy) NSString *accessToken;
 
 - (void) reset;
 - (BOOL) isAccessTokenExpired;

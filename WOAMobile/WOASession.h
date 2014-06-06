@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WOASessionTokens.h"
+#import "WOAAccountCredential.h"
+
 
 @interface WOASession : NSObject
+
+@property (strong) WOASessionTokens *sessionTokens;
+@property (nonatomic, strong) WOAAccountCredential *accountCredential;
 
 @end

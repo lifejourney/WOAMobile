@@ -30,7 +30,6 @@
 		DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0910193A28F600217F45 /* WOABrandData.m */; };
 		DC8B099D193B89B800217F45 /* WOAFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0976193B89B700217F45 /* WOAFlowController.m */; };
 		DC8B099E193B89B800217F45 /* WOAFlowDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0978193B89B700217F45 /* WOAFlowDefine.m */; };
-		DC8B099F193B89B800217F45 /* WOAHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B097A193B89B700217F45 /* WOAHTTPConnection.m */; };
 		DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B097C193B89B700217F45 /* WOAHTTPRequester.m */; };
 		DC8B09A1193B89B800217F45 /* WOAInitiateWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B097E193B89B700217F45 /* WOAInitiateWorkflowViewController.m */; };
 		DC8B09A4193B89B800217F45 /* WOALoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0984193B89B700217F45 /* WOALoadingViewController.m */; };
@@ -99,8 +98,6 @@
 		DC8B0976193B89B700217F45 /* WOAFlowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAFlowController.m; sourceTree = "<group>"; };
 		DC8B0977193B89B700217F45 /* WOAFlowDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAFlowDefine.h; sourceTree = "<group>"; };
 		DC8B0978193B89B700217F45 /* WOAFlowDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAFlowDefine.m; sourceTree = "<group>"; };
-		DC8B0979193B89B700217F45 /* WOAHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAHTTPConnection.h; sourceTree = "<group>"; };
-		DC8B097A193B89B700217F45 /* WOAHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAHTTPConnection.m; sourceTree = "<group>"; };
 		DC8B097B193B89B700217F45 /* WOAHTTPRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAHTTPRequester.h; sourceTree = "<group>"; };
 		DC8B097C193B89B700217F45 /* WOAHTTPRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAHTTPRequester.m; sourceTree = "<group>"; };
 		DC8B097D193B89B700217F45 /* WOAInitiateWorkflowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAInitiateWorkflowViewController.h; sourceTree = "<group>"; };
@@ -253,8 +250,6 @@
 				DC83A85B1940C2F1003C7AB6 /* WOAResponeContent.m */,
 				DC8B0975193B89B700217F45 /* WOAFlowController.h */,
 				DC8B0976193B89B700217F45 /* WOAFlowController.m */,
-				DC8B0979193B89B700217F45 /* WOAHTTPConnection.h */,
-				DC8B097A193B89B700217F45 /* WOAHTTPConnection.m */,
 				DC8B097B193B89B700217F45 /* WOAHTTPRequester.h */,
 				DC8B097C193B89B700217F45 /* WOAHTTPRequester.m */,
 				432C2C28193F156F008F25F7 /* WOACheckForUpdate.h */,
@@ -415,7 +410,6 @@
 				DC8B09AB193B89B800217F45 /* WOASubmitResultViewController.m in Sources */,
 				DC8B09A4193B89B800217F45 /* WOALoadingViewController.m in Sources */,
 				DC8B099E193B89B800217F45 /* WOAFlowDefine.m in Sources */,
-				DC8B099F193B89B800217F45 /* WOAHTTPConnection.m in Sources */,
 				DC8B09A6193B89B800217F45 /* WOAReviewWorkflowViewController.m in Sources */,
 				DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,

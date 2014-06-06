@@ -7,6 +7,7 @@
 //
 
 #import "WOAAppDelegate.h"
+#import "WOASession.h"
 #import "WOARootViewController.h"
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
@@ -15,6 +16,7 @@
 @interface WOAAppDelegate ()
 
 @property (nonatomic, strong) WOALoadingViewController *loadingVC;
+@property (nonatomic, strong) WOALoginViewController *loginVC;
 
 @end
 
@@ -22,6 +24,7 @@
 @implementation WOAAppDelegate
 
 @synthesize rootViewController=_rootViewController;
+@synthesize loginVC = _loginVC;
 
 #pragma mark - lifecycle
 
@@ -30,6 +33,10 @@
     if (self = [super init])
     {
         self.loadingVC = nil;
+        
+        self.flowSession = [[WOASession alloc] init];
+        self.operationQueue = [[NSOperationQueue alloc] init];
+        [self.operationQueue setMaxConcurrentOperationCount: 1];
     }
     
     return self;
@@ -49,6 +56,16 @@
         presentedVC = self.rootViewController;
     
     return presentedVC;
+}
+
+- (WOALoginViewController*) loginVC
+{
+    if (!_loginVC)
+    {
+        _loginVC = [[WOALoginViewController alloc] init];
+    }
+    
+    return _loginVC;
 }
 
 #pragma mark - application delegate
@@ -104,13 +121,16 @@
 
 - (void) presentLoginViewController: (BOOL)animated
 {
-    WOALoginViewController *loginVC = [[WOALoginViewController alloc] init];
-    
     UIViewController *presentedVC = [self presentedViewController];
     
-    [presentedVC presentViewController: loginVC
+    [presentedVC presentViewController: self.loginVC
                               animated: animated
                             completion: ^{}];
+}
+
+- (void) dismissLoginViewController: (BOOL)animated
+{
+    [self.loginVC dismissViewControllerAnimated: animated completion: ^{}];
 }
 
 - (void) showLoadingViewController
@@ -121,6 +141,16 @@
 - (void) hideLoadingViewController
 {
     [self.loadingVC.view removeFromSuperview];
+}
+
+- (void) switchToInitiateWorkflow
+{
+    [self.rootViewController setSelectedIndex: 0];
+}
+
+- (void) switchToTodoWorkflow
+{
+    [self.rootViewController setSelectedIndex: 1];
 }
 
 @end

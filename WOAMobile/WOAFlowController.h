@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WOARequestContent.h"
+#import "WOAResponeContent.h"
 
-@interface WOAFlowController : NSObject
+
+@interface WOAFlowController : NSOperation
+
+
+
++ (void) sendAsynRequestWithContent: (WOARequestContent*)requestContent
+                              queue: (NSOperationQueue*)queue
+                completeOnMainQueue: (BOOL)completeOnMainQueue
+                  completionHandler: (void (^)(WOAResponeContent *responseContent))handler;
 
 @end

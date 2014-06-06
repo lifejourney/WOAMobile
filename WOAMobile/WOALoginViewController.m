@@ -9,6 +9,7 @@
 #import "WOALoginViewController.h"
 #import "WOAAppDelegate.h"
 #import "WOAPropertyInfo.h"
+#import "WOAFlowController.h"
 
 
 @interface WOALoginViewController () <UITextFieldDelegate>
@@ -128,6 +129,27 @@
         
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         [appDelegate showLoadingViewController];
+        
+        
+        WOARequestContent *requestContent = [WOARequestContent requestContentForLogin: appDelegate.flowSession];
+        [WOAFlowController sendAsynRequestWithContent: requestContent
+                                                queue: appDelegate.operationQueue
+                                  completeOnMainQueue: YES
+                                    completionHandler: ^(WOAResponeContent *responseContent)
+        {
+            [appDelegate hideLoadingViewController];
+            
+            if (responseContent.requestResult == WOAHTTPRequestResult_Success)
+            {
+                [appDelegate dismissLoginViewController: YES];
+                
+                [appDelegate switchToInitiateWorkflow];
+            }
+            else
+            {
+                NSLog(@"Login fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+            };
+        }];
     }
 }
 

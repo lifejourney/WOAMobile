@@ -10,4 +10,32 @@
 
 @implementation WOAHTTPRequester
 
++ (NSMutableURLRequest*) URLRequestWithBodyData: (NSData*)bodyData
+{
+    NSString *urlString = @"http://baidu.com";
+    NSString *httpMethod = @"POST";
+    //@"multipart/mixed; boundary=%@"
+    NSDictionary *headers = @{@"Content-Type": @"application/json;charset=UTF-8",
+                              @"Accept": @"application/json;charset=UTF-8"};
+    
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlString]
+                                                           cachePolicy: NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval: 30];
+    [request setHTTPMethod: httpMethod];
+    [request setAllHTTPHeaderFields: headers];
+    [request setHTTPBody: bodyData];
+    [request setHTTPShouldHandleCookies: NO];
+    
+    return request;
+}
+
++ (NSMutableURLRequest*) URLRequestWithBodyString: (NSString*)bodyString
+{
+    NSData *bodyData = bodyString ? [bodyString dataUsingEncoding: NSUTF8StringEncoding] : nil;
+    
+    return [self URLRequestWithBodyData: bodyData];
+}
+
 @end
