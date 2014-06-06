@@ -7,7 +7,6 @@
 //
 
 #import "WOAAppDelegate.h"
-#import "WOASession.h"
 #import "WOARootViewController.h"
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
@@ -34,7 +33,7 @@
     {
         self.loadingVC = nil;
         
-        self.flowSession = [[WOASession alloc] init];
+        self.sessionID = @"";
         self.operationQueue = [[NSOperationQueue alloc] init];
         [self.operationQueue setMaxConcurrentOperationCount: 1];
     }

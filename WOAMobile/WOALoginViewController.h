@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WOAAccountCredential.h"
 
 
 @class WOALoginViewController;
-
 
 @protocol WOALoginViewControllerDelegate <NSObject>
 

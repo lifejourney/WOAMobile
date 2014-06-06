@@ -10,9 +10,6 @@
 
 
 @class WOARootViewController;
-@class WOAAccountCredential;
-@class WOASession;
-
 
 @interface WOAAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -20,7 +17,7 @@
 
 @property (nonatomic, strong, readonly) WOARootViewController *rootViewController;
 
-@property (nonatomic, strong) WOASession *flowSession;
+@property (strong) NSString *sessionID;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 - (void) presentLoginViewController: (BOOL)animated;
@@ -39,7 +36,13 @@
 /**issue
  1. length for account and password
  2. http request error for login fail, session invalid
- 
+ 3. protocol:
+ -- phoneID --> deviceToken, and should be string
+ -- checkSum: how to calculate
+ -- prefer to be string type
+ -- sessionID --> string type
+ -- should define the component order? Test JSON order and dictionary key order?
+ -- what would return for session invalid.
  */
 
 /** RC Research

@@ -13,8 +13,6 @@
 
 @interface WOAFlowController : NSOperation
 
-
-
 + (void) sendAsynRequestWithContent: (WOARequestContent*)requestContent
                               queue: (NSOperationQueue*)queue
                 completeOnMainQueue: (BOOL)completeOnMainQueue

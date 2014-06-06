@@ -123,15 +123,14 @@
 {
     if ([self validateInput])
     {
-        [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
-     
         [self.latestResponder resignFirstResponder];
         
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         [appDelegate showLoadingViewController];
         
         
-        WOARequestContent *requestContent = [WOARequestContent requestContentForLogin: appDelegate.flowSession];
+        WOARequestContent *requestContent = [WOARequestContent requestContentForLogin: self.accountTextField.text
+                                                                             password: self.passwordTextField.text];
         [WOAFlowController sendAsynRequestWithContent: requestContent
                                                 queue: appDelegate.operationQueue
                                   completeOnMainQueue: YES
@@ -141,6 +140,8 @@
             
             if (responseContent.requestResult == WOAHTTPRequestResult_Success)
             {
+                [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
+                
                 [appDelegate dismissLoginViewController: YES];
                 
                 [appDelegate switchToInitiateWorkflow];

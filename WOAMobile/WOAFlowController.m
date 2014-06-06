@@ -7,8 +7,10 @@
 //
 
 #import "WOAFlowController.h"
+#import "WOAAppDelegate.h"
 #import "WOAFlowDefine.h"
 #import "WOAHTTPRequester.h"
+#import "WOAPacketHelper.h"
 
 
 @interface WOAFlowController () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
@@ -111,7 +113,6 @@
     self.connectionError = nil;
     self.receivedData = [[NSMutableData alloc] init];
     
-    
     NSData *bodyData = [NSJSONSerialization dataWithJSONObject: requestContent.bodyDictionary
                                                        options: 0
                                                          error: &error];
@@ -120,6 +121,8 @@
         self.currentActionType = requestContent.flowActionType;
         
         NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
+        
+        NSLog(@"send request: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
         
         self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                               delegate: self
@@ -200,33 +203,42 @@
     self.responseContent.requestResult = requestResult;
     self.responseContent.HTTPStatus = self.httpResponse.statusCode;
     
+    //TO-DO, session is invalid
+    
     if (requestResult == WOAHTTPRequestResult_Success)
     {
-        self.responseContent.bodyDictionary = [NSJSONSerialization JSONObjectWithData: self.receivedData
-                                                                              options: 0
-                                                                                error: &error];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData: self.receivedData
+                                                             options: 0
+                                                               error: &error];
         
-        if (self.responseContent.bodyDictionary)
+        if (dict)
         {
+            NSLog(@"received response: %d\n%@", self.currentActionType, dict);
+            
             if (self.currentActionType == WOAFLowActionType_Login)
             {
+                WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
                 
+                appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: dict];
             }
             
             if (self.currentActionType == self.responseContent.flowActionType)
             {
+                self.responseContent.bodyDictionary = dict;
                 
+                self.httpConnection = nil;
             }
             else
             {
-                
+                //Resend the request
+                [self sendRequestWithType: self.requestContent];
             }
         }
         else
         {
             self.responseContent.requestResult = WOAHTTPRequestResult_JSONParseError;
             
-            NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], self.responseContent.bodyDictionary);
+            NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], dict);
             
             self.httpConnection = nil;
         }

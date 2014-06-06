@@ -7,16 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WOAFlowDefine.h"
+#import "WOAPacketHelper.h"
 
-
-@class WOASession;
 
 @interface WOARequestContent : NSObject
 
 @property (nonatomic, assign) WOAFLowActionType flowActionType;
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
 
-+ (WOARequestContent*) requestContentForLogin: (WOASession*)flowSession;
++ (WOARequestContent*) requestContentForLogin: (NSString*)accountID password: (NSString*)password;
 
 @end

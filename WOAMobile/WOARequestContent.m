@@ -7,7 +7,6 @@
 //
 
 #import "WOARequestContent.h"
-#import "WOASession.h"
 
 
 @implementation WOARequestContent
@@ -22,16 +21,11 @@
     return self;
 }
 
-
-+ (WOARequestContent*) requestContentForLogin: (WOASession*)flowSession
++ (WOARequestContent*) requestContentForLogin: (NSString*)accountID password: (NSString*)password
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_Login];
     
-    NSMutableDictionary *bodyDictionary = [[NSMutableDictionary alloc] init];
-    
-    //TO-DO
-    
-    content.bodyDictionary = bodyDictionary;
+    content.bodyDictionary = [WOAPacketHelper packetDictionaryForLogin: accountID password: password];
     
     return content;
 }
