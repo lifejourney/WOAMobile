@@ -30,7 +30,8 @@
  
  */
 /**issue
-1. length for account and password
+ 1. length for account and password
+ 2. http request error for login fail, session invalid
  
  */
 

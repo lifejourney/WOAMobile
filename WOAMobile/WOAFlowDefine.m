@@ -8,6 +8,5 @@
 
 #import "WOAFlowDefine.h"
 
-@implementation WOAFlowDefine
 
-@end
+

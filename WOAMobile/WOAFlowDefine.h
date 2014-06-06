@@ -8,6 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WOAFlowDefine : NSObject
 
-@end
+typedef NS_ENUM(NSUInteger, WOAFLowActionType)
+{
+    WOAFLowActionType_None,
+    WOAFLowActionType_Login,
+    WOAFLowActionType_GetWorkflowTypeList,
+    WOAFLowActionType_InitiateWorkflow,
+    WOAFLowActionType_SelectedNextStep,
+    WOAFLowActionType_SelectedNextReviewer,
+    WOAFLowActionType_GetTodoWorkflowList,
+    WOAFLowActionType_ReviewedWorkflow,
+    WOAFLowActionType_GetHistoryWorkflowList,
+    WOAFLowActionType_GetDraftWorkflowList
+};
+
+typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)
+{
+    WOAHTTPRequestResult_Unknown,
+    WOAHTTPRequestResult_Success,
+    WOAHTTPRequestResult_Unauthorized,
+    WOAHTTPRequestResult_SessionInvalid,
+    WOAHTTPRequestResult_NetError,
+    WOAHTTPRequestResult_RequestError,
+    WOAHTTPRequestResult_ServerError,
+    WOAHTTPRequestResult_SaveFileError,
+    WOAHTTPRequestResult_Cancelled
+};
+

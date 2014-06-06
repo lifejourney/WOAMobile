@@ -23,6 +23,8 @@
 		DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
 		DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */; };
 		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
+		DC83A8591940C2E2003C7AB6 /* WOARequestContent.m in Sources */ = {isa = PBXBuildFile; fileRef = DC83A8581940C2E2003C7AB6 /* WOARequestContent.m */; };
+		DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */ = {isa = PBXBuildFile; fileRef = DC83A85B1940C2F1003C7AB6 /* WOAResponeContent.m */; };
 		DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0851193A159400217F45 /* WOALoginViewController.m */; };
 		DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0854193A173B00217F45 /* WOAPropertyInfo.m */; };
 		DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0910193A28F600217F45 /* WOABrandData.m */; };
@@ -83,6 +85,10 @@
 		DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobileTests-Info.plist"; sourceTree = "<group>"; };
 		DC2D3FDA193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAMobileTests.m; sourceTree = "<group>"; };
+		DC83A8571940C2E2003C7AB6 /* WOARequestContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOARequestContent.h; sourceTree = "<group>"; };
+		DC83A8581940C2E2003C7AB6 /* WOARequestContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOARequestContent.m; sourceTree = "<group>"; };
+		DC83A85A1940C2F1003C7AB6 /* WOAResponeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAResponeContent.h; sourceTree = "<group>"; };
+		DC83A85B1940C2F1003C7AB6 /* WOAResponeContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAResponeContent.m; sourceTree = "<group>"; };
 		DC8B0850193A159400217F45 /* WOALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOALoginViewController.h; sourceTree = "<group>"; };
 		DC8B0851193A159400217F45 /* WOALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOALoginViewController.m; sourceTree = "<group>"; };
 		DC8B0853193A173B00217F45 /* WOAPropertyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAPropertyInfo.h; sourceTree = "<group>"; };
@@ -241,6 +247,10 @@
 				DC8B0990193B89B800217F45 /* WOASession.m */,
 				DC8B0977193B89B700217F45 /* WOAFlowDefine.h */,
 				DC8B0978193B89B700217F45 /* WOAFlowDefine.m */,
+				DC83A8571940C2E2003C7AB6 /* WOARequestContent.h */,
+				DC83A8581940C2E2003C7AB6 /* WOARequestContent.m */,
+				DC83A85A1940C2F1003C7AB6 /* WOAResponeContent.h */,
+				DC83A85B1940C2F1003C7AB6 /* WOAResponeContent.m */,
 				DC8B0975193B89B700217F45 /* WOAFlowController.h */,
 				DC8B0976193B89B700217F45 /* WOAFlowController.m */,
 				DC8B0979193B89B700217F45 /* WOAHTTPConnection.h */,
@@ -394,8 +404,10 @@
 				43306998193D72D9009006A4 /* WOASessionTokens.m in Sources */,
 				DC8B099D193B89B800217F45 /* WOAFlowController.m in Sources */,
 				DC8B09AA193B89B800217F45 /* WOASession.m in Sources */,
+				DC83A8591940C2E2003C7AB6 /* WOARequestContent.m in Sources */,
 				DC8B09AE193B89B800217F45 /* WOAWorkflowFormDetailViewController.m in Sources */,
 				DC8B09A5193B89B800217F45 /* WOAMoreFeatureViewController.m in Sources */,
+				DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */,
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
 				DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */,
 				DC8B09A9193B89B800217F45 /* WOASelectNextStepViewController.m in Sources */,
