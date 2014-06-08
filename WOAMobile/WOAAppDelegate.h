@@ -47,12 +47,15 @@
  -- should define the component order? Test JSON order and dictionary key order?
  -- what would return for session invalid.
 
+ 4. Needed edge case:
+ -- connection error: login, workflow
  */
 
 /** RC Research
  RCMenuController
  AppDelegate:
     tabBarController
+ RCSendMessageView
  
  deviceToken: translate
  */
@@ -60,6 +63,10 @@
 /** Research
  tabBarItem怎样只有标题，没有图片
  tableView, reuseIdentifier
+ 
+ 在navigation的VC里，为什么加一个table view，就可以自动调整好位置
+ 而其他的不行?
+ 怎样让加进去的view 自动在navigation bar的下面?
  
  */
 
@@ -119,4 +126,6 @@
  6.4: 8h
  6.5: 8h
  6.6: 8h
+ 6.7: 2h
+ 6.8: 4h
 */

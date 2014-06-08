@@ -25,6 +25,7 @@
 		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
 		DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834E731942176000C724BE /* WOAPacketHelper.m */; };
 		DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */; };
+		DC834F3D19445FBF00C724BE /* WOALayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834F3C19445FBF00C724BE /* WOALayout.m */; };
 		DC83A8591940C2E2003C7AB6 /* WOARequestContent.m in Sources */ = {isa = PBXBuildFile; fileRef = DC83A8581940C2E2003C7AB6 /* WOARequestContent.m */; };
 		DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */ = {isa = PBXBuildFile; fileRef = DC83A85B1940C2F1003C7AB6 /* WOAResponeContent.m */; };
 		DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0851193A159400217F45 /* WOALoginViewController.m */; };
@@ -90,6 +91,8 @@
 		DC834E731942176000C724BE /* WOAPacketHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAPacketHelper.m; sourceTree = "<group>"; };
 		DC834F2E194288A000C724BE /* NSString+PinyinInitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinyinInitial.h"; sourceTree = "<group>"; };
 		DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinyinInitial.m"; sourceTree = "<group>"; };
+		DC834F3B19445FBF00C724BE /* WOALayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOALayout.h; sourceTree = "<group>"; };
+		DC834F3C19445FBF00C724BE /* WOALayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOALayout.m; sourceTree = "<group>"; };
 		DC83A8571940C2E2003C7AB6 /* WOARequestContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOARequestContent.h; sourceTree = "<group>"; };
 		DC83A8581940C2E2003C7AB6 /* WOARequestContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOARequestContent.m; sourceTree = "<group>"; };
 		DC83A85A1940C2F1003C7AB6 /* WOAResponeContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAResponeContent.h; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */,
 				DC2D3FC9193A10C300069BB8 /* Images.xcassets */,
 				DC2D3FBE193A10C300069BB8 /* Supporting Files */,
+				DC834F3B19445FBF00C724BE /* WOALayout.h */,
+				DC834F3C19445FBF00C724BE /* WOALayout.m */,
 				DC8B0850193A159400217F45 /* WOALoginViewController.h */,
 				DC8B0851193A159400217F45 /* WOALoginViewController.m */,
 				DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */,
@@ -402,6 +407,7 @@
 			files = (
 				4330699B193D72F1009006A4 /* WOAAccountCredential.m in Sources */,
 				DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */,
+				DC834F3D19445FBF00C724BE /* WOALayout.m in Sources */,
 				DC8B09A1193B89B800217F45 /* WOAInitiateWorkflowViewController.m in Sources */,
 				DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */,
 				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,

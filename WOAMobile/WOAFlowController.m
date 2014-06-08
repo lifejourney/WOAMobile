@@ -122,7 +122,7 @@
         
         NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
         
-        NSLog(@"send request: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
+        NSLog(@"To send request: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
         
         self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                               delegate: self
@@ -213,7 +213,7 @@
         
         if (dict)
         {
-            NSLog(@"received response: %d\n%@", self.currentActionType, dict);
+            NSLog(@"Received response: %d\n%@", self.currentActionType, dict);
             
             if (self.currentActionType == WOAFLowActionType_Login)
             {
