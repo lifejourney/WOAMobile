@@ -11,5 +11,7 @@
 
 @interface WOARootViewController : UITabBarController <UITabBarControllerDelegate>
 
+- (void) switchToInitiateWorkflow;
+- (void) switchToTodoWorkflow;
 
 @end

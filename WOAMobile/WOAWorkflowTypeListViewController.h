@@ -10,4 +10,6 @@
 
 @interface WOAWorkflowTypeListViewController : UIViewController
 
+- (void) sendRequestForWorkflowTypeList;
+
 @end

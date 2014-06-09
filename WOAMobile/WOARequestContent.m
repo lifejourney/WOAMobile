@@ -30,4 +30,13 @@
     return content;
 }
 
++ (WOARequestContent*) reqeustContentForWorkflowTypeList
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowTypeList];
+    
+    content.bodyDictionary = [WOAPacketHelper packetDictionaryForWorkflowTypeList];
+    
+    return content;
+}
+
 @end

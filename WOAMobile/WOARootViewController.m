@@ -96,6 +96,21 @@
     return YES;
 }
 
+#pragma mark - public
+
+- (void) switchToInitiateWorkflow
+{
+    [self setSelectedIndex: 0];
+    
+    WOAWorkflowTypeListViewController *typeListVC = (WOAWorkflowTypeListViewController*)_initiateWorkflowNavC.topViewController;
+    [typeListVC sendRequestForWorkflowTypeList];
+}
+
+- (void) switchToTodoWorkflow
+{
+    [self setSelectedIndex: 1];
+}
+
 @end
 
 

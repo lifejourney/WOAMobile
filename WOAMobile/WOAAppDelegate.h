@@ -27,8 +27,6 @@
 - (void) showLoadingViewController;
 - (void) showTransparentLoadingView;
 - (void) hideLoadingViewController;
-- (void) switchToInitiateWorkflow;
-- (void) switchToTodoWorkflow;
 
 @end
 

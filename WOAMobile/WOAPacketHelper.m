@@ -7,6 +7,7 @@
 //
 
 #import "WOAPacketHelper.h"
+#import "WOAAppDelegate.h"
 
 
 @implementation WOAPacketHelper
@@ -33,12 +34,19 @@
     return msgType;
 }
 
-+ (NSDictionary*) headerForFlowActionType: (WOAFLowActionType)flowActionType sessionID: (NSString*)sessionID
++ (NSString*) currentSessionID
+{
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    return appDelegate.sessionID;
+}
+
++ (NSDictionary*) headerForFlowActionType: (WOAFLowActionType)flowActionType
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self msgTypeByFlowActionType: flowActionType] forKey: @"msgType"];
-    [dict setValue: sessionID forKey: @"sessionID"];
+    [dict setValue: [self currentSessionID] forKey: @"sessionID"];
     
     return dict;
 }
@@ -57,6 +65,15 @@
     [dict setValue: password forKey: @"psw"];
     [dict setValue: @"12323123" forKey: @"checkSum"];
     [dict setValue: @"1212" forKey: @"phoneID"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetDictionaryForWorkflowTypeList
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowTypeList] forKey: @"head"];
     
     return dict;
 }

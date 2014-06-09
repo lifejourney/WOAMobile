@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
 
 + (WOARequestContent*) requestContentForLogin: (NSString*)accountID password: (NSString*)password;
++ (WOARequestContent*) reqeustContentForWorkflowTypeList;
 
 @end

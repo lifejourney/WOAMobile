@@ -8,6 +8,8 @@
 
 #import "WOAWorkflowTypeListViewController.h"
 #import "WOALayout.h"
+#import "WOAAppDelegate.h"
+#import "WOAFlowController.h"
 
 
 @interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -15,6 +17,9 @@
 @property (nonatomic, strong) UILabel *selectedCategoryLabel;
 @property (nonatomic, strong) UIButton *filterCategoryButton;
 @property (nonatomic, strong) UITableView *listView;
+
+@property (nonatomic, strong) NSDictionary *typeListDictionary;
+@property (nonatomic, strong) NSDictionary *categoryDictionary;
 
 - (void) onFilterCategoryButtonAction: (id) sender;
 
@@ -171,6 +176,33 @@
 - (void) onFilterCategoryButtonAction: (id)sender
 {
     
+}
+
+#pragma mark - public
+
+- (void) sendRequestForWorkflowTypeList
+{
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate showLoadingViewController];
+    
+    WOARequestContent *requestContent = [WOARequestContent reqeustContentForWorkflowTypeList];
+    [WOAFlowController sendAsynRequestWithContent: requestContent
+                                            queue: appDelegate.operationQueue
+                              completeOnMainQueue: YES
+                                completionHandler:^(WOAResponeContent *responseContent)
+    {
+        [appDelegate hideLoadingViewController];
+        
+        if (responseContent.requestResult == WOAHTTPRequestResult_Success)
+        {
+            self.typeListDictionary = responseContent.bodyDictionary;
+        }
+        else
+        {
+            NSLog(@"Get workflow typeList fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+        };
+        
+    }];
 }
 
 @end

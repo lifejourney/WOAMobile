@@ -169,16 +169,6 @@
     [self.loadingVC.view removeFromSuperview];
 }
 
-- (void) switchToInitiateWorkflow
-{
-    [self.rootViewController setSelectedIndex: 0];
-}
-
-- (void) switchToTodoWorkflow
-{
-    [self.rootViewController setSelectedIndex: 1];
-}
-
 @end
 
 

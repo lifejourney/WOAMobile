@@ -8,6 +8,7 @@
 
 #import "WOALoginViewController.h"
 #import "WOAAppDelegate.h"
+#import "WOARootViewController.h"
 #import "WOAPropertyInfo.h"
 #import "WOAFlowController.h"
 
@@ -144,7 +145,7 @@
                 
                 [appDelegate dismissLoginViewController: YES];
                 
-                [appDelegate switchToInitiateWorkflow];
+                [[appDelegate rootViewController] switchToInitiateWorkflow];
             }
             else
             {
