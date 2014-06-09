@@ -10,6 +10,7 @@
 #import "WOARootViewController.h"
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
+#import "WOAFlowController.h"
 
 
 @interface WOAAppDelegate ()
@@ -167,6 +168,30 @@
 - (void) hideLoadingViewController
 {
     [self.loadingVC.view removeFromSuperview];
+}
+
+- (void) sendRequest: (WOARequestContent*)requestContent
+          onSuccuess: (void (^)(WOAResponeContent *responseContent))successHandler
+           onFailure: (void (^)(WOAResponeContent *responseContent))failureHandler
+{
+    [self showLoadingViewController];
+    
+    [WOAFlowController sendAsynRequestWithContent: requestContent
+                                            queue: self.operationQueue
+                              completeOnMainQueue: YES
+                                completionHandler: ^(WOAResponeContent *responseContent)
+     {
+         [self hideLoadingViewController];
+         
+         if ((responseContent.requestResult == WOAHTTPRequestResult_Success) && successHandler)
+         {
+             successHandler(responseContent);
+         }
+         else if (failureHandler)
+         {
+             failureHandler(responseContent);
+         }
+     }];
 }
 
 @end

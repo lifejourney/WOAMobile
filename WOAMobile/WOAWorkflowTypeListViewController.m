@@ -9,7 +9,7 @@
 #import "WOAWorkflowTypeListViewController.h"
 #import "WOALayout.h"
 #import "WOAAppDelegate.h"
-#import "WOAFlowController.h"
+#import "WOAPacketHelper.h"
 
 
 @interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -18,10 +18,14 @@
 @property (nonatomic, strong) UIButton *filterCategoryButton;
 @property (nonatomic, strong) UITableView *listView;
 
-@property (nonatomic, strong) NSDictionary *typeListDictionary;
-@property (nonatomic, strong) NSDictionary *categoryDictionary;
+@property (nonatomic, assign) NSInteger selectedCategory;
+@property (nonatomic, strong) NSArray *categoryInfoArray;
+@property (nonatomic, strong) NSDictionary *tableInfoDictionary;
+@property (nonatomic, strong) NSArray *categoryTablesArray;
 
 - (void) onFilterCategoryButtonAction: (id) sender;
+
+- (void) initCategoryAndTables;
 
 @end
 
@@ -39,9 +43,17 @@
 {
     if (self = [self initWithNibName: nil bundle: nil])
     {
+        [self initCategoryAndTables];
     }
     
     return self;
+}
+
+- (void) setSelectedCategory: (NSInteger)value
+{
+    _selectedCategory = value;
+        
+    self.selectedCategoryLabel.text = self.categoryInfoArray[_selectedCategory];
 }
 
 - (void) loadView
@@ -62,6 +74,7 @@
     self.filterCategoryButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [_filterCategoryButton setTitle: @"@" forState: UIControlStateNormal];
     [_filterCategoryButton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
+    //TO-DO
     //[_filterCategoryButton setBackgroundImage: [UIImage imageNamed: @""] forState: UIControlStateNormal];
     _filterCategoryButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_filterCategoryButton addTarget: self action: @selector(onFilterCategoryButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -109,36 +122,19 @@
 
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section;
 {
-    return 0;
+    NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
+    
+    return [selectedTables count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
-//    static NSString *moreFeatureTableViewCellIdentifier = @"moreFeatureTableViewCellIdentifier";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: moreFeatureTableViewCellIdentifier];
-//    if (!cell)
-//        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: moreFeatureTableViewCellIdentifier];
-//    else
-//    {
-//        UIView *subview;
-//        
-//        do
-//        {
-//            subview = [cell.contentView.subviews lastObject];
-//            
-//            if (subview)
-//                [subview removeFromSuperview];
-//        }
-//        while (!subview);
-//    }
-//    
-//    WOAMenuItemModel *itemModel = [self.itemArray objectAtIndex: indexPath.row];
-//    
-//    cell.textLabel.text = itemModel.title;
-//    
-//    return cell;
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: nil];
+    NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
+    
+    cell.textLabel.text = [self.tableInfoDictionary objectForKey: [selectedTables objectAtIndex: indexPath.row]];
+    
+    return cell;
 }
 
 #pragma mark - table view delegate
@@ -150,25 +146,12 @@
 
 - (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
-//    WOAMenuItemModel *itemModel = [self.itemArray objectAtIndex: indexPath.row];
-//    NSString *itemID = itemModel.itemID;
-//    
-//    [tableView deselectRowAtIndexPath: indexPath animated: NO];
-//    
-//    if ([itemID isEqualToString: kWOAMenuItemKey_Draft])
-//    {
-//        
-//    }
-//    else if ([itemID isEqualToString: kWOAMenuItemKey_CheckForUpdate])
-//    {
-//        [WOACheckForUpdate checkingUpdateFromAppStore: NO];
-//    }
-//    else if ([itemID isEqualToString: kWOAMenuItemKey_About])
-//    {
-//        WOAAboutViewController *aboutVC = [[WOAAboutViewController alloc] init];
-//        
-//        [self presentViewController: aboutVC animated: YES completion: ^{}];
-//    }
+    NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
+    NSString *tableID = [selectedTables objectAtIndex: indexPath.row];
+    
+    [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    
+    NSLog(@"select table: %@", tableID);
 }
 
 #pragma mark - delegate
@@ -180,28 +163,72 @@
 
 #pragma mark - public
 
+- (void) initCategoryAndTables
+{
+    self.categoryInfoArray = @[@"全部"];
+    self.tableInfoDictionary = nil;
+    self.categoryTablesArray = @[@[]];
+    self.selectedCategory = 0;
+}
+
+- (void) parseResponseContent: (NSDictionary*)content
+{
+    NSMutableArray *categoryInfoArray = [[NSMutableArray alloc] initWithObjects: @"全部", nil];
+    NSMutableDictionary *tableInfoDictionary = [[NSMutableDictionary alloc] init];
+    NSMutableArray *categoryTablesArray = [[NSMutableArray alloc] initWithObjects: @[], nil];
+    
+    NSArray *itemsCategoryArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
+    
+    NSDictionary *itemCategoryDictionary;
+    NSMutableArray *itemsTableArray;
+    NSMutableArray *allTablesArray = [[NSMutableArray alloc] init];
+    for (NSInteger iCategory = 0; iCategory < [itemsCategoryArray count]; iCategory++)
+    {
+        itemCategoryDictionary = [itemsCategoryArray objectAtIndex: iCategory];
+        
+        NSArray *itemsArray = [WOAPacketHelper optionArrayFromDictionary: itemCategoryDictionary];
+        
+        itemsTableArray = [[NSMutableArray alloc] initWithCapacity: [itemsArray count]];
+        for (NSInteger iTable = 0; iTable < [itemsArray count]; iTable++)
+        {
+            NSDictionary *currentTable = [itemsArray objectAtIndex: iTable];
+            NSString *tableID = [WOAPacketHelper tableIDFromTableDictionary: currentTable];
+            NSString *tableName = [WOAPacketHelper tableNameFromTableDictionary: currentTable];
+            
+            [tableInfoDictionary setObject: tableName forKey: tableID];
+            [itemsTableArray addObject: tableID];
+            
+            [allTablesArray addObject: tableID];
+        }
+        
+        [categoryInfoArray addObject: [WOAPacketHelper itemNameFromDictionary: itemCategoryDictionary]];
+        [categoryTablesArray addObject: itemsTableArray];
+    }
+    
+    [categoryTablesArray replaceObjectAtIndex: 0 withObject: allTablesArray];
+    
+    self.categoryInfoArray = categoryInfoArray;
+    self.tableInfoDictionary = tableInfoDictionary;
+    self.categoryTablesArray = categoryTablesArray;
+    self.selectedCategory = MIN(self.selectedCategory, [self.categoryInfoArray count] - 1);
+}
+
 - (void) sendRequestForWorkflowTypeList
 {
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [appDelegate showLoadingViewController];
     
     WOARequestContent *requestContent = [WOARequestContent reqeustContentForWorkflowTypeList];
-    [WOAFlowController sendAsynRequestWithContent: requestContent
-                                            queue: appDelegate.operationQueue
-                              completeOnMainQueue: YES
-                                completionHandler:^(WOAResponeContent *responseContent)
+    [appDelegate sendRequest: requestContent
+                  onSuccuess:^(WOAResponeContent *responseContent)
     {
-        [appDelegate hideLoadingViewController];
+        [self parseResponseContent: responseContent.bodyDictionary];
         
-        if (responseContent.requestResult == WOAHTTPRequestResult_Success)
-        {
-            self.typeListDictionary = responseContent.bodyDictionary;
-        }
-        else
-        {
-            NSLog(@"Get workflow typeList fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
-        };
-        
+        [self.listView reloadData];
+    }
+                   onFailure:^(WOAResponeContent *responseContent)
+    {
+        NSLog(@"Get workflow typeList fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
     }];
 }
 

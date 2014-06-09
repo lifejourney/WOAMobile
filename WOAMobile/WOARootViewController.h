@@ -11,7 +11,7 @@
 
 @interface WOARootViewController : UITabBarController <UITabBarControllerDelegate>
 
-- (void) switchToInitiateWorkflow;
-- (void) switchToTodoWorkflow;
+- (void) switchToInitiateWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh;
+- (void) switchToTodoWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh;
 
 @end

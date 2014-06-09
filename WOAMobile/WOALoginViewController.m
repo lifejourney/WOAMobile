@@ -10,7 +10,6 @@
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
 #import "WOAPropertyInfo.h"
-#import "WOAFlowController.h"
 
 
 @interface WOALoginViewController () <UITextFieldDelegate>
@@ -129,28 +128,21 @@
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         [appDelegate showLoadingViewController];
         
-        
         WOARequestContent *requestContent = [WOARequestContent requestContentForLogin: self.accountTextField.text
                                                                              password: self.passwordTextField.text];
-        [WOAFlowController sendAsynRequestWithContent: requestContent
-                                                queue: appDelegate.operationQueue
-                                  completeOnMainQueue: YES
-                                    completionHandler: ^(WOAResponeContent *responseContent)
-        {
-            [appDelegate hideLoadingViewController];
+        [appDelegate sendRequest: requestContent
+                      onSuccuess:^(WOAResponeContent *responseContent)
+         {
+             [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
+             
+             [appDelegate dismissLoginViewController: YES];
+             
+             [[appDelegate rootViewController] switchToInitiateWorkflow: YES shouldRefresh: YES];
             
-            if (responseContent.requestResult == WOAHTTPRequestResult_Success)
-            {
-                [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
-                
-                [appDelegate dismissLoginViewController: YES];
-                
-                [[appDelegate rootViewController] switchToInitiateWorkflow];
-            }
-            else
-            {
-                NSLog(@"Login fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
-            };
+        }
+                       onFailure:^(WOAResponeContent *responseContent)
+        {
+            NSLog(@"Login fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
         }];
     }
 }

@@ -16,5 +16,10 @@
 + (NSDictionary*) packetDictionaryForWorkflowTypeList;
 
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
++ (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict;
++ (NSString*) itemNameFromDictionary: (NSDictionary*)dict;
++ (NSArray*) optionArrayFromDictionary: (NSDictionary*)dict;
++ (NSString*) tableIDFromTableDictionary: (NSDictionary*)dict;
++ (NSString*) tableNameFromTableDictionary: (NSDictionary*)dict;
 
 @end

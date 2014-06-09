@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WOARequestContent.h"
+#import "WOAResponeContent.h"
 
 
 @class WOARootViewController;
@@ -27,6 +29,10 @@
 - (void) showLoadingViewController;
 - (void) showTransparentLoadingView;
 - (void) hideLoadingViewController;
+
+- (void) sendRequest: (WOARequestContent*)requestContent
+          onSuccuess: (void (^)(WOAResponeContent *responseContent))successHandler
+           onFailure: (void (^)(WOAResponeContent *responseContent))failureHandler;
 
 @end
 

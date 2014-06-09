@@ -122,7 +122,7 @@
         
         NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
         
-        NSLog(@"To send request: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
+        NSLog(@"To send request for action: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
         
         self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                               delegate: self
@@ -207,13 +207,18 @@
     
     if (requestResult == WOAHTTPRequestResult_Success)
     {
+//        //TO-DO:
+//        NSString *tmpString = [[NSString alloc] initWithData: self.receivedData encoding: NSUTF8StringEncoding];
+//        tmpString = [tmpString stringByReplacingOccurrencesOfString: @"\000" withString: @""];
+//        NSData *tmpData = [tmpString dataUsingEncoding: NSUTF8StringEncoding];
+        
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData: self.receivedData
                                                              options: 0
                                                                error: &error];
         
         if (dict)
         {
-            NSLog(@"Received response: %d\n%@", self.currentActionType, dict);
+            NSLog(@"Received response for action: %d\n%@", self.currentActionType, dict);
             
             if (self.currentActionType == WOAFLowActionType_Login)
             {

@@ -46,21 +46,21 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self msgTypeByFlowActionType: flowActionType] forKey: @"msgType"];
-    [dict setValue: [self currentSessionID] forKey: @"sessionID"];
+    
+    if (flowActionType != WOAFLowActionType_Login)
+    {
+        [dict setValue: [self currentSessionID] forKey: @"sessionID"];
+    }
     
     return dict;
-}
-
-+ (NSDictionary*) headerForLogin
-{
-    return [NSDictionary dictionaryWithObjectsAndKeys: [self msgTypeByFlowActionType: WOAFLowActionType_Login], @"msgType", nil];
 }
 
 + (NSDictionary*) packetDictionaryForLogin: (NSString*)accountID password: (NSString*)password
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
-    [dict setValue: [self headerForLogin] forKey: @"head"];
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_Login] forKey: @"head"];
+    
     [dict setValue: accountID forKey: @"account"];
     [dict setValue: password forKey: @"psw"];
     [dict setValue: @"12323123" forKey: @"checkSum"];
@@ -78,6 +78,8 @@
     return dict;
 }
 
+#pragma mark -
+
 + (NSDictionary*) headerFromPacketDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"head"];
@@ -88,6 +90,35 @@
     NSDictionary *header = [self headerFromPacketDictionary: dict];
     
     return [header valueForKeyPath: @"sessionID"];
+}
+
++ (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict
+{
+    id value = [dict valueForKey: @"items"];
+    
+    return (value && [value isKindOfClass: [NSArray class]]) ? value : nil;
+}
+
++ (NSString*) itemNameFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"name"];
+}
+
++ (NSArray*) optionArrayFromDictionary: (NSDictionary*)dict
+{
+    id value = [dict valueForKey: @"combo"];
+    
+    return (value && [value isKindOfClass: [NSArray class]]) ? value : nil;
+}
+
++ (NSString*) tableIDFromTableDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"tableID"];
+}
+
++ (NSString*) tableNameFromTableDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"tableName"];
 }
 
 @end

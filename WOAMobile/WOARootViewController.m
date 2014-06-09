@@ -98,15 +98,24 @@
 
 #pragma mark - public
 
-- (void) switchToInitiateWorkflow
+- (void) switchToInitiateWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
 {
     [self setSelectedIndex: 0];
     
-    WOAWorkflowTypeListViewController *typeListVC = (WOAWorkflowTypeListViewController*)_initiateWorkflowNavC.topViewController;
-    [typeListVC sendRequestForWorkflowTypeList];
+    if (popToRootVC)
+    {
+        [_initiateWorkflowNavC popToRootViewControllerAnimated: YES];
+        
+        if (shouldRefresh)
+        {
+            WOAWorkflowTypeListViewController *typeListVC = (WOAWorkflowTypeListViewController*)_initiateWorkflowNavC.topViewController;
+            
+            [typeListVC sendRequestForWorkflowTypeList];
+        }
+    }
 }
 
-- (void) switchToTodoWorkflow
+- (void) switchToTodoWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
 {
     [self setSelectedIndex: 1];
 }
