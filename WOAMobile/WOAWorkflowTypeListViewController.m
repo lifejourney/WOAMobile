@@ -146,12 +146,23 @@
 
 - (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    
     NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
     NSString *tableID = [selectedTables objectAtIndex: indexPath.row];
     
-    [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    WOARequestContent *requestContent = [WOARequestContent contentForWorkflowTypeDetail: tableID];
     
-    NSLog(@"select table: %@", tableID);
+    [appDelegate sendRequest: requestContent
+                  onSuccuess:^(WOAResponeContent *responseContent)
+     {
+         
+     }
+                   onFailure:^(WOAResponeContent *responseContent)
+     {
+         NSLog(@"Get workflow typeDetail fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+     }];
 }
 
 #pragma mark - delegate
@@ -216,9 +227,8 @@
 - (void) sendRequestForWorkflowTypeList
 {
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate showLoadingViewController];
+    WOARequestContent *requestContent = [WOARequestContent contentForWorkflowTypeList];
     
-    WOARequestContent *requestContent = [WOARequestContent reqeustContentForWorkflowTypeList];
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
     {

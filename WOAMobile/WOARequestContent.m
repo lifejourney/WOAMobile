@@ -21,22 +21,43 @@
     return self;
 }
 
-+ (WOARequestContent*) requestContentForLogin: (NSString*)accountID password: (NSString*)password
++ (WOARequestContent*) contentForLogin: (NSString*)accountID password: (NSString*)password
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_Login];
     
-    content.bodyDictionary = [WOAPacketHelper packetDictionaryForLogin: accountID password: password];
+    content.bodyDictionary = [WOAPacketHelper packetForLogin: accountID password: password];
     
     return content;
 }
 
-+ (WOARequestContent*) reqeustContentForWorkflowTypeList
++ (WOARequestContent*) contentForWorkflowTypeList
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowTypeList];
     
-    content.bodyDictionary = [WOAPacketHelper packetDictionaryForWorkflowTypeList];
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowTypeList];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForWorkflowTypeDetail: (NSString*)tableID
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowTypeDetail];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowTypeDetail: tableID];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_InitiateWorkflow];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForInitiateWorkflow: workID];
     
     return content;
 }
 
 @end
+
+
+

@@ -15,7 +15,9 @@
 @property (nonatomic, assign) WOAFLowActionType flowActionType;
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
 
-+ (WOARequestContent*) requestContentForLogin: (NSString*)accountID password: (NSString*)password;
-+ (WOARequestContent*) reqeustContentForWorkflowTypeList;
++ (WOARequestContent*) contentForLogin: (NSString*)accountID password: (NSString*)password;
++ (WOARequestContent*) contentForWorkflowTypeList;
++ (WOARequestContent*) contentForWorkflowTypeDetail: (NSString*)tableID;
++ (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID;
 
 @end

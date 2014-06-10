@@ -26,6 +26,35 @@
             msgType = @"getTableList";
             break;
             
+        case WOAFLowActionType_GetWorkflowTypeDetail:
+            msgType = @"getWorkTable";
+            break;
+            
+        case WOAFLowActionType_InitiateWorkflow:
+            msgType = @"sendWorkTable";
+            break;
+            
+        case WOAFLowActionType_SelectedNextStep:
+            msgType = @"sendProcessingStyle";
+            break;
+            
+        case WOAFLowActionType_SelectedNextReviewer:
+            msgType = @"sendNextStep";
+            break;
+            
+        case WOAFLowActionType_GetTodoWorkflowList:
+            msgType = @"getWorkList";
+            break;
+            
+        case WOAFLowActionType_ReviewedWorkflow:
+            break;
+            
+        case WOAFLowActionType_GetHistoryWorkflowList:
+            break;
+            
+        case WOAFLowActionType_GetDraftWorkflowList:
+            break;
+            
         default:
             msgType = @"";
             break;
@@ -55,7 +84,7 @@
     return dict;
 }
 
-+ (NSDictionary*) packetDictionaryForLogin: (NSString*)accountID password: (NSString*)password
++ (NSDictionary*) packetForLogin: (NSString*)accountID password: (NSString*)password
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
@@ -69,11 +98,30 @@
     return dict;
 }
 
-+ (NSDictionary*) packetDictionaryForWorkflowTypeList
++ (NSDictionary*) packetForWorkflowTypeList
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowTypeList] forKey: @"head"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowTypeDetail] forKey: @"head"];
+    [dict setValue: tableID forKey: @"tableID"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_InitiateWorkflow] forKey: @"head"];
     
     return dict;
 }

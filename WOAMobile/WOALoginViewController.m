@@ -126,10 +126,8 @@
         [self.latestResponder resignFirstResponder];
         
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        [appDelegate showLoadingViewController];
-        
-        WOARequestContent *requestContent = [WOARequestContent requestContentForLogin: self.accountTextField.text
-                                                                             password: self.passwordTextField.text];
+        WOARequestContent *requestContent = [WOARequestContent contentForLogin: self.accountTextField.text
+                                                                      password: self.passwordTextField.text];
         [appDelegate sendRequest: requestContent
                       onSuccuess:^(WOAResponeContent *responseContent)
          {

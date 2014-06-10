@@ -12,8 +12,10 @@
 
 @interface WOAPacketHelper : NSObject
 
-+ (NSDictionary*) packetDictionaryForLogin: (NSString*)accountID password: (NSString*)password;
-+ (NSDictionary*) packetDictionaryForWorkflowTypeList;
++ (NSDictionary*) packetForLogin: (NSString*)accountID password: (NSString*)password;
++ (NSDictionary*) packetForWorkflowTypeList;
++ (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID;
++ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID;
 
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict;
