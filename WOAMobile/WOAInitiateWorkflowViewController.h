@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface WOAInitiateWorkflowViewController : UIViewController
+
+- (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict;
 
 - (void) sendRequestForWorkflowTypeList;
 

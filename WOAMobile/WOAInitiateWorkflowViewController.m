@@ -7,8 +7,23 @@
 //
 
 #import "WOAInitiateWorkflowViewController.h"
+#import "WOAAppDelegate.h"
+#import "WOALayout.h"
+
+
+#define kItemLabel_Width (80)
+#define kItemLabel_LeftMargin (2)
+#define kItemLabel_RightMargin (2)
+#define kItemText_RightMargin (10)
+#define kItemCommon_Height (30)
+#define kItemCommon_TopMargin (10)
+
 
 @interface WOAInitiateWorkflowViewController ()
+
+@property (nonatomic, copy) NSString *workID;
+@property (nonatomic, copy) NSString *tableID;
+@property (nonatomic, strong) UIView *dynamicViewsContainer;
 
 @end
 
@@ -18,15 +33,31 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
+    return self;
+}
+
+- (instancetype) init
+{
+    if (self = [self initWithNibName: nil bundle: nil])
+    {
+    }
+    
+    return self;
+}
+
+- (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict
+{
+    if (self = [self init])
+    {
+    }
+    
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning

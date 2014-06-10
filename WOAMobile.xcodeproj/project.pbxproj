@@ -10,6 +10,7 @@
 		432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 432C2C29193F156F008F25F7 /* WOACheckForUpdate.m */; };
 		43306998193D72D9009006A4 /* WOASessionTokens.m in Sources */ = {isa = PBXBuildFile; fileRef = 43306997193D72D9009006A4 /* WOASessionTokens.m */; };
 		4330699B193D72F1009006A4 /* WOAAccountCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 4330699A193D72F1009006A4 /* WOAAccountCredential.m */; };
+		433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 433871EA19470B18007FD6D5 /* VSActionSheetDatePicker.m */; };
 		436A405019405F4F005BBF09 /* WOALoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */; };
 		DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
 		DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */; };
@@ -70,6 +71,8 @@
 		43306997193D72D9009006A4 /* WOASessionTokens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASessionTokens.m; sourceTree = "<group>"; };
 		43306999193D72F1009006A4 /* WOAAccountCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAccountCredential.h; sourceTree = "<group>"; };
 		4330699A193D72F1009006A4 /* WOAAccountCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAAccountCredential.m; sourceTree = "<group>"; };
+		433871E919470B18007FD6D5 /* VSActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSActionSheetDatePicker.h; sourceTree = "<group>"; };
+		433871EA19470B18007FD6D5 /* VSActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSActionSheetDatePicker.m; sourceTree = "<group>"; };
 		436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WOALoadingViewController.xib; path = ../WOALoadingViewController.xib; sourceTree = "<group>"; };
 		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2D3FB7193A10C300069BB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -273,6 +276,8 @@
 				DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */,
 				DC834F2E194288A000C724BE /* NSString+PinyinInitial.h */,
 				DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */,
+				433871E919470B18007FD6D5 /* VSActionSheetDatePicker.h */,
+				433871EA19470B18007FD6D5 /* VSActionSheetDatePicker.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 				DC8B09A5193B89B800217F45 /* WOAMoreFeatureViewController.m in Sources */,
 				DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */,
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
+				433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */,
 				DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */,
 				DC8B09A9193B89B800217F45 /* WOASelectNextStepViewController.m in Sources */,
 				DC8B09AD193B89B800217F45 /* WOAWorkflowCategoryViewController.m in Sources */,

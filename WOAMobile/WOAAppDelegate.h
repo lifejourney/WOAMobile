@@ -50,6 +50,9 @@
  -- sessionID --> string type
  -- should define the component order? Test JSON order and dictionary key order?
  -- what would return for session invalid.
+ -- the item count in response isn't needed.
+ -- 日期选择器
+ 
 
  4. Needed edge case:
  -- connection error: login, workflow
