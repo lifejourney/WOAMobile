@@ -19,14 +19,6 @@
 #define kWOADefaultTimeFormat @"hh:mm"
 #define kWOADefaultDateTimeFormat @"YYYY-MM-dd hh:mm"
 
-typedef NS_OPTIONS(NSInteger, WOAExtendTag)
-{
-    WOAExtendTag_Default = 0,
-    WOAExtendTag_IsReadOnly = 1 << 0,
-    WOAExtendTag_IsDatePicker = 1 << 1,
-    WOAExtendTag_IsTimePicker = 1 << 2,
-};
-
 @interface WOALayout : NSObject
 
 @end

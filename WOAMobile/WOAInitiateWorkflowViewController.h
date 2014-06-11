@@ -13,6 +13,4 @@
 
 - (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict;
 
-- (void) sendRequestForWorkflowTypeList;
-
 @end

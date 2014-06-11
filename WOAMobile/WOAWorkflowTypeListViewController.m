@@ -10,6 +10,7 @@
 #import "WOALayout.h"
 #import "WOAAppDelegate.h"
 #import "WOAPacketHelper.h"
+#import "WOAInitiateWorkflowViewController.h"
 
 
 @interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -157,7 +158,9 @@
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
      {
+         WOAInitiateWorkflowViewController *initiateVC = [[WOAInitiateWorkflowViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary];
          
+         [self.navigationController pushViewController: initiateVC animated: YES];
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
