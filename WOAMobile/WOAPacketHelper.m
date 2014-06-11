@@ -133,6 +133,23 @@
     return [dict valueForKey: @"head"];
 }
 
++ (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"result"];
+}
+
++ (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict
+{
+    NSDictionary *resultDict = [self resultFromPacketDictionary: dict];
+    
+    return [resultDict valueForKey: @"code"];
+}
+
++ (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"workID"];
+}
+
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict
 {
     NSDictionary *header = [self headerFromPacketDictionary: dict];
@@ -152,6 +169,24 @@
     return [dict valueForKey: @"name"];
 }
 
++ (NSString*) itemTypeFromDictionary: (NSDictionary *)dict
+{
+    return [dict valueForKey: @"type"];
+}
+
++ (NSString*) itemValueFromDictionary: (NSDictionary *)dict
+{
+    //TO-DO
+    return [dict valueForKey: @"value"];
+}
+
++ (BOOL) itemWritableFromDictionary: (NSDictionary *)dict
+{
+    NSString *value = [dict valueForKey: @"isWrite"];
+    
+    return value ? [value boolValue] : NO;
+}
+
 + (NSArray*) optionArrayFromDictionary: (NSDictionary*)dict
 {
     id value = [dict valueForKey: @"combo"];
@@ -166,7 +201,38 @@
 
 + (NSString*) tableNameFromTableDictionary: (NSDictionary*)dict
 {
-    return [dict valueForKey: @"tableName"];
+    //TO-DO: should using only one: adjust the protocol
+    //return [dict valueForKey: @"tableName"];
+    
+    NSString *name = [dict valueForKey: @"tableName"];
+    if (!name) name = [dict valueForKey: @"name"];
+    return name;
+}
+
++ (NSDictionary*) tableStructFromPacketDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"tableStruct"];
+}
+
++ (NSString*) tableIDFromPacketDictionary: (NSDictionary*)dict
+{
+    NSDictionary *tableStruct = [self tableStructFromPacketDictionary: dict];
+    
+    return [self tableIDFromTableDictionary: tableStruct];
+}
+
++ (NSString*) tableNameFromPacketDictionary: (NSDictionary*)dict
+{
+    NSDictionary *tableStruct = [self tableStructFromPacketDictionary: dict];
+
+    return [self tableNameFromTableDictionary: tableStruct];
 }
 
 @end
+
+
+
+
+
+
+

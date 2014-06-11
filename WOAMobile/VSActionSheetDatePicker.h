@@ -19,8 +19,8 @@
 
 - (void) showInView: (UIView*)view
      datePickerMode: (UIDatePickerMode)datePickerMode
-        currentDate: (NSDate*)currentDate
-   outputDateFormat: (NSString*)outputDateFormat
+  currentDateString: (NSString*)currentDateString
+   dateFormatString: (NSString*)dateFormatString
     selectedHandler: (void (^)(NSString* selectedDateString))selectedHandler
    cancelledHandler: (void (^)())cancelledHandler;
 

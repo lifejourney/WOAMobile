@@ -51,7 +51,10 @@
  -- should define the component order? Test JSON order and dictionary key order?
  -- what would return for session invalid.
  -- the item count in response isn't needed.
- -- 日期选择器
+ -- 日期选择器, date format
+ -- int: int32? int64?
+ -- tableName & name ==> tableName
+ -- dateTime: date, time, dateTime
  
 
  4. Needed edge case:
@@ -136,4 +139,6 @@
  6.7: 2h
  6.8: 4h
  6.9: 8h
+ 6.10: 6h
+ 6.11: 4h
 */

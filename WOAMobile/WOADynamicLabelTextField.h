@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 {
     WOAExtendTextFieldType_Normal = 0,
+    WOAExtendTextFieldType_IntString,
     WOAExtendTextFieldType_DatePicker,
     WOAExtendTextFieldType_TimePicker,
     WOAExtendTextFieldType_DateTimePicker,
@@ -22,18 +23,14 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, weak) NSObject<UITextFieldDelegate>*  textFieldDelegate;
 
-@property (nonatomic, assign) NSInteger *section;
-@property (nonatomic, assign) NSInteger *row;
-@property (nonatomic, assign) WOAExtendTextFieldType extendType;
-@property (nonatomic, copy) NSString *defaultValue;
-@property (nonatomic, strong) NSArray *optionArray;
+@property (nonatomic, assign) NSInteger section;
+@property (nonatomic, assign) NSInteger row;
 
 - (instancetype) initWithFrame: (CGRect)frame
+             popoverShowInView: (UIView*)popoverShowInView
                        section: (NSInteger)section
                            row: (NSInteger)row
-                     itemModel: (NSDictionary*)itemModel
-             textFieldDelegate: (NSObject<UITextFieldDelegate>*)textFieldDelegate;
+                     itemModel: (NSDictionary*)itemModel;
 
 @end

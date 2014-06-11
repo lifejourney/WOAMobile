@@ -11,7 +11,7 @@
 
 @interface VSActionSheetDatePicker () <UIActionSheetDelegate>
 
-@property (nonatomic, copy) NSString *outputDateFormat;
+@property (nonatomic, copy) NSString *dateFormatString;
 @property (nonatomic, copy) void (^selectedDateHandler)(NSDate* selectedDate);
 @property (nonatomic, copy) void (^selectedStringHandler)(NSString* selectedDate);
 @property (nonatomic, copy) void (^cancelledHandler)();
@@ -49,15 +49,26 @@
 
 - (void) showInView: (UIView*)view
      datePickerMode: (UIDatePickerMode)datePickerMode
-        currentDate: (NSDate*)currentDate
-   outputDateFormat: (NSString*)outputDateFormat
+  currentDateString: (NSString*)currentDateString
+   dateFormatString: (NSString*)dateFormatString
     selectedHandler: (void (^)(NSString* selectedDateString))selectedHandler
    cancelledHandler: (void (^)())cancelledHandler
 {
-    self.outputDateFormat = outputDateFormat;
+    self.dateFormatString = dateFormatString;
     self.selectedDateHandler = nil;
     self.selectedStringHandler = selectedHandler;
     self.cancelledHandler = cancelledHandler;
+    
+    NSDate *currentDate;
+    if (dateFormatString && currentDateString)
+    {
+        NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
+        formatter.dateFormat = self.dateFormatString;
+        
+        currentDate = [formatter dateFromString: currentDateString];
+    }
+    else
+        currentDate = [NSDate date];
     
     [self showInView: view datePickerMode: datePickerMode currentDate: currentDate];
 }
@@ -68,7 +79,7 @@
     selectedHandler: (void (^)(NSDate* selectedDate))selectedHandler
    cancelledHandler: (void (^)())cancelledHandler;
 {
-    self.outputDateFormat = nil;
+    self.dateFormatString = nil;
     self.selectedDateHandler = selectedHandler;
     self.selectedStringHandler = nil;
     self.cancelledHandler = cancelledHandler;
@@ -80,10 +91,10 @@
 {
     if (buttonIndex == 0)
     {
-        if (self.outputDateFormat)
+        if (self.dateFormatString)
         {
             NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
-            formatter.dateFormat = self.outputDateFormat;
+            formatter.dateFormat = self.dateFormatString;
             
             NSString *selectedString = [formatter stringFromDate: self.datePicker.date];
             

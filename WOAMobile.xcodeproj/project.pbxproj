@@ -49,6 +49,7 @@
 		DC8B09AE193B89B800217F45 /* WOAWorkflowFormDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0998193B89B800217F45 /* WOAWorkflowFormDetailViewController.m */; };
 		DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */; };
 		DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */; };
+		DCA7A27019490E48000D7EBE /* VSActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
 		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
@@ -141,6 +142,8 @@
 		DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowFormListViewController.m; sourceTree = "<group>"; };
 		DC8B099B193B89B800217F45 /* WOAWorkflowTypeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAWorkflowTypeListViewController.h; sourceTree = "<group>"; };
 		DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowTypeListViewController.m; sourceTree = "<group>"; };
+		DCA7A26E19490E48000D7EBE /* VSActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSActionSheetPickerView.h; sourceTree = "<group>"; };
+		DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSActionSheetPickerView.m; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
 		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
 		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */,
 				433871E919470B18007FD6D5 /* VSActionSheetDatePicker.h */,
 				433871EA19470B18007FD6D5 /* VSActionSheetDatePicker.m */,
+				DCA7A26E19490E48000D7EBE /* VSActionSheetPickerView.h */,
+				DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */,
 				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
 				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 			);
@@ -424,6 +429,7 @@
 				4343832819485AF200F108A3 /* WOADynamicLabelTextField.m in Sources */,
 				DC2D3FC8193A10C300069BB8 /* WOAAppDelegate.m in Sources */,
 				DC2D3FC4193A10C300069BB8 /* main.m in Sources */,
+				DCA7A27019490E48000D7EBE /* VSActionSheetPickerView.m in Sources */,
 				43306998193D72D9009006A4 /* WOASessionTokens.m in Sources */,
 				DC8B099D193B89B800217F45 /* WOAFlowController.m in Sources */,
 				DC8B09AA193B89B800217F45 /* WOASession.m in Sources */,

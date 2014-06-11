@@ -12,7 +12,7 @@
 #import "WOADynamicLabelTextField.h"
 
 
-@interface WOAInitiateWorkflowViewController () <UITextFieldDelegate>
+@interface WOAInitiateWorkflowViewController ()
 
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, copy) NSString *tableID;
@@ -44,6 +44,9 @@
     if (self = [self init])
     {
         self.detailDictionary = dict;
+        
+        self.workID = [WOAPacketHelper workIDFromPacketDictionary: dict];
+        self.tableID = [WOAPacketHelper tableIDFromPacketDictionary: dict];
     }
     
     return self;
@@ -54,9 +57,10 @@
     CGFloat totalHeight = 0;
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectZero];
-    titleLabel.text = @"Hello";
+    titleLabel.text = [WOAPacketHelper tableNameFromPacketDictionary: self.detailDictionary];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    CGRect titleRect = CGRectMake(100, 400, 100, 30);
+    CGRect titleRect = CGRectMake(fromOrigin.x, fromOrigin.y, sizeWidth, kWOALayout_ItemCommonHeight);
     [titleLabel setFrame: titleRect];
     [view addSubview: titleLabel];
     
@@ -69,6 +73,7 @@
 {
     CGFloat totalHeight = fromOrigin.y;
     CGRect itemRect;
+    
     
     return totalHeight;
     
@@ -109,7 +114,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    scrollView.backgroundColor = [UIColor orangeColor];
+    scrollView.backgroundColor = [UIColor whiteColor];
     
     CGFloat contentHeight = [self createDynamicComponentsInView: scrollView];
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, contentHeight);
