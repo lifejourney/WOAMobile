@@ -10,13 +10,25 @@
 #import "WOAFlowDefine.h"
 
 
+#define kWOAItemIndexPath_SectionKey @"_section"
+#define kWOAItemIndexPath_RowKey @"_row"
+
 @interface WOAPacketHelper : NSObject
 
 + (NSDictionary*) packetForLogin: (NSString*)accountID password: (NSString*)password;
 + (NSDictionary*) packetForWorkflowTypeList;
 + (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID;
-+ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID;
-
++ (NSDictionary*) packetForItemWithKey: (NSString*)key
+                                 value: (NSString*)value
+                               section: (NSNumber*)sectionNum
+                                   row: (NSNumber*)rowNum;
++ (NSDictionary*) itemWithoutIndexPathFromDictionary: (NSDictionary*)fromDict;
++ (NSDictionary*) packetForTableStruct: (NSString*)tableID
+                             tableName: (NSString*)tableName;
++ (NSDictionary*) packetForInitiateWorkflow: (NSString *)workID
+                                    tableID: (NSString*)tableID
+                                  tableName: (NSString*)tableName
+                                 itemsArray: (NSArray*)itemsArray;
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict;

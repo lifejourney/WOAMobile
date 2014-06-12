@@ -48,11 +48,17 @@
     return content;
 }
 
-+ (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
++ (WOARequestContent*) contentForInitiateWorkflow: (NSString *)workID
+                                          tableID: (NSString*)tableID
+                                        tableName: (NSString*)tableName
+                                       itemsArray: (NSArray*)itemsArray;
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_InitiateWorkflow];
     
-    content.bodyDictionary = [WOAPacketHelper packetForInitiateWorkflow: workID];
+    content.bodyDictionary = [WOAPacketHelper packetForInitiateWorkflow: workID
+                                                                tableID: tableID
+                                                              tableName: tableName
+                                                             itemsArray: itemsArray];
     
     return content;
 }

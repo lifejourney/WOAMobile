@@ -10,15 +10,20 @@
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOADynamicLabelTextField.h"
+#import "VSActionSheetPickerView.h"
+#import "WOASelectNextReviewerViewController.h"
 
 
 @interface WOAInitiateWorkflowViewController () <WOADynamicLabelTextFieldDelegate>
 
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, copy) NSString *tableID;
+@property (nonatomic, copy) NSString *tableName;
 @property (nonatomic, strong) NSDictionary *detailDictionary;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *latestFirstResponderTextField;
+@property (nonatomic, strong) VSActionSheetPickerView *actionSheetPickerView;
 
 - (void) tapOutsideKeyboardAction;
 
@@ -51,6 +56,7 @@
         
         self.workID = [WOAPacketHelper workIDFromPacketDictionary: dict];
         self.tableID = [WOAPacketHelper tableIDFromPacketDictionary: dict];
+        self.tableName = [WOAPacketHelper tableNameFromPacketDictionary: dict];
     }
     
     return self;
@@ -61,7 +67,7 @@
     CGFloat totalHeight = 0;
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectZero];
-    titleLabel.text = [WOAPacketHelper tableNameFromPacketDictionary: self.detailDictionary];
+    titleLabel.text = self.tableName;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     
     CGRect titleRect = CGRectMake(fromOrigin.x, fromOrigin.y, sizeWidth, kWOALayout_ItemCommonHeight);
@@ -158,6 +164,63 @@
     return totalHeight;
 }
 
+- (NSArray*) allItemsArray
+{
+    NSMutableArray *itemsArray = [[NSMutableArray alloc] init];
+    
+    for (UIView *subView in self.scrollView.subviews)
+    {
+        if (![subView isKindOfClass: [WOADynamicLabelTextField class]])
+            continue;
+        
+        NSDictionary *itemDict = [(WOADynamicLabelTextField*)subView toDataModelWithIndexPath];
+        
+        [itemsArray addObject: itemDict];
+    }
+    
+    NSSortDescriptor *sectionKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_SectionKey ascending: YES];
+    NSSortDescriptor *rowKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_RowKey ascending: YES];
+    NSArray *sortedArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: sectionKey, rowKey, nil]];
+    
+    NSInteger section = -1;
+    NSMutableArray *itemsGroup = [[NSMutableArray alloc] init];
+    NSMutableArray *aGroup = nil;
+    NSDictionary *currentItem;
+    NSNumber *itemSectionNum;
+    for (NSUInteger i = 0; i < [sortedArray count]; i++)
+    {
+        currentItem = [sortedArray objectAtIndex: i];
+        itemSectionNum = [currentItem objectForKey: kWOAItemIndexPath_SectionKey];
+        
+        if (itemSectionNum.integerValue != section)
+        {
+            section = itemSectionNum.integerValue;
+            
+            aGroup = [[NSMutableArray alloc] init];
+            [itemsGroup addObject: aGroup];
+        }
+        
+        [aGroup addObject: [WOAPacketHelper itemWithoutIndexPathFromDictionary: currentItem]];
+    }
+    
+    return itemsGroup;
+}
+
+- (void) parseInitiateWorkflowResponse: (NSDictionary*)content
+{
+    
+}
+
+- (void) parseSelectNextStepResponse: (NSDictionary*)content
+{
+    
+}
+
+- (void) showSelectNextStepActionSheet
+{
+    
+}
+
 - (void) tapOutsideKeyboardAction
 {
     if ([self.latestFirstResponderTextField isFirstResponder])
@@ -181,20 +244,20 @@
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
-    scrollView.backgroundColor = [UIColor whiteColor];
+    self.scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
+    _scrollView.backgroundColor = [UIColor whiteColor];
     
-    CGFloat contentHeight = [self createDynamicComponentsInView: scrollView];
+    CGFloat contentHeight = [self createDynamicComponentsInView: _scrollView];
     //TO-DO, add for keyboard height
     contentHeight += 200;
     
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, contentHeight);
+    _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width, contentHeight);
     
-    [self.view addSubview: scrollView];
+    [self.view addSubview: _scrollView];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self
                                                                                  action: @selector(tapOutsideKeyboardAction)];
-    [scrollView addGestureRecognizer: tapGesture];
+    [_scrollView addGestureRecognizer: tapGesture];
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,6 +273,22 @@
 
 - (void) submitAction: (id)sender
 {
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    WOARequestContent *requestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
+                                                                              tableID: self.tableID
+                                                                            tableName: self.tableName
+                                                                           itemsArray: [self allItemsArray]];
+    
+    [appDelegate sendRequest: requestContent
+                  onSuccuess:^(WOAResponeContent *responseContent)
+     {
+         [self parseInitiateWorkflowResponse: responseContent.bodyDictionary];
+         
+     }
+                   onFailure:^(WOAResponeContent *responseContent)
+     {
+         NSLog(@"Initiate workflow fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+     }];
     
 }
 

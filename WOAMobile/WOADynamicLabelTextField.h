@@ -43,4 +43,6 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
                            row: (NSInteger)row
                      itemModel: (NSDictionary*)itemModel;
 
+- (NSDictionary*) toDataModelWithIndexPath;
+
 @end

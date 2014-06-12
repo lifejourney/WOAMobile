@@ -248,6 +248,17 @@
         [self.delegate textFieldDidBecameFirstResponder: textField];
 }
 
+- (NSDictionary*) toDataModelWithIndexPath
+{
+    NSNumber *sectionNum = [NSNumber numberWithInteger: self.section];
+    NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
+    
+    return [WOAPacketHelper packetForItemWithKey: self.label.text
+                                           value: @"1"//TO-DO: self.textField.text
+                                         section: sectionNum
+                                             row: rowNum];
+}
+
 @end
 
 

@@ -34,11 +34,11 @@
             msgType = @"sendWorkTable";
             break;
             
-        case WOAFLowActionType_SelectedNextStep:
+        case WOAFLowActionType_SelectNextStep:
             msgType = @"sendProcessingStyle";
             break;
             
-        case WOAFLowActionType_SelectedNextReviewer:
+        case WOAFLowActionType_SelectNextReviewer:
             msgType = @"sendNextStep";
             break;
             
@@ -117,11 +117,50 @@
     return dict;
 }
 
-+ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
++ (NSDictionary*) packetForItemWithKey: (NSString*)key
+                                 value: (NSString*)value
+                               section: (NSNumber*)sectionNum
+                                   row: (NSNumber*)rowNum
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: key forKey: @"name"];
+    [dict setValue: value forKey: @"value"];
+    [dict setValue: sectionNum forKey: kWOAItemIndexPath_SectionKey];
+    [dict setValue: rowNum forKey: kWOAItemIndexPath_RowKey];
+    
+    return dict;
+}
+
++ (NSDictionary*) itemWithoutIndexPathFromDictionary: (NSDictionary*)fromDict
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary: fromDict];
+    
+    [dict setValue:nil forKey: kWOAItemIndexPath_SectionKey];
+    [dict setValue:nil forKey: kWOAItemIndexPath_RowKey];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForTableStruct: (NSString*)tableID
+                             tableName: (NSString*)tableName
+{
+    //TO-DO, count?
+    //TO-DO: name --> tableName
+    return [NSDictionary dictionaryWithObjectsAndKeys: tableID, @"tableID", tableName, @"name", @"5", @"count", nil];
+}
+
++ (NSDictionary*) packetForInitiateWorkflow: (NSString *)workID
+                                    tableID: (NSString*)tableID
+                                  tableName: (NSString*)tableName
+                                 itemsArray: (NSArray*)itemsArray
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self headerForFlowActionType: WOAFLowActionType_InitiateWorkflow] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: [self packetForTableStruct: tableID tableName: tableName] forKey: @"tableStruct"];
+    [dict setValue: itemsArray forKey: @"items"];
     
     return dict;
 }
