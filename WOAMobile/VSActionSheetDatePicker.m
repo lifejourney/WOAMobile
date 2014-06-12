@@ -41,7 +41,7 @@
     }
     
     _datePicker.datePickerMode = datePickerMode;
-    _datePicker.date = currentDate;
+    _datePicker.date = currentDate ? currentDate : [NSDate date];
     
     [actionSheet addSubview: _datePicker];
     [actionSheet showInView: view];

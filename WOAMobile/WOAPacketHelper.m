@@ -159,7 +159,9 @@
 
 + (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict
 {
+    //TO-DO
     id value = [dict valueForKey: @"items"];
+    if (!value) value = [dict valueForKey: @"itmes"];
     
     return (value && [value isKindOfClass: [NSArray class]]) ? value : nil;
 }

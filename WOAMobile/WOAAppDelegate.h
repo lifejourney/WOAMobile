@@ -54,6 +54,7 @@
  -- 日期选择器, date format
  -- int: int32? int64?
  -- tableName & name ==> tableName
+    itmes --> items
  -- dateTime: date, time, dateTime
  
 
@@ -77,7 +78,7 @@
  在navigation的VC里，为什么加一个table view，就可以自动调整好位置
  而其他的不行?
  怎样让加进去的view 自动在navigation bar的下面?
- 
+ UIPickerView的整体高度怎么自定义
  */
 
 /**

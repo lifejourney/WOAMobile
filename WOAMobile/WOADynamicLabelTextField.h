@@ -19,7 +19,17 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
     WOAExtendTextFieldType_PickerView,
 };
 
+@protocol WOADynamicLabelTextFieldDelegate <NSObject>
+
+@optional
+- (void) textFieldTryBeginEditing: (UITextField *)textField allowEditing: (BOOL)allowEditing;
+- (void) textFieldDidBecameFirstResponder: (UITextField *)textField;
+
+@end
+
 @interface WOADynamicLabelTextField : UIView
+
+@property (nonatomic, weak) id<WOADynamicLabelTextFieldDelegate> delegate;
 
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UITextField *textField;

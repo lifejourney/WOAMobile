@@ -11,8 +11,9 @@
 
 @interface VSActionSheetPickerView : NSObject
 
-- (void) showSingleColumnPickerViewInView: (UIView*)view
-                                dataModel: (NSArray*)dataModel
-                          selectedHandler: (void (^)(NSInteger row))selectedHandler
-                         cancelledHandler: (void (^)())cancelledHandler;
+- (void) shownPickerViewInView: (UIView*)view
+                     dataModel: (NSArray*)dataModel
+                   selectedRow: (NSInteger) selectedRow
+               selectedHandler: (void (^)(NSInteger row))selectedHandler
+              cancelledHandler: (void (^)())cancelledHandler;
 @end

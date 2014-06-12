@@ -15,7 +15,7 @@
 
 #define kWOALayout_ItemCommonHeight (30)
 #define kWOALayout_ItemLabelWidth (80)
-#define kWOALayout_ItemTopMargin (10)
+#define kWOALayout_ItemTopMargin (4)
 #define kWOALayout_ItemLabelTextField_Gap (2)
 
 #define kWOADefaultDateFormat @"YYYY-MM-dd"

@@ -22,6 +22,9 @@
 @property (nonatomic, copy) NSString *defaultValue;
 @property (nonatomic, strong) NSArray *optionArray;
 
+@property (nonatomic, strong) VSActionSheetDatePicker *actionSheetDatePicker;
+@property (nonatomic, strong) VSActionSheetPickerView *actionSheetPickerView;
+
 @end
 
 @implementation WOADynamicLabelTextField
@@ -48,7 +51,7 @@
             extendType = WOAExtendTextFieldType_IntString;
         else if ([lowerCaseTypeString isEqualToString: @"combobox"])
             extendType = WOAExtendTextFieldType_PickerView;
-        else if ([lowerCaseTypeString isEqualToString: @"dateTime"])
+        else if ([lowerCaseTypeString isEqualToString: @"datetime"])
             extendType = WOAExtendTextFieldType_DateTimePicker;
         else if ([lowerCaseTypeString isEqualToString: @"date"])
             extendType = WOAExtendTextFieldType_DatePicker;
@@ -93,9 +96,12 @@
         [self addSubview: _label];
         
         self.textField = [[UITextField alloc] initWithFrame: CGRectZero];
+        _textField.delegate = self;
         _textField.text = self.defaultValue;
         _textField.textAlignment = NSTextAlignmentLeft;
+        _textField.borderStyle = UITextBorderStyleRoundedRect;
         _textField.userInteractionEnabled = isWritable;
+        _textField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
         //TO-DO
         //_textField.rightView = ;
         
@@ -156,22 +162,25 @@
 
 - (void) showPickerView: (id)sender
 {
-    VSActionSheetPickerView *actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
+    self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
     
-    [actionSheetPickerView showSingleColumnPickerViewInView: self.popoverShowInView
-                                                  dataModel: self.optionArray
-                                            selectedHandler: ^(NSInteger row)
+    NSInteger selectedRow = [self.optionArray indexOfObject: self.textField.text];
+    
+    [self.actionSheetPickerView shownPickerViewInView: self.popoverShowInView
+                                            dataModel: self.optionArray
+                                          selectedRow: selectedRow
+                                      selectedHandler: ^(NSInteger row)
     {
         self.textField.text = [self.optionArray objectAtIndex: row];
     }
-                                           cancelledHandler: ^
+                                     cancelledHandler: ^
     {
     }];
 }
 
 - (void) showActionSheetDatePicker: (id)sender datePickerMode: (UIDatePickerMode)datePickerMode
 {
-    VSActionSheetDatePicker *actionSheetDatePicker = [[VSActionSheetDatePicker alloc] init];
+    self.actionSheetDatePicker = [[VSActionSheetDatePicker alloc] init];
     
     NSString *dateFormatString;
     switch (self.extendType)
@@ -193,15 +202,17 @@
             break;
     }
     
-    [actionSheetDatePicker showInView: self.popoverShowInView
-                       datePickerMode: datePickerMode
-                    currentDateString: self.textField.text
-                     dateFormatString: dateFormatString
-                      selectedHandler: ^(NSString *selectedDateString)
+    [self.actionSheetDatePicker showInView: self.popoverShowInView
+                            datePickerMode: datePickerMode
+                         currentDateString: self.textField.text
+                          dateFormatString: dateFormatString
+                           selectedHandler: ^(NSString *selectedDateString)
     {
         self.textField.text = selectedDateString;
     }
-                     cancelledHandler: nil];
+                     cancelledHandler: ^
+    {
+    }];
 }
 
 - (void) showDatePicker: (id)sender
@@ -222,8 +233,19 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    return (_extendType == WOAExtendTextFieldType_Normal ||
-            _extendType == WOAExtendTextFieldType_IntString);
+    BOOL allowEditing = (_extendType == WOAExtendTextFieldType_Normal ||
+                         _extendType == WOAExtendTextFieldType_IntString);
+    
+    if (self.delegate && [self.delegate respondsToSelector: @selector(textFieldTryBeginEditing:allowEditing:)])
+        [self.delegate textFieldTryBeginEditing: textField allowEditing: allowEditing];
+    
+    return allowEditing;
+}
+
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (self.delegate && [self.delegate respondsToSelector: @selector(textFieldDidBecameFirstResponder:)])
+        [self.delegate textFieldDidBecameFirstResponder: textField];
 }
 
 @end
