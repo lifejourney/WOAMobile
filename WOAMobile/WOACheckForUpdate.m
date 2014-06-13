@@ -10,6 +10,7 @@
 #import "WOAAppDelegate.h"
 
 
+//TO-DO
 #define kSelfAppleID @"827404068"
 
 static BOOL isForceUpdate = NO;
