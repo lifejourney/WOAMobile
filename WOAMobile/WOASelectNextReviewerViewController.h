@@ -10,4 +10,6 @@
 
 @interface WOASelectNextReviewerViewController : UIViewController
 
+- (instancetype) initWithWorkID: (NSString*)workID accountsGroupArray: (NSArray*)accountGroupsArray;
+
 @end

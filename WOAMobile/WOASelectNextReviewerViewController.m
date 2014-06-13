@@ -7,8 +7,14 @@
 //
 
 #import "WOASelectNextReviewerViewController.h"
+#import "WOAAppDelegate.h"
+#import "WOALayout.h"
+#import "WOAPacketHelper.h"
+
 
 @interface WOASelectNextReviewerViewController ()
+
+@property (nonatomic, copy) NSString *workID;
 
 @end
 
@@ -18,8 +24,26 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
+    return self;
+}
+
+- (instancetype) init
+{
+    if (self = [self initWithNibName: nil bundle: nil])
+    {
+    }
+    
+    return self;
+}
+
+- (instancetype) initWithWorkID: (NSString*)workID accountsGroupArray: (NSArray*)accountGroupsArray
+{
+    if (self = [self init])
+    {
+        self.workID = workID;
+    }
+    
     return self;
 }
 
@@ -34,16 +58,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -48,7 +48,7 @@
     return content;
 }
 
-+ (WOARequestContent*) contentForInitiateWorkflow: (NSString *)workID
++ (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName
                                        itemsArray: (NSArray*)itemsArray;
@@ -59,6 +59,39 @@
                                                                 tableID: tableID
                                                               tableName: tableName
                                                              itemsArray: itemsArray];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForSelectNextStep: (NSString*)workID
+                                      processID: (NSString*)processID
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_SelectNextStep];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForSelectNextStep: workID
+                                                            processID: processID];
+    
+    return content;
+    
+}
+
++ (WOARequestContent*) contentForSelectNextReviewer: (NSString*)workID
+                                       accountArray: (NSArray*)accountArray
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_SelectNextReviewer];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForSelectNextReviewer: workID
+                                                             accountArray: accountArray];
+    
+    return content;
+    
+}
+
++ (WOARequestContent*) contentForTodoWorkflowList
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetTodoWorkflowList];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForTodoWorkflowList];
     
     return content;
 }

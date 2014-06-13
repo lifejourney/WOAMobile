@@ -18,9 +18,14 @@
 + (WOARequestContent*) contentForLogin: (NSString*)accountID password: (NSString*)password;
 + (WOARequestContent*) contentForWorkflowTypeList;
 + (WOARequestContent*) contentForWorkflowTypeDetail: (NSString*)tableID;
-+ (WOARequestContent*) contentForInitiateWorkflow: (NSString *)workID
++ (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName
-                                       itemsArray: (NSArray*)itemsArray;;
+                                       itemsArray: (NSArray*)itemsArray;
++ (WOARequestContent*) contentForSelectNextStep: (NSString*)workID
+                                      processID: (NSString*)processID;
++ (WOARequestContent*) contentForSelectNextReviewer: (NSString*)workID
+                                       accountArray: (NSArray*)accountArray;
++ (WOARequestContent*) contentForTodoWorkflowList;
 
 @end

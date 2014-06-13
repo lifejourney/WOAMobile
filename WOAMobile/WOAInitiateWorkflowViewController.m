@@ -14,12 +14,14 @@
 #import "WOASelectNextReviewerViewController.h"
 
 
-@interface WOAInitiateWorkflowViewController () <WOADynamicLabelTextFieldDelegate>
+@interface WOAInitiateWorkflowViewController () <WOADynamicLabelTextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, copy) NSString *tableID;
 @property (nonatomic, copy) NSString *tableName;
 @property (nonatomic, strong) NSDictionary *detailDictionary;
+
+@property (nonatomic, strong) NSArray *processArray;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *latestFirstResponderTextField;
@@ -208,17 +210,69 @@
 
 - (void) parseInitiateWorkflowResponse: (NSDictionary*)content
 {
+    NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
+    NSSortDescriptor *processKey = [[NSSortDescriptor alloc] initWithKey: kWOAKey_ProcessID ascending: YES];
+    self.processArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: processKey, nil]];
+    
+    NSArray *processNameArray = [WOAPacketHelper processNameArrayFromProcessArray: self.processArray];
+    
+    self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
+    [_actionSheetPickerView shownPickerViewInView: self.view
+                                        dataModel: processNameArray
+                                      selectedRow: 0
+                                  selectedHandler: ^(NSInteger row)
+    {
+        //TO-DO: assume that workID is same to preview step
+        NSString *processID = [WOAPacketHelper processIDFromDictionary: [self.processArray objectAtIndex: row]];
+        
+        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        WOARequestContent *requestContent = [WOARequestContent contentForSelectNextStep: self.workID
+                                                                              processID: processID];
+        
+        [appDelegate sendRequest: requestContent
+                      onSuccuess:^(WOAResponeContent *responseContent)
+         {
+             [self parseSelectNextStepResponse: responseContent.bodyDictionary];
+             
+         }
+                       onFailure:^(WOAResponeContent *responseContent)
+         {
+             NSLog(@"SelectNextStep [Initiate workflow] fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+         }];
+        
+        
+    }
+                                 cancelledHandler: ^
+    {
+    }];
 }
 
 - (void) parseSelectNextStepResponse: (NSDictionary*)content
 {
+    NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
-}
-
-- (void) showSelectNextStepActionSheet
-{
-    
+    //TO-DO,
+    if (itemsArray && [itemsArray count] > 0)
+    {
+        //TO-DO, asssume same workID
+        WOASelectNextReviewerViewController *nextReviewerVC;
+        nextReviewerVC = [[WOASelectNextReviewerViewController alloc] initWithWorkID: self.workID
+                                                                  accountsGroupArray: itemsArray];
+        
+        [self.navigationController pushViewController: nextReviewerVC animated: YES];
+    }
+    else
+    {
+        //TO-DO
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"已完结"
+                                                            message: nil
+                                                           delegate: self
+                                                  cancelButtonTitle: @"确定"
+                                                  otherButtonTitles: nil, nil];
+        
+        [alertView show];
+    }
 }
 
 - (void) tapOutsideKeyboardAction
@@ -289,7 +343,6 @@
      {
          NSLog(@"Initiate workflow fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
      }];
-    
 }
 
 #pragma mark - WOADynamicLabelTextFieldDelegate
@@ -304,6 +357,13 @@
     {
         [self.latestFirstResponderTextField resignFirstResponder];
     }
+}
+
+#pragma mark - UIAlertView
+- (void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    //TO-DO
+    [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
 @end

@@ -254,7 +254,7 @@
     NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
     
     return [WOAPacketHelper packetForItemWithKey: self.label.text
-                                           value: @"1"//TO-DO: self.textField.text
+                                           value: self.textField.text
                                          section: sectionNum
                                              row: rowNum];
 }

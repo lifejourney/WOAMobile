@@ -8,7 +8,7 @@
 
 #import "VSActionSheetPickerView.h"
 
-
+//TO-DO, refactor by UITableView, and w/ or w/o cancel button
 @interface VSActionSheetPickerView () <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (nonatomic, strong) NSArray *dataModel;

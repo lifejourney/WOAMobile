@@ -145,12 +145,11 @@
 + (NSDictionary*) packetForTableStruct: (NSString*)tableID
                              tableName: (NSString*)tableName
 {
-    //TO-DO, count?
     //TO-DO: name --> tableName
-    return [NSDictionary dictionaryWithObjectsAndKeys: tableID, @"tableID", tableName, @"name", @"5", @"count", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys: tableID, @"tableID", tableName, @"name", nil];
 }
 
-+ (NSDictionary*) packetForInitiateWorkflow: (NSString *)workID
++ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
                                     tableID: (NSString*)tableID
                                   tableName: (NSString*)tableName
                                  itemsArray: (NSArray*)itemsArray
@@ -161,6 +160,40 @@
     [dict setValue: workID forKey: @"workID"];
     [dict setValue: [self packetForTableStruct: tableID tableName: tableName] forKey: @"tableStruct"];
     [dict setValue: itemsArray forKey: @"items"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForSelectNextStep: (NSString*)workID
+                                processID: (NSString*)processID
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_SelectNextStep] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: processID forKey: kWOAKey_ProcessID];
+    
+    return dict;
+    
+}
+
++ (NSDictionary*) packetForSelectNextReviewer: (NSString*)workID
+                                 accountArray: (NSArray*)accountArray
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_SelectNextReviewer] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: accountArray forKey: @"account"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForTodoWorkflowList
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetTodoWorkflowList] forKey: @"head"];
     
     return dict;
 }
@@ -267,6 +300,26 @@
     NSDictionary *tableStruct = [self tableStructFromPacketDictionary: dict];
 
     return [self tableNameFromTableDictionary: tableStruct];
+}
+
++ (NSString*) processIDFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: kWOAKey_ProcessID];
+}
+
++ (NSString*) processNameFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"tableName"];
+}
+
++ (NSArray*) processNameArrayFromProcessArray: (NSArray*)arr
+{
+    NSMutableArray *nameArray = [[NSMutableArray alloc] initWithCapacity: [arr count]];
+    
+    for (NSUInteger i = 0; i < [arr count];  i++)
+        [nameArray addObject: [self processNameFromDictionary: [arr objectAtIndex: i]]];
+    
+    return nameArray;
 }
 
 @end

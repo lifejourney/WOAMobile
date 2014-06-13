@@ -78,8 +78,6 @@
     
     _rootViewController = [[WOARootViewController alloc] init];
     self.window.rootViewController = _rootViewController;
-    //TO-DO
-    //[self.window addSubview: _rootViewController.view];
     
     self.loadingVC = [[WOALoadingViewController alloc] init];
     

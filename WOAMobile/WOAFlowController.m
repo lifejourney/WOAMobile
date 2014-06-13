@@ -251,6 +251,9 @@
     else
     {
         self.httpConnection = nil;
+        
+        NSString *respString = [[NSString alloc] initWithData: self.receivedData encoding: NSUTF8StringEncoding];
+        NSLog(@"fail resp: \n%@", respString);
     }
 }
 

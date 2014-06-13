@@ -12,6 +12,7 @@
 
 #define kWOAItemIndexPath_SectionKey @"_section"
 #define kWOAItemIndexPath_RowKey @"_row"
+#define kWOAKey_ProcessID @"processID"
 
 @interface WOAPacketHelper : NSObject
 
@@ -25,10 +26,15 @@
 + (NSDictionary*) itemWithoutIndexPathFromDictionary: (NSDictionary*)fromDict;
 + (NSDictionary*) packetForTableStruct: (NSString*)tableID
                              tableName: (NSString*)tableName;
-+ (NSDictionary*) packetForInitiateWorkflow: (NSString *)workID
++ (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
                                     tableID: (NSString*)tableID
                                   tableName: (NSString*)tableName
                                  itemsArray: (NSArray*)itemsArray;
++ (NSDictionary*) packetForSelectNextStep: (NSString*)workID
+                                processID: (NSString*)processID;
++ (NSDictionary*) packetForSelectNextReviewer: (NSString*)workID
+                                 accountArray: (NSArray*)accountArray;
++ (NSDictionary*) packetForTodoWorkflowList;
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict;
@@ -45,6 +51,9 @@
 + (NSDictionary*) tableStructFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) tableIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) tableNameFromPacketDictionary: (NSDictionary*)dict;
++ (NSString*) processIDFromDictionary: (NSDictionary*)dict;
++ (NSString*) processNameFromDictionary: (NSDictionary*)dict;
++ (NSArray*) processNameArrayFromProcessArray: (NSArray*)arr;
 
 
 @end
