@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WOAFlowDefine.h"
+
 
 @interface WOAWorkflowFormListViewController : UIViewController
+
+@property (nonatomic, assign) WOAFLowActionType actionType;
 
 @end

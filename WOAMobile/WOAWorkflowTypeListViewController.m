@@ -66,6 +66,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.title = @"新建工作";
+    
     self.selectedCategoryLabel = [[UILabel alloc] initWithFrame: self.view.frame];
     _selectedCategoryLabel.text = @"全部";
     [_selectedCategoryLabel setTextAlignment: NSTextAlignmentCenter];

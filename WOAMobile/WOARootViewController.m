@@ -47,16 +47,19 @@
         self.vcArray = [[NSMutableArray alloc] init];
         
         WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
-        typeListVC.navigationItem.title = @"新建工作";
         _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
         _initiateWorkflowNavC.tabBarItem.title = @"新建";
         [self.vcArray addObject: _initiateWorkflowNavC];
         
-        _todoWorkflowNavC = [[UINavigationController alloc] init];
+        WOAWorkflowFormListViewController *todoListVC = [[WOAWorkflowFormListViewController alloc] init];
+        todoListVC.actionType = WOAFLowActionType_GetTodoWorkflowList;
+        _todoWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: todoListVC];
         _todoWorkflowNavC.tabBarItem.title = @"代办";
         [self.vcArray addObject: _todoWorkflowNavC];
         
-        _appliedWorkflowNavC = [[UINavigationController alloc] init];
+        WOAWorkflowFormListViewController *historyListVC = [[WOAWorkflowFormListViewController alloc] init];
+        historyListVC.actionType = WOAFLowActionType_GetHistoryWorkflowList;
+        _appliedWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: historyListVC];
         _appliedWorkflowNavC.tabBarItem.title = @"搜索";
         [self.vcArray addObject: _appliedWorkflowNavC];
         

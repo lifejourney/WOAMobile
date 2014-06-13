@@ -42,9 +42,7 @@
 		DC8B09A6193B89B800217F45 /* WOAReviewWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0988193B89B700217F45 /* WOAReviewWorkflowViewController.m */; };
 		DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B098A193B89B700217F45 /* WOARootViewController.m */; };
 		DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B098C193B89B800217F45 /* WOASelectNextReviewerViewController.m */; };
-		DC8B09A9193B89B800217F45 /* WOASelectNextStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B098E193B89B800217F45 /* WOASelectNextStepViewController.m */; };
 		DC8B09AA193B89B800217F45 /* WOASession.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0990193B89B800217F45 /* WOASession.m */; };
-		DC8B09AB193B89B800217F45 /* WOASubmitResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0992193B89B800217F45 /* WOASubmitResultViewController.m */; };
 		DC8B09AD193B89B800217F45 /* WOAWorkflowCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0996193B89B800217F45 /* WOAWorkflowCategoryViewController.m */; };
 		DC8B09AE193B89B800217F45 /* WOAWorkflowFormDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0998193B89B800217F45 /* WOAWorkflowFormDetailViewController.m */; };
 		DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */; };
@@ -128,12 +126,8 @@
 		DC8B098A193B89B700217F45 /* WOARootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOARootViewController.m; sourceTree = "<group>"; };
 		DC8B098B193B89B800217F45 /* WOASelectNextReviewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOASelectNextReviewerViewController.h; sourceTree = "<group>"; };
 		DC8B098C193B89B800217F45 /* WOASelectNextReviewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASelectNextReviewerViewController.m; sourceTree = "<group>"; };
-		DC8B098D193B89B800217F45 /* WOASelectNextStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOASelectNextStepViewController.h; sourceTree = "<group>"; };
-		DC8B098E193B89B800217F45 /* WOASelectNextStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASelectNextStepViewController.m; sourceTree = "<group>"; };
 		DC8B098F193B89B800217F45 /* WOASession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOASession.h; sourceTree = "<group>"; };
 		DC8B0990193B89B800217F45 /* WOASession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASession.m; sourceTree = "<group>"; };
-		DC8B0991193B89B800217F45 /* WOASubmitResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOASubmitResultViewController.h; sourceTree = "<group>"; };
-		DC8B0992193B89B800217F45 /* WOASubmitResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOASubmitResultViewController.m; sourceTree = "<group>"; };
 		DC8B0995193B89B800217F45 /* WOAWorkflowCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAWorkflowCategoryViewController.h; sourceTree = "<group>"; };
 		DC8B0996193B89B800217F45 /* WOAWorkflowCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowCategoryViewController.m; sourceTree = "<group>"; };
 		DC8B0997193B89B800217F45 /* WOAWorkflowFormDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAWorkflowFormDetailViewController.h; sourceTree = "<group>"; };
@@ -236,12 +230,8 @@
 				DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */,
 				DC8B097D193B89B700217F45 /* WOAInitiateWorkflowViewController.h */,
 				DC8B097E193B89B700217F45 /* WOAInitiateWorkflowViewController.m */,
-				DC8B098D193B89B800217F45 /* WOASelectNextStepViewController.h */,
-				DC8B098E193B89B800217F45 /* WOASelectNextStepViewController.m */,
 				DC8B098B193B89B800217F45 /* WOASelectNextReviewerViewController.h */,
 				DC8B098C193B89B800217F45 /* WOASelectNextReviewerViewController.m */,
-				DC8B0991193B89B800217F45 /* WOASubmitResultViewController.h */,
-				DC8B0992193B89B800217F45 /* WOASubmitResultViewController.m */,
 				DC8B0999193B89B800217F45 /* WOAWorkflowFormListViewController.h */,
 				DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */,
 				DC8B0987193B89B700217F45 /* WOAReviewWorkflowViewController.h */,
@@ -440,9 +430,7 @@
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
 				433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */,
 				DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */,
-				DC8B09A9193B89B800217F45 /* WOASelectNextStepViewController.m in Sources */,
 				DC8B09AD193B89B800217F45 /* WOAWorkflowCategoryViewController.m in Sources */,
-				DC8B09AB193B89B800217F45 /* WOASubmitResultViewController.m in Sources */,
 				DC8B09A4193B89B800217F45 /* WOALoadingViewController.m in Sources */,
 				DC8B099E193B89B800217F45 /* WOAFlowDefine.m in Sources */,
 				DC8B09A6193B89B800217F45 /* WOAReviewWorkflowViewController.m in Sources */,
