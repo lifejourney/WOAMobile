@@ -10,6 +10,7 @@
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOAPacketHelper.h"
+#import "VSSelectedTableViewCell.h"
 
 
 @interface WOAWorkflowFormListViewController () <UITableViewDataSource, UITableViewDelegate>
