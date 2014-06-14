@@ -281,10 +281,10 @@
 				433871EA19470B18007FD6D5 /* VSActionSheetDatePicker.m */,
 				DCA7A26E19490E48000D7EBE /* VSActionSheetPickerView.h */,
 				DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */,
-				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
-				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 				DCB3459F194BD8D5006519E8 /* VSSelectedTableViewCell.h */,
 				DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */,
+				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
+				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";

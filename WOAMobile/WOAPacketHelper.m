@@ -382,6 +382,16 @@
     return nameArray;
 }
 
++ (NSString*) accountIDFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"account"];
+}
+
++ (NSString*) accountNameFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"name"];
+}
+
 @end
 
 

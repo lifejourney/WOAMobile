@@ -61,6 +61,8 @@
 + (NSString*) processIDFromDictionary: (NSDictionary*)dict;
 + (NSString*) processNameFromDictionary: (NSDictionary*)dict;
 + (NSArray*) processNameArrayFromProcessArray: (NSArray*)arr;
++ (NSString*) accountIDFromDictionary: (NSDictionary*)dict;
++ (NSString*) accountNameFromDictionary: (NSDictionary*)dict;
 
 
 @end

@@ -10,13 +10,14 @@
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOAPacketHelper.h"
+#import "VSSelectedTableViewCell.h"
 
 
-@interface WOASelectNextReviewerViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface WOASelectNextReviewerViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, VSSelectedTableViewCellDelegate>
 
 @property (nonatomic, copy) NSString *workID;
-@property (nonatomic, strong) NSArray *accountGroupsArray;
-@property (nonatomic, strong) NSMutableArray *selectedAccountArray;
+@property (nonatomic, strong) NSArray *groupNameArray;
+@property (nonatomic, strong) NSArray *groupItemArray;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -46,9 +47,27 @@
     if (self = [self init])
     {
         self.workID = workID;
-        self.accountGroupsArray = accountGroupsArray;
         
-        self.selectedAccountArray = [[NSMutableArray alloc] init];
+        NSMutableArray *groupNameArray = [[NSMutableArray alloc] init];
+        NSMutableArray *groupItemArray = [[NSMutableArray alloc] init];
+        
+        for (NSDictionary *groupDictionary in accountGroupsArray)
+        {
+            NSArray *keyArray = [groupDictionary allKeys];
+            if ([keyArray count] <= 0)
+                continue;
+            
+            NSString *key = [keyArray firstObject];
+            NSArray *valueArray = [groupDictionary valueForKey: key];
+            if ([valueArray count] <= 0)
+                continue;
+            
+            [groupNameArray addObject: key];
+            [groupItemArray addObject: valueArray];
+        }
+        
+        self.groupNameArray = groupNameArray;
+        self.groupItemArray = groupItemArray;
     }
     
     return self;
@@ -77,9 +96,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableView setEditing: YES];
     _tableView.allowsMultipleSelection = YES;
-    _tableView.allowsMultipleSelectionDuringEditing = YES;
     _tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview: _tableView];
     
@@ -99,9 +116,18 @@
 
 - (void) submitAction: (id)sender
 {
+    NSMutableArray *selectedAccountArray = [[NSMutableArray alloc] init];
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows)
+    {
+        NSArray *itemArray = [self.groupItemArray objectAtIndex: indexPath.section];
+        NSDictionary *itemDictionary = [itemArray objectAtIndex: indexPath.row];
+        
+        [selectedAccountArray addObject: [WOAPacketHelper accountIDFromDictionary: itemDictionary]];
+    }
+    
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    WOARequestContent *requestContent = [WOARequestContent contentForSelectNextReviewer:self.workID
-                                                                           accountArray: self.selectedAccountArray];
+    WOARequestContent *requestContent = [WOARequestContent contentForSelectNextReviewer: self.workID
+                                                                           accountArray: selectedAccountArray];
     
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
@@ -123,12 +149,14 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.groupItemArray ? [self.groupItemArray count] : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    NSArray *itemArray = [self.groupItemArray objectAtIndex: section];
+    
+    return itemArray ? [itemArray count] : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -148,23 +176,59 @@
 
 - (NSString*) tableView: (UITableView *)tableView titleForHeaderInSection: (NSInteger)section
 {
-    return [NSString stringWithFormat: @"%d", section];
+    return [self.groupNameArray objectAtIndex: section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier: nil];
-//    NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
-//    
-//    cell.textLabel.text = [self.tableInfoDictionary objectForKey: [selectedTables objectAtIndex: indexPath.row]];
-//    cell.textLabel.text = [NSString stringWithFormat: @"%d: %d", indexPath.section, indexPath.row];
+    VSSelectedTableViewCell *cell;
+    cell = [[VSSelectedTableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle
+                                          reuseIdentifier: nil
+                                                  section: indexPath.section
+                                                      row: indexPath.row
+                                                 delegate: self];
     
-//    cell.detailTextLabel.text = @"detail";
+    NSArray *itemArray = [self.groupItemArray objectAtIndex: indexPath.section];
+    NSDictionary *itemDictionary = [itemArray objectAtIndex: indexPath.row];
+    
+    cell.contentLabel.text = [WOAPacketHelper accountNameFromDictionary: itemDictionary];
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    VSSelectedTableViewCell *cell = (VSSelectedTableViewCell*)[tableView cellForRowAtIndexPath: indexPath];
+    
+    cell.selectButton.selected = YES;
+}
+
+- (void)tableView: (UITableView *)tableView didDeselectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    VSSelectedTableViewCell *cell = (VSSelectedTableViewCell*)[tableView cellForRowAtIndexPath: indexPath];
+    
+    cell.selectButton.selected = NO;
+}
+
+#pragma mark - VSSelectedTableViewCellDelegate
+
+- (void) actionForTableViewCell: (VSSelectedTableViewCell *)tableViewCell
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow: tableViewCell.row inSection: tableViewCell.section];
+    
+    if (tableViewCell.isSelected)
+    {
+        [self.tableView deselectRowAtIndexPath: indexPath animated: NO];
+        [self tableView: self.tableView didDeselectRowAtIndexPath: indexPath];
+    }
+    else
+    {
+        [self.tableView selectRowAtIndexPath: indexPath animated: NO scrollPosition: UITableViewScrollPositionMiddle];
+        [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
+    }
+}
 
 #pragma mark - UIAlertView
 - (void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
