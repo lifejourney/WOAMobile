@@ -13,6 +13,7 @@
 #define kWOAItemIndexPath_SectionKey @"_section"
 #define kWOAItemIndexPath_RowKey @"_row"
 #define kWOAKey_ProcessID @"processID"
+#define kWOAKey_CreateTime @"createTime"
 
 @interface WOAPacketHelper : NSObject
 
@@ -35,6 +36,12 @@
 + (NSDictionary*) packetForSelectNextReviewer: (NSString*)workID
                                  accountArray: (NSArray*)accountArray;
 + (NSDictionary*) packetForTodoWorkflowList;
++ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)workID;
++ (NSDictionary*) packetForReviewWorkflow: (NSString*)workID
+                               itemsArray: (NSArray*)itemsArray;
++ (NSDictionary*) packetForHistoryWorkflowList;
++ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)workID;
++ (NSDictionary*) packetForDraftWorkflowList;
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict;

@@ -19,8 +19,10 @@ typedef NS_ENUM(NSUInteger, WOAFLowActionType)
     WOAFLowActionType_SelectNextStep,
     WOAFLowActionType_SelectNextReviewer,
     WOAFLowActionType_GetTodoWorkflowList,
-    WOAFLowActionType_ReviewedWorkflow,
+    WOAFLowActionType_GetWorkflowFormDetail,
+    WOAFLowActionType_ReviewWorkflow,
     WOAFLowActionType_GetHistoryWorkflowList,
+    WOAFLowActionType_GetWorkflowViewDetail,
     WOAFLowActionType_GetDraftWorkflowList
 };
 
@@ -39,4 +41,16 @@ typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)
     WOAHTTPRequestResult_JSONParseError,
     WOAHTTPRequestResult_Cancelled
 };
+
+typedef NS_ENUM(NSUInteger, WOAWorkflowResultCode)
+{
+    WOAWorkflowResultCode_Unknown = -1,
+    WOAWorkflowResultCode_Success = 0,
+    WOAWorkflowResultCode_InvalidSession
+};
+
+
+
+
+
 

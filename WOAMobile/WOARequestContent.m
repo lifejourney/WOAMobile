@@ -96,6 +96,53 @@
     return content;
 }
 
++ (WOARequestContent*) contentForWorkflowFormDetail: (NSString*)workID
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowFormDetail];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowFormDetail: workID];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForReviewWorkflow: (NSString*)workID
+                                     itemsArray: (NSArray*)itemsArray
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_ReviewWorkflow];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForReviewWorkflow: workID
+                                                           itemsArray: itemsArray];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForHistoryWorkflowList
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetHistoryWorkflowList];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForHistoryWorkflowList];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForWorkflowViewDetail: (NSString*)workID
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowViewDetail];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowViewDetail: workID];
+    
+    return content;
+}
+
++ (WOARequestContent*) contentForDraftWorkflowList
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetDraftWorkflowList];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForDraftWorkflowList];
+    
+    return content;
+}
+
 @end
 
 

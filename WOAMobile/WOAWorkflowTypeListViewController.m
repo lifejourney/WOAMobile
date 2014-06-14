@@ -187,6 +187,7 @@
     self.selectedCategory = 0;
 }
 
+#pragma mark - WOAStartWorkflowActionReqeust
 - (void) parseResponseContent: (NSDictionary*)content
 {
     NSMutableArray *categoryInfoArray = [[NSMutableArray alloc] initWithObjects: @"全部", nil];
@@ -229,7 +230,7 @@
     self.selectedCategory = MIN(self.selectedCategory, [self.categoryInfoArray count] - 1);
 }
 
-- (void) sendRequestForWorkflowTypeList
+- (void) sendRequestByActionType
 {
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent = [WOARequestContent contentForWorkflowTypeList];

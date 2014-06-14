@@ -46,13 +46,22 @@
             msgType = @"getWorkList";
             break;
             
-        case WOAFLowActionType_ReviewedWorkflow:
+        case WOAFLowActionType_GetWorkflowFormDetail:
+            msgType = @"getTableDetail";
+            
+        case WOAFLowActionType_ReviewWorkflow:
+            msgType = @"sendProcessing";
             break;
             
         case WOAFLowActionType_GetHistoryWorkflowList:
+            msgType = @"getQueryList";
             break;
             
+        case WOAFLowActionType_GetWorkflowViewDetail:
+            msgType = @"getViewTable";
+            
         case WOAFLowActionType_GetDraftWorkflowList:
+            msgType = @""; //TO-DO
             break;
             
         default:
@@ -194,6 +203,57 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetTodoWorkflowList] forKey: @"head"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)workID
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowFormDetail] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForReviewWorkflow: (NSString*)workID
+                               itemsArray: (NSArray*)itemsArray
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_ReviewWorkflow] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: itemsArray forKey: @"items"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForHistoryWorkflowList
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetHistoryWorkflowList] forKey: @"head"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)workID
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowViewDetail] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForDraftWorkflowList
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+ 
+    //TO-DO
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetDraftWorkflowList] forKey: @"head"];
     
     return dict;
 }

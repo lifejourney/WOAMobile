@@ -12,7 +12,7 @@
 #import "WOAMoreFeatureViewController.h"
 
 
-@interface WOARootViewController ()
+@interface WOARootViewController () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *vcArray;
 @property (nonatomic, strong) UINavigationController *initiateWorkflowNavC;
@@ -99,6 +99,14 @@
     return YES;
 }
 
+- (void) tabBarController: (UITabBarController *)tabBarController didSelectViewController: (UIViewController *)viewController
+{
+    UINavigationController *selectedNavC = (UINavigationController *)viewController;
+    NSObject<WOAStartWorkflowActionReqeust> *selectedRootVC = (NSObject<WOAStartWorkflowActionReqeust> *)selectedNavC.topViewController;
+    
+    [selectedRootVC sendRequestByActionType];
+}
+
 #pragma mark - public
 
 - (void) switchToInitiateWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
@@ -113,7 +121,7 @@
         {
             WOAWorkflowTypeListViewController *typeListVC = (WOAWorkflowTypeListViewController*)_initiateWorkflowNavC.topViewController;
             
-            [typeListVC sendRequestForWorkflowTypeList];
+            [typeListVC sendRequestByActionType];
         }
     }
 }

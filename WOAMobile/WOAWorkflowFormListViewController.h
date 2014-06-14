@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "WOAFlowDefine.h"
+#import "WOAStartWorkflowActionReqeust.h"
 
 
-@interface WOAWorkflowFormListViewController : UIViewController
+@interface WOAWorkflowFormListViewController : UIViewController <WOAStartWorkflowActionReqeust>
 
 @property (nonatomic, assign) WOAFLowActionType actionType;
 

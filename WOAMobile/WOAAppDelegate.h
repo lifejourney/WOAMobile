@@ -56,6 +56,8 @@
  -- tableName & name ==> tableName
     itmes --> items
  -- dateTime: date, time, dateTime
+ -- abstract
+ -- isWrite = false, do not need to submit?
  
 
  4. Needed edge case:

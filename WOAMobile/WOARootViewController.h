@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface WOARootViewController : UITabBarController <UITabBarControllerDelegate>
+@interface WOARootViewController : UITabBarController
 
 - (void) switchToInitiateWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh;
 - (void) switchToTodoWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh;

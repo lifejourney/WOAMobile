@@ -144,6 +144,7 @@
 		DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAAboutViewController.m; sourceTree = "<group>"; };
 		DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAAboutViewController.xib; sourceTree = "<group>"; };
 		DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOALoginViewController.xib; sourceTree = "<group>"; };
+		DCB3459E194BD4E3006519E8 /* WOAStartWorkflowActionReqeust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAStartWorkflowActionReqeust.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +225,7 @@
 				436A404F19405F4F005BBF09 /* WOALoadingViewController.xib */,
 				DC8B0989193B89B700217F45 /* WOARootViewController.h */,
 				DC8B098A193B89B700217F45 /* WOARootViewController.m */,
+				DCB3459E194BD4E3006519E8 /* WOAStartWorkflowActionReqeust.h */,
 				DC8B0995193B89B800217F45 /* WOAWorkflowCategoryViewController.h */,
 				DC8B0996193B89B800217F45 /* WOAWorkflowCategoryViewController.m */,
 				DC8B099B193B89B800217F45 /* WOAWorkflowTypeListViewController.h */,

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WOAStartWorkflowActionReqeust.h"
 
-@interface WOAWorkflowTypeListViewController : UIViewController
 
-- (void) sendRequestForWorkflowTypeList;
+@interface WOAWorkflowTypeListViewController : UIViewController <WOAStartWorkflowActionReqeust>
 
 @end
