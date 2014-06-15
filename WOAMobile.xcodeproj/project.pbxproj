@@ -50,6 +50,7 @@
 		DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE25C193FE61500AF2AF0 /* WOALoginViewController.xib */; };
 		DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */; };
 		DCB3465C194BDA20006519E8 /* WOALoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */; };
+		DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,8 @@
 		DCB3459F194BD8D5006519E8 /* VSSelectedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSSelectedTableViewCell.h; sourceTree = "<group>"; };
 		DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSSelectedTableViewCell.m; sourceTree = "<group>"; };
 		DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOALoadingViewController.xib; sourceTree = "<group>"; };
+		DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RootViewController.h"; sourceTree = "<group>"; };
+		DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RootViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +273,8 @@
 				DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */,
 				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
 				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
+				DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */,
+				DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				4330699B193D72F1009006A4 /* WOAAccountCredential.m in Sources */,
 				DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */,
 				DC834F3D19445FBF00C724BE /* WOALayout.m in Sources */,
+				DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */,
 				DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */,
 				DC8B09A1193B89B800217F45 /* WOAWorkflowDetailViewController.m in Sources */,
 				DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */,

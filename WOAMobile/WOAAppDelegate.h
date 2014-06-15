@@ -81,6 +81,8 @@
  而其他的不行?
  怎样让加进去的view 自动在navigation bar的下面?
  UIPickerView的整体高度怎么自定义
+ 
+ 真机调试，crash的调用栈
  */
 
 /**

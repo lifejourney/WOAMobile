@@ -10,6 +10,7 @@
 #import "WOAWorkflowTypeListViewController.h"
 #import "WOAWorkflowFormListViewController.h"
 #import "WOAMoreFeatureViewController.h"
+#import "UINavigationController+RootViewController.h"
 
 
 @interface WOARootViewController () <UITabBarControllerDelegate>
@@ -102,9 +103,14 @@
 - (void) tabBarController: (UITabBarController *)tabBarController didSelectViewController: (UIViewController *)viewController
 {
     UINavigationController *selectedNavC = (UINavigationController *)viewController;
-    NSObject<WOAStartWorkflowActionReqeust> *selectedRootVC = (NSObject<WOAStartWorkflowActionReqeust> *)selectedNavC.topViewController;
     
-    [selectedRootVC sendRequestByActionType];
+    if ([selectedNavC isRootViewControllerOnTop])
+    {
+        NSObject<WOAStartWorkflowActionReqeust> *selectedRootVC = (NSObject<WOAStartWorkflowActionReqeust> *)[selectedNavC rootViewController];
+        
+        if ([selectedRootVC conformsToProtocol: @protocol(WOAStartWorkflowActionReqeust)])
+            [selectedRootVC sendRequestByActionType];
+    }
 }
 
 #pragma mark - public
@@ -119,7 +125,8 @@
         
         if (shouldRefresh)
         {
-            WOAWorkflowTypeListViewController *typeListVC = (WOAWorkflowTypeListViewController*)_initiateWorkflowNavC.topViewController;
+            NSObject<WOAStartWorkflowActionReqeust> *typeListVC;
+            typeListVC = (WOAWorkflowTypeListViewController*)[_initiateWorkflowNavC rootViewController];
             
             [typeListVC sendRequestByActionType];
         }
@@ -129,6 +136,19 @@
 - (void) switchToTodoWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
 {
     [self setSelectedIndex: 1];
+    
+    if (popToRootVC)
+    {
+        [_todoWorkflowNavC popToRootViewControllerAnimated: YES];
+        
+        if (shouldRefresh)
+        {
+            NSObject<WOAStartWorkflowActionReqeust> *formListVC;
+            formListVC = (WOAWorkflowTypeListViewController*)[_todoWorkflowNavC rootViewController];
+            
+            [formListVC sendRequestByActionType];
+        }
+    }
 }
 
 @end
