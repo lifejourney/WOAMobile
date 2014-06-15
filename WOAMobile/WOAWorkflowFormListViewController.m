@@ -8,15 +8,18 @@
 
 #import "WOAWorkflowFormListViewController.h"
 #import "WOAAppDelegate.h"
+#import "WOAWorkflowDetailViewController.h"
 #import "WOALayout.h"
 #import "WOAPacketHelper.h"
-#import "WOAWorkflowDetailViewController.h"
+#import "NSString+PinyinInitial.h"
 
 
-@interface WOAWorkflowFormListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface WOAWorkflowFormListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *itemsArray;
+@property (nonatomic, strong) NSArray *filteredArray;
 
 @end
 
@@ -68,7 +71,29 @@
     
     self.navigationItem.title = navigationTitle;
     
-    self.tableView = [[UITableView alloc] initWithFrame: self.view.frame style: UITableViewStylePlain];
+    //TO-DO
+    CGFloat contentOriginY = [self.topLayoutGuide length];
+    contentOriginY += self.navigationController.navigationBar.frame.origin.y;
+    if (!self.navigationController.isNavigationBarHidden)
+        contentOriginY += self.navigationController.navigationBar.frame.size.height;
+    
+    
+    CGFloat searchBarHeight = 44;
+    CGRect selfRect = self.view.frame;
+    CGRect searchBarRect = CGRectMake(selfRect.origin.x,
+                                      selfRect.origin.y + contentOriginY,
+                                      selfRect.size.width,
+                                      searchBarHeight);
+    CGRect tableViewRect = CGRectMake(selfRect.origin.x,
+                                      selfRect.origin.y + contentOriginY + searchBarHeight + 1,
+                                      selfRect.size.width,
+                                      selfRect.size.height - contentOriginY - searchBarHeight - 1);
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame: searchBarRect];
+    _searchBar.delegate = self;
+    [self.view addSubview: _searchBar];
+    
+    self.tableView = [[UITableView alloc] initWithFrame: tableViewRect style: UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -94,7 +119,7 @@
 
 - (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section;
 {
-    return (section == 0) ? self.itemsArray.count : 0;
+    return (section == 0) ? self.filteredArray.count : 0;
 }
 
 - (NSString*) itemDetailsFromDictionary: (NSDictionary*)itemDictionary
@@ -107,7 +132,7 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier: nil];
     
-    NSDictionary *itemDictionary = [self.itemsArray objectAtIndex: indexPath.row];
+    NSDictionary *itemDictionary = [self.filteredArray objectAtIndex: indexPath.row];
     
     cell.textLabel.text = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
     cell.detailTextLabel.text = [self itemDetailsFromDictionary: itemDictionary];
@@ -126,7 +151,7 @@
 {
     [tableView deselectRowAtIndexPath: indexPath animated: NO];
     
-    NSDictionary *itemDictionary = [self.itemsArray objectAtIndex: indexPath.row];
+    NSDictionary *itemDictionary = [self.filteredArray objectAtIndex: indexPath.row];
     NSString *workID = [WOAPacketHelper workIDFromDictionary: itemDictionary];
     
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -166,15 +191,66 @@
      }];
 }
 
+#pragma mark - UISearchBarDelegate
+- (void) searchBar: (UISearchBar *)searchBar textDidChange: (NSString *)searchText
+{
+    if (!searchText || [searchText length] == 0)
+    {
+        //TO-DO, could be cancelld? by block.
+        _tableView.delegate = nil;
+        self.filteredArray = self.itemsArray;
+        _tableView.delegate = self;
+    }
+    else
+    {
+        NSString *upperCaseText = [searchText uppercaseString];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithBlock: ^BOOL(id evaluatedObject, NSDictionary *bindings)
+        {
+            NSDictionary *itemDictionary = evaluatedObject;
+            NSString *pinyinInitial = [itemDictionary valueForKey: kWOAKey_PinyinInitial];
+            NSRange foundRange = [pinyinInitial rangeOfString: upperCaseText];
+            if (foundRange.length > 0)
+                return YES;
+            
+            NSString *formTitle = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
+            foundRange = [formTitle rangeOfString: searchText];
+            if (foundRange.length > 0)
+                return YES;
+            
+            return NO;
+        }];
+        
+        //TO-DO, could be cancelld? by block.
+        _tableView.delegate = nil;
+        _filteredArray = [self.itemsArray filteredArrayUsingPredicate: predicate];
+        _tableView.delegate = self;
+    }
+    
+    [_tableView reloadData];
+}
 
 #pragma mark - WOAStartWorkflowActionReqeust
 - (void) parseResponseContent: (NSDictionary*)content
 {
     NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
+    //TO-DO, key
     NSSortDescriptor *createTimeKey = [[NSSortDescriptor alloc] initWithKey: kWOAKey_CreateTime ascending: NO];
-    //TO-DO
-    self.itemsArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: createTimeKey, nil]];
+    itemsArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: createTimeKey, nil]];
+    
+    NSMutableArray *withInitialArray = [[NSMutableArray alloc] initWithCapacity: [itemsArray count]];
+    for (NSUInteger i = 0; i < [itemsArray count]; i++)
+    {
+        NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] initWithDictionary: [itemsArray objectAtIndex: i]];
+        NSString *formTitle = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
+        [itemDictionary setValue: [formTitle pinyinInitials] forKey: kWOAKey_PinyinInitial];
+        
+        [withInitialArray addObject: itemDictionary];
+    }
+    self.itemsArray = withInitialArray;
+    
+    self.filteredArray = self.itemsArray;
 }
 
 - (void) sendRequestByActionType

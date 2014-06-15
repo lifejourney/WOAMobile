@@ -10,6 +10,7 @@
 #import "WOAFlowDefine.h"
 
 
+#define kWOAKey_PinyinInitial @"_pinyin"
 #define kWOAItemIndexPath_SectionKey @"_section"
 #define kWOAItemIndexPath_RowKey @"_row"
 #define kWOAKey_ProcessID @"processID"
