@@ -1,12 +1,12 @@
 //
-//  WOAInitiateWorkflowViewController.m
+//  WOAWorkflowDetailViewController.m
 //  WOAMobile
 //
 //  Created by steven.zhuang on 6/1/14.
 //  Copyright (c) 2014 steven.zhuang. All rights reserved.
 //
 
-#import "WOAInitiateWorkflowViewController.h"
+#import "WOAWorkflowDetailViewController.h"
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOADynamicLabelTextField.h"
@@ -14,7 +14,7 @@
 #import "WOASelectNextReviewerViewController.h"
 
 
-@interface WOAInitiateWorkflowViewController () <WOADynamicLabelTextFieldDelegate, UIAlertViewDelegate>
+@interface WOAWorkflowDetailViewController () <WOADynamicLabelTextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, copy) NSString *tableID;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation WOAInitiateWorkflowViewController
+@implementation WOAWorkflowDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -143,7 +143,7 @@
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
      {
-//         WOAInitiateWorkflowViewController *initiateVC = [[WOAInitiateWorkflowViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary];
+//         WOAWorkflowDetailViewController *initiateVC = [[WOAWorkflowDetailViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary];
 //         
 //         [self.navigationController pushViewController: initiateVC animated: YES];
      }

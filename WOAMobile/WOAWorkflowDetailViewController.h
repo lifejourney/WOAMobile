@@ -1,5 +1,5 @@
 //
-//  WOAInitiateWorkflowViewController.h
+//  WOAWorkflowDetailViewController.h
 //  WOAMobile
 //
 //  Created by steven.zhuang on 6/1/14.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface WOAInitiateWorkflowViewController : UIViewController
+@interface WOAWorkflowDetailViewController : UIViewController
 
 - (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict;
 
