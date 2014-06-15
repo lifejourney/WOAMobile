@@ -125,6 +125,11 @@
         [selectedAccountArray addObject: [WOAPacketHelper accountIDFromDictionary: itemDictionary]];
     }
     
+    if ([selectedAccountArray count] == 0)
+    {
+        //TO-DO
+    }
+    
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent = [WOARequestContent contentForSelectNextReviewer: self.workID
                                                                            accountArray: selectedAccountArray];

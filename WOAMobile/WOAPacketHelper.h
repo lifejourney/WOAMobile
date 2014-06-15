@@ -47,6 +47,7 @@
 + (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict;
++ (NSString*) workIDFromDictionary: (NSDictionary*)dict;
 + (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) itemNameFromDictionary: (NSDictionary*)dict;
 + (NSString*) itemTypeFromDictionary: (NSDictionary *)dict;
@@ -63,6 +64,7 @@
 + (NSArray*) processNameArrayFromProcessArray: (NSArray*)arr;
 + (NSString*) accountIDFromDictionary: (NSDictionary*)dict;
 + (NSString*) accountNameFromDictionary: (NSDictionary*)dict;
-
++ (NSString*) formTitleFromDictionary: (NSDictionary*)dict;
++ (NSString*) createTimeFromDictionary: (NSDictionary*)dict;
 
 @end

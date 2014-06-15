@@ -10,7 +10,6 @@
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOAPacketHelper.h"
-#import "VSSelectedTableViewCell.h"
 
 
 @interface WOAWorkflowFormListViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -71,7 +70,6 @@
     self.tableView = [[UITableView alloc] initWithFrame: self.view.frame style: UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.view addSubview: _tableView];
@@ -98,30 +96,20 @@
     return (section == 0) ? self.itemsArray.count : 0;
 }
 
+- (NSString*) itemDetailsFromDictionary: (NSDictionary*)itemDictionary
+{
+    //TO-DO
+    return [WOAPacketHelper createTimeFromDictionary: itemDictionary];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *moreFeatureTableViewCellIdentifier = @"moreFeatureTableViewCellIdentifier";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier: nil];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: moreFeatureTableViewCellIdentifier];
-    if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: moreFeatureTableViewCellIdentifier];
-    else
-    {
-        UIView *subview;
-        
-        do
-        {
-            subview = [cell.contentView.subviews lastObject];
-            
-            if (subview)
-                [subview removeFromSuperview];
-        }
-        while (!subview);
-    }
+    NSDictionary *itemDictionary = [self.itemsArray objectAtIndex: indexPath.row];
     
-//    WOAMenuItemModel *itemModel = [self.itemsArray objectAtIndex: indexPath.row];
-//    
-//    cell.textLabel.text = itemModel.title;
+    cell.textLabel.text = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
+    cell.detailTextLabel.text = [self itemDetailsFromDictionary: itemDictionary];
     
     return cell;
 }
@@ -135,26 +123,36 @@
 
 - (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
-//    WOAMenuItemModel *itemModel = [self.itemsArray objectAtIndex: indexPath.row];
-//    NSString *itemID = itemModel.itemID;
-//    
-//    [tableView deselectRowAtIndexPath: indexPath animated: NO];
-//    
-//    if ([itemID isEqualToString: kWOAMenuItemKey_Draft])
-//    {
-//        
-//    }
-//    else if ([itemID isEqualToString: kWOAMenuItemKey_CheckForUpdate])
-//    {
-//        [WOACheckForUpdate checkingUpdateFromAppStore: NO];
-//    }
-//    else if ([itemID isEqualToString: kWOAMenuItemKey_About])
-//    {
-//        WOAAboutViewController *aboutVC = [[WOAAboutViewController alloc] init];
-//        
-//        [self presentViewController: aboutVC animated: YES completion: ^{}];
-//    }
+    [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    
+    NSDictionary *itemDictionary = [self.itemsArray objectAtIndex: indexPath.row];
+    NSString *workID = [WOAPacketHelper workIDFromDictionary: itemDictionary];
+    
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    WOARequestContent *requestContent;
+    
+    if (_actionType == WOAFLowActionType_GetTodoWorkflowList)
+        requestContent = [WOARequestContent contentForWorkflowFormDetail: workID];
+    else if (_actionType == WOAFLowActionType_GetHistoryWorkflowList)
+        requestContent = [WOARequestContent contentForWorkflowViewDetail: workID];
+    else if (_actionType == WOAFLowActionType_GetDraftWorkflowList)
+        return;//TO-DO: requestContent = [WOARequestContent contentForDraftWorkflowList];
+    else
+        return;
+    
+    [appDelegate sendRequest: requestContent
+                  onSuccuess:^(WOAResponeContent *responseContent)
+     {
+//         WOAInitiateWorkflowViewController *initiateVC = [[WOAInitiateWorkflowViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary];
+//         
+//         [self.navigationController pushViewController: initiateVC animated: YES];
+     }
+                   onFailure:^(WOAResponeContent *responseContent)
+     {
+         NSLog(@"Get [actionType: %d] workflow detail fail: %d, HTTPStatus=%d", self.actionType, responseContent.requestResult, responseContent.HTTPStatus);
+     }];
 }
+
 
 #pragma mark - WOAStartWorkflowActionReqeust
 - (void) parseResponseContent: (NSDictionary*)content
@@ -162,6 +160,7 @@
     NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
     NSSortDescriptor *createTimeKey = [[NSSortDescriptor alloc] initWithKey: kWOAKey_CreateTime ascending: NO];
+    //TO-DO
     self.itemsArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: createTimeKey, nil]];
 }
 

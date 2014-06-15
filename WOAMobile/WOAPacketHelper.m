@@ -48,6 +48,7 @@
             
         case WOAFLowActionType_GetWorkflowFormDetail:
             msgType = @"getTableDetail";
+            break;
             
         case WOAFLowActionType_ReviewWorkflow:
             msgType = @"sendProcessing";
@@ -59,6 +60,7 @@
             
         case WOAFLowActionType_GetWorkflowViewDetail:
             msgType = @"getViewTable";
+            break;
             
         case WOAFLowActionType_GetDraftWorkflowList:
             msgType = @""; //TO-DO
@@ -282,6 +284,11 @@
     return [dict valueForKey: @"workID"];
 }
 
++ (NSString*) workIDFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"workID"];
+}
+
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict
 {
     NSDictionary *header = [self headerFromPacketDictionary: dict];
@@ -390,6 +397,16 @@
 + (NSString*) accountNameFromDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"name"];
+}
+
++ (NSString*) formTitleFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"workStyle"];
+}
+
++ (NSString*) createTimeFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"createTime"];
 }
 
 @end
