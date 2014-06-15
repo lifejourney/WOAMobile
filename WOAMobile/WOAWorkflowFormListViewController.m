@@ -10,6 +10,7 @@
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "WOAPacketHelper.h"
+#import "WOAWorkflowDetailViewController.h"
 
 
 @interface WOAWorkflowFormListViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -48,7 +49,7 @@
     [super viewDidLoad];
     
     NSString *navigationTitle = @"";
-    switch (self.actionType)
+    switch (self.listActionType)
     {
         case WOAFLowActionType_GetTodoWorkflowList:
             navigationTitle = @"代办事项";
@@ -131,11 +132,11 @@
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent;
     
-    if (_actionType == WOAFLowActionType_GetTodoWorkflowList)
+    if (_listActionType == WOAFLowActionType_GetTodoWorkflowList)
         requestContent = [WOARequestContent contentForWorkflowFormDetail: workID];
-    else if (_actionType == WOAFLowActionType_GetHistoryWorkflowList)
+    else if (_listActionType == WOAFLowActionType_GetHistoryWorkflowList)
         requestContent = [WOARequestContent contentForWorkflowViewDetail: workID];
-    else if (_actionType == WOAFLowActionType_GetDraftWorkflowList)
+    else if (_listActionType == WOAFLowActionType_GetDraftWorkflowList)
         return;//TO-DO: requestContent = [WOARequestContent contentForDraftWorkflowList];
     else
         return;
@@ -143,13 +144,25 @@
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
      {
-//         WOAWorkflowDetailViewController *initiateVC = [[WOAWorkflowDetailViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary];
-//         
-//         [self.navigationController pushViewController: initiateVC animated: YES];
+         WOAFLowActionType detailActionType;
+         if (_listActionType == WOAFLowActionType_GetTodoWorkflowList)
+             detailActionType = WOAFLowActionType_GetWorkflowFormDetail;
+         else if (_listActionType == WOAFLowActionType_GetHistoryWorkflowList)
+             detailActionType = WOAFLowActionType_GetWorkflowViewDetail;
+         else if (_listActionType == WOAFLowActionType_GetDraftWorkflowList)
+             return;//TO-DO: detailActionType = ;
+         else
+             return;
+         
+         WOAWorkflowDetailViewController *detailVC;
+         detailVC = [[WOAWorkflowDetailViewController alloc] initWithWorkflowDetailDictionary: responseContent.bodyDictionary
+                                                                             detailActionType: detailActionType];
+         
+         [self.navigationController pushViewController: detailVC animated: YES];
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Get [actionType: %d] workflow detail fail: %d, HTTPStatus=%d", self.actionType, responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Get [actionType: %d] workflow detail fail: %d, HTTPStatus=%d", self.listActionType, responseContent.requestResult, responseContent.HTTPStatus);
      }];
 }
 
@@ -169,11 +182,11 @@
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent;
     
-    if (_actionType == WOAFLowActionType_GetTodoWorkflowList)
+    if (_listActionType == WOAFLowActionType_GetTodoWorkflowList)
         requestContent = [WOARequestContent contentForTodoWorkflowList];
-    else if (_actionType == WOAFLowActionType_GetHistoryWorkflowList)
+    else if (_listActionType == WOAFLowActionType_GetHistoryWorkflowList)
         requestContent = [WOARequestContent contentForHistoryWorkflowList];
-    else if (_actionType == WOAFLowActionType_GetDraftWorkflowList)
+    else if (_listActionType == WOAFLowActionType_GetDraftWorkflowList)
         requestContent = [WOARequestContent contentForDraftWorkflowList];
     else
         return;

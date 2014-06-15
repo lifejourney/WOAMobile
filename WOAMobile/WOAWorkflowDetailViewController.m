@@ -51,10 +51,12 @@
 }
 
 - (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict
+                                 detailActionType: (WOAFLowActionType)detailActionType
 {
     if (self = [self init])
     {
         self.detailDictionary = dict;
+        self.detailActionType = detailActionType;
         
         self.workID = [WOAPacketHelper workIDFromPacketDictionary: dict];
         self.tableID = [WOAPacketHelper tableIDFromPacketDictionary: dict];
@@ -126,6 +128,11 @@
                                                                         row: itemIndex
                                                                   itemModel: itemModel];
             itemTextField.delegate = self;
+            
+            if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
+            {
+                itemTextField.textField.borderStyle = UITextBorderStyleNone;
+            }
             
             [scrollView addSubview: itemTextField];
             
@@ -208,7 +215,7 @@
     return itemsGroup;
 }
 
-- (void) parseInitiateWorkflowResponse: (NSDictionary*)content
+- (void) parseCommitWorkflowResponse: (NSDictionary*)content
 {
     NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
@@ -296,9 +303,30 @@
                                                                            style: UIBarButtonItemStylePlain
                                                                           target: self
                                                                           action: @selector(submitAction:)];
-    self.navigationItem.title = @"新建工作";
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    
+    //TO-DO: Draft
+    if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
+    {
+        self.navigationItem.title = @"新建工作";
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    }
+    else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
+    {
+        self.navigationItem.title = @"代办工作";
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    }
+    else  if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
+    {
+        self.navigationItem.title = @"事务查询";
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else
+    {
+        self.navigationItem.title = @"";
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
     
     self.scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];
     _scrollView.backgroundColor = [UIColor whiteColor];
@@ -330,15 +358,34 @@
 - (void) submitAction: (id)sender
 {
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    WOARequestContent *requestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
-                                                                              tableID: self.tableID
-                                                                            tableName: self.tableName
-                                                                           itemsArray: [self allItemsArray]];
+    WOARequestContent *requestContent;
+    
+    //TO-DO: WOAFLowActionType_GetDraftWorkflowList
+    if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
+    {
+        requestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
+                                                               tableID: self.tableID
+                                                             tableName: self.tableName
+                                                            itemsArray: [self allItemsArray]];
+    }
+    else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
+    {
+        //TO-DO: could commit unwritable?
+        requestContent = [WOARequestContent contentForReviewWorkflow: self.workID
+                                                          itemsArray: [self allItemsArray]];
+    }
+    else
+    {
+        //TO-DO
+        //WOAFLowActionType_GetWorkflowViewDetail
+        //Draft
+        return;
+    }
     
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
      {
-         [self parseInitiateWorkflowResponse: responseContent.bodyDictionary];
+         [self parseCommitWorkflowResponse: responseContent.bodyDictionary];
          
      }
                    onFailure:^(WOAResponeContent *responseContent)

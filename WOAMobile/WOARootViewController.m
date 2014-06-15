@@ -52,13 +52,13 @@
         [self.vcArray addObject: _initiateWorkflowNavC];
         
         WOAWorkflowFormListViewController *todoListVC = [[WOAWorkflowFormListViewController alloc] init];
-        todoListVC.actionType = WOAFLowActionType_GetTodoWorkflowList;
+        todoListVC.listActionType = WOAFLowActionType_GetTodoWorkflowList;
         _todoWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: todoListVC];
         _todoWorkflowNavC.tabBarItem.title = @"代办";
         [self.vcArray addObject: _todoWorkflowNavC];
         
         WOAWorkflowFormListViewController *historyListVC = [[WOAWorkflowFormListViewController alloc] init];
-        historyListVC.actionType = WOAFLowActionType_GetHistoryWorkflowList;
+        historyListVC.listActionType = WOAFLowActionType_GetHistoryWorkflowList;
         _appliedWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: historyListVC];
         _appliedWorkflowNavC.tabBarItem.title = @"搜索";
         [self.vcArray addObject: _appliedWorkflowNavC];

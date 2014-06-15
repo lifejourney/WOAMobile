@@ -13,6 +13,6 @@
 
 @interface WOAWorkflowFormListViewController : UIViewController <WOAStartWorkflowActionReqeust>
 
-@property (nonatomic, assign) WOAFLowActionType actionType;
+@property (nonatomic, assign) WOAFLowActionType listActionType;
 
 @end

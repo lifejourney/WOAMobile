@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WOAFlowDefine.h"
 
 
 @interface WOAWorkflowDetailViewController : UIViewController
 
-- (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict;
+@property (nonatomic, assign) WOAFLowActionType detailActionType;
+
+- (instancetype) initWithWorkflowDetailDictionary: (NSDictionary*)dict
+                                 detailActionType: (WOAFLowActionType)detailActionType;
 
 @end
