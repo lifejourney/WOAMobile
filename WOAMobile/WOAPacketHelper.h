@@ -18,7 +18,9 @@
 
 @interface WOAPacketHelper : NSObject
 
-+ (NSDictionary*) packetForLogin: (NSString*)accountID password: (NSString*)password;
++ (NSDictionary*) packetForLogin: (NSString*)accountID
+                        password: (NSString*)password
+                     deviceToken: (NSString*)deviceToken;
 + (NSDictionary*) packetForWorkflowTypeList;
 + (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID;
 + (NSDictionary*) packetForItemWithKey: (NSString*)key
@@ -45,7 +47,7 @@
 + (NSDictionary*) packetForDraftWorkflowList;
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
-+ (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict;
++ (WOAWorkflowResultCode) resultCodeFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) workIDFromDictionary: (NSDictionary*)dict;

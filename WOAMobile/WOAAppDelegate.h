@@ -20,6 +20,7 @@
 @property (nonatomic, strong, readonly) WOARootViewController *rootViewController;
 
 @property (copy) NSString *sessionID;
+@property (nonatomic, strong) WOARequestContent *latestLoginRequestContent;
 @property (nonatomic, copy) NSString *deviceToken;
 @property (nonatomic, assign) BOOL isLaunchByAPNS;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;

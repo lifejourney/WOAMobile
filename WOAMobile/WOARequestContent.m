@@ -21,11 +21,13 @@
     return self;
 }
 
-+ (WOARequestContent*) contentForLogin: (NSString*)accountID password: (NSString*)password
++ (WOARequestContent*) contentForLogin: (NSString*)accountID
+                              password: (NSString*)password
+                           deviceToken: (NSString*)deviceToken
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_Login];
     
-    content.bodyDictionary = [WOAPacketHelper packetForLogin: accountID password: password];
+    content.bodyDictionary = [WOAPacketHelper packetForLogin: accountID password: password deviceToken: deviceToken];
     
     return content;
 }

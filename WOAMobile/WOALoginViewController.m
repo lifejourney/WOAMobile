@@ -127,7 +127,8 @@
         
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         WOARequestContent *requestContent = [WOARequestContent contentForLogin: self.accountTextField.text
-                                                                      password: self.passwordTextField.text];
+                                                                      password: self.passwordTextField.text
+                                                                   deviceToken: appDelegate.deviceToken];
         [appDelegate sendRequest: requestContent
                       onSuccuess:^(WOAResponeContent *responseContent)
          {

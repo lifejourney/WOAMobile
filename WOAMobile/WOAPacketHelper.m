@@ -95,7 +95,9 @@
     return dict;
 }
 
-+ (NSDictionary*) packetForLogin: (NSString*)accountID password: (NSString*)password
++ (NSDictionary*) packetForLogin: (NSString*)accountID
+                        password: (NSString*)password
+                     deviceToken: (NSString*)deviceToken
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
@@ -103,8 +105,9 @@
     
     [dict setValue: accountID forKey: @"account"];
     [dict setValue: password forKey: @"psw"];
-    [dict setValue: @"12323123" forKey: @"checkSum"];
-    [dict setValue: @"1212" forKey: @"phoneID"];
+    //TO-DO
+    //[dict setValue:  forKey: @"checkSum"];
+    [dict setValue: deviceToken forKey: @"deviceToken"];
     
     return dict;
 }
@@ -272,11 +275,20 @@
     return [dict valueForKey: @"result"];
 }
 
-+ (NSString*) resultCodeFromPacketDictionary: (NSDictionary*)dict
++ (WOAWorkflowResultCode) resultCodeFromPacketDictionary: (NSDictionary*)dict
 {
     NSDictionary *resultDict = [self resultFromPacketDictionary: dict];
+    NSString *codeString = [resultDict valueForKey: @"code"];
     
-    return [resultDict valueForKey: @"code"];
+    WOAWorkflowResultCode resultCode = codeString ? [codeString integerValue] : WOAWorkflowResultCode_Unknown;
+    
+    if (resultCode == WOAWorkflowResultCode_Success)
+    {
+        if (![codeString isEqualToString: @"0"])
+            resultCode = WOAWorkflowResultCode_Unknown;
+    }
+    
+    return resultCode;
 }
 
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict

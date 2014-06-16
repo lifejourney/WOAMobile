@@ -203,8 +203,6 @@
     self.responseContent.requestResult = requestResult;
     self.responseContent.HTTPStatus = self.httpResponse.statusCode;
     
-    //TO-DO, session is invalid
-    
     if (requestResult == WOAHTTPRequestResult_Success)
     {
 //        //TO-DO:
@@ -220,23 +218,73 @@
         {
             NSLog(@"Received response for action: %d\n%@", self.currentActionType, dict);
             
-            if (self.currentActionType == WOAFLowActionType_Login)
-            {
-                WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-                
-                appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: dict];
-            }
+            WOAWorkflowResultCode resultCode = [WOAPacketHelper resultCodeFromPacketDictionary: dict];
             
-            if (self.currentActionType == self.responseContent.flowActionType)
+            //TO-DO: how about other response code
+            if (resultCode == WOAWorkflowResultCode_InvalidSession)
             {
-                self.responseContent.bodyDictionary = dict;
-                
-                self.httpConnection = nil;
+                if (self.currentActionType == self.responseContent.flowActionType)
+                {
+                    if (self.responseContent.flowActionType == WOAFLowActionType_Login)
+                    {
+                        self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
+                        
+                        NSLog(@"Request fail for invalid session (login). error: %@\n respone body: %@", [error localizedDescription], dict);
+                        
+                        self.httpConnection = nil;
+                    }
+                    else
+                    {
+                        //Auto relogin
+                        if (self.hasRefreshSession)
+                        {
+                            self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
+                            
+                            NSLog(@"Request fail for invalid session (request retried). error: %@\n respone body: %@", [error localizedDescription], dict);
+                            
+                            self.httpConnection = nil;
+                        }
+                        else
+                        {
+                            self.hasRefreshSession = YES;
+                            
+                            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                            
+                            [self sendRequestWithType: appDelegate.latestLoginRequestContent];
+                        }
+                    }
+                }
+                else
+                {
+                    self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
+                    
+                    NSLog(@"currentAction: %d, origin action: %d, resultCode: %d", self.currentActionType, self.responseContent.flowActionType, resultCode);
+                    NSLog(@"Request fail for invalid session (login when retrying). error: %@\n respone body: %@", [error localizedDescription], dict);
+                    
+                    self.httpConnection = nil;
+                }
             }
             else
             {
-                //Resend the request
-                [self sendRequestWithType: self.requestContent];
+                if (self.currentActionType == WOAFLowActionType_Login)
+                {
+                    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                    
+                    appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: dict];
+                    appDelegate.latestLoginRequestContent = self.requestContent;
+                }
+                
+                if (self.currentActionType == self.responseContent.flowActionType)
+                {
+                    self.responseContent.bodyDictionary = dict;
+                    
+                    self.httpConnection = nil;
+                }
+                else
+                {
+                    //Resend the request
+                    [self sendRequestWithType: self.requestContent];
+                }
             }
         }
         else
