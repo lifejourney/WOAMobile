@@ -77,6 +77,8 @@
 		4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOADynamicLabelTextField.m; sourceTree = "<group>"; };
 		43460A6B194EACE000E9CDDE /* NSData+HexadecimalRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+HexadecimalRepresentation.h"; sourceTree = "<group>"; };
 		43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+HexadecimalRepresentation.m"; sourceTree = "<group>"; };
+		DC19B9AD194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DC19B9AE194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2D3FB7193A10C300069BB8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -372,6 +374,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = DC2D3FAB193A10C300069BB8;
 			productRefGroup = DC2D3FB5193A10C300069BB8 /* Products */;
@@ -470,6 +473,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC2D3FC1193A10C300069BB8 /* en */,
+				DC19B9AD194F32FE00F446C4 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -478,6 +482,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC2D3FDA193A10C300069BB8 /* en */,
+				DC19B9AE194F32FE00F446C4 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
