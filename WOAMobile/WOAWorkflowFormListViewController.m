@@ -90,6 +90,7 @@
                                       selfRect.size.height - contentOriginY - searchBarHeight - 1);
     
     self.searchBar = [[UISearchBar alloc] initWithFrame: searchBarRect];
+    _searchBar.showsCancelButton = YES;
     _searchBar.delegate = self;
     [self.view addSubview: _searchBar];
     
@@ -150,6 +151,11 @@
 - (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    
+    if ([_searchBar isFirstResponder])
+    {
+        [_searchBar resignFirstResponder];
+    }
     
     NSDictionary *itemDictionary = [self.filteredArray objectAtIndex: indexPath.row];
     NSString *workID = [WOAPacketHelper workIDFromDictionary: itemDictionary];
@@ -228,6 +234,17 @@
     }
     
     [_tableView reloadData];
+}
+
+- (void) searchBarCancelButtonClicked: (UISearchBar *)searchBar
+{
+    searchBar.text = @"";
+    [self searchBar: searchBar textDidChange: searchBar.text];
+    
+    if ([searchBar isFirstResponder])
+    {
+        [searchBar resignFirstResponder];
+    }
 }
 
 #pragma mark - WOAStartWorkflowActionReqeust
