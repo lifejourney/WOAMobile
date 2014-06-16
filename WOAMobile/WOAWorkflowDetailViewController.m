@@ -227,28 +227,29 @@
     self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
     [_actionSheetPickerView shownPickerViewInView: self.view
                                         dataModel: processNameArray
-                                      selectedRow: 0
+                                      selectedRow: -1
                                   selectedHandler: ^(NSInteger row)
     {
-        //TO-DO: assume that workID is same to preview step
-        NSString *processID = [WOAPacketHelper processIDFromDictionary: [self.processArray objectAtIndex: row]];
-        
-        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        WOARequestContent *requestContent = [WOARequestContent contentForSelectNextStep: self.workID
-                                                                              processID: processID];
-        
-        [appDelegate sendRequest: requestContent
-                      onSuccuess:^(WOAResponeContent *responseContent)
-         {
-             [self parseSelectNextStepResponse: responseContent.bodyDictionary];
-             
-         }
-                       onFailure:^(WOAResponeContent *responseContent)
-         {
-             NSLog(@"SelectNextStep [Initiate workflow] fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
-         }];
-        
-        
+        if (row >= 0)
+        {
+            //TO-DO: assume that workID is same to preview step
+            NSString *processID = [WOAPacketHelper processIDFromDictionary: [self.processArray objectAtIndex: row]];
+            
+            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            WOARequestContent *requestContent = [WOARequestContent contentForSelectNextStep: self.workID
+                                                                                  processID: processID];
+            
+            [appDelegate sendRequest: requestContent
+                          onSuccuess:^(WOAResponeContent *responseContent)
+             {
+                 [self parseSelectNextStepResponse: responseContent.bodyDictionary];
+                 
+             }
+                           onFailure:^(WOAResponeContent *responseContent)
+             {
+                 NSLog(@"SelectNextStep [Initiate workflow] fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+             }];
+        }
     }
                                  cancelledHandler: ^
     {

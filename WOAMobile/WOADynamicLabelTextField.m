@@ -171,7 +171,8 @@
                                           selectedRow: selectedRow
                                       selectedHandler: ^(NSInteger row)
     {
-        self.textField.text = [self.optionArray objectAtIndex: row];
+        if (row >= 0)
+            self.textField.text = [self.optionArray objectAtIndex: row];
     }
                                      cancelledHandler: ^
     {

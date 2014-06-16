@@ -8,15 +8,18 @@
 
 #import "VSActionSheetPickerView.h"
 
-//TO-DO, refactor by UITableView, and w/ or w/o cancel button
-@interface VSActionSheetPickerView () <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+
+@interface VSActionSheetPickerView () <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *dataModel;
 @property (nonatomic, copy) void (^selectedHandler)(NSInteger row);
 @property (nonatomic, copy) void (^cancelledHandler)();
 
-@property (nonatomic, strong) UIPickerView *pickerView;
-@property (nonatomic, assign) NSInteger selectedRow;
+@property (nonatomic, strong) UIActionSheet *actionSheet;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) BOOL showConfirmButton;
+
+@property (nonatomic, assign) CGFloat rowHeight;
 
 @end
 
@@ -26,7 +29,6 @@
 {
     if (self = [super init])
     {
-        self.selectedRow = -1;
     }
     
     return self;
@@ -43,73 +45,117 @@
     self.cancelledHandler = cancelledHandler;
     
     //TO-DO
-    NSString *title = @"\n\n\n\n\n\n\n\n\n";
+    NSInteger maxRow = 5;
+    NSInteger minRow = 2;
+    NSInteger itemRows = dataModel ? [dataModel count] : 0;
+    if (itemRows > maxRow) itemRows = maxRow;
+    else if (itemRows < minRow) itemRows = minRow;
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: title
-                                                             delegate: self
-                                                    cancelButtonTitle: @"取消"
-                                               destructiveButtonTitle: nil
-                                                    otherButtonTitles: @"确定", nil];
-    if (!_pickerView)
+    NSMutableString *title = [[NSMutableString alloc] init];
+    for (NSInteger i = 0; i < itemRows; i++)
     {
-        //TO-DO
-        CGFloat height = 160;
-        CGRect rect = CGRectMake(0, 0, view.frame.size.width, height);
-        
-        _pickerView = [[UIPickerView alloc] initWithFrame: rect];
-        _pickerView.showsSelectionIndicator = YES;
-//        //TO-DO
-//        _pickerView.backgroundColor = [UIColor redColor];
-//        _pickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//        [_pickerView setFrame: rect];
-        _pickerView.dataSource = self;
-        _pickerView.delegate = self;
+        [title appendString: @"\n\n"];
     }
     
-    if (selectedRow < 0 || selectedRow >= [dataModel count])
-        self.selectedRow = 0;
-    else
-        self.selectedRow = selectedRow;
+    //TO-DO:
+    self.showConfirmButton = NO;
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle: title
+                                                   delegate: self
+                                          cancelButtonTitle: @"取消"
+                                     destructiveButtonTitle: nil
+                                          otherButtonTitles: nil, nil];
+                                          //otherButtonTitles: @"确定", nil];
+    [_actionSheet showInView: view];
     
-    [_pickerView selectRow: self.selectedRow inComponent: 0 animated: YES];
+    if (!_tableView)
+    {
+        UIView *titleView = nil;
+        for (UIView *subView in _actionSheet.subviews)
+        {
+            if ([subView isMemberOfClass: [UILabel class]])
+            {
+                titleView = subView;
+                
+                break;
+            }
+        }
+        if (!titleView) titleView = [[UIView alloc] initWithFrame: CGRectMake(16, 15, 288, 160)];
+        CGRect titleRect = titleView.frame;
+        
+        CGFloat contentHeight = titleRect.origin.y * 2 + titleRect.size.height;
+        self.rowHeight = contentHeight / itemRows;
     
-    [actionSheet addSubview: _pickerView];
-    [actionSheet showInView: view];
+        //TO-DO
+        CGRect rect = CGRectMake(8, 0, view.frame.size.width - 16, contentHeight);
+        
+        _tableView = [[UITableView alloc] initWithFrame: rect style: UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+    }
+    [_actionSheet addSubview: _tableView];
+    [_tableView reloadData];
+    
+    if (selectedRow >= 0)
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow: selectedRow inSection: 0];
+        
+        [_tableView selectRowAtIndexPath: indexPath animated: NO scrollPosition: UITableViewScrollPositionMiddle];
+    }
+    
+    [_tableView flashScrollIndicators];
 }
 
+#pragma mark - table view datasource
 
-#pragma mark - UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView: (UIPickerView *)pickerView
+- (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
 {
     return 1;
 }
 
-- (NSInteger)pickerView: (UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
+- (NSInteger) tableView: (UITableView *)tableView numberOfRowsInSection: (NSInteger)section;
 {
-    return _dataModel ? [_dataModel count] : 0;
+    return (section == 0) ? _dataModel.count : 0;
 }
 
-#pragma mark - UIPickerViewDelegate
-- (NSString*) pickerView: (UIPickerView *)pickerView titleForRow: (NSInteger)row forComponent: (NSInteger)component;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [_dataModel objectAtIndex: row];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: nil];
+    
+    cell.textLabel.text = [_dataModel objectAtIndex: indexPath.row];
+    
+    return cell;
 }
 
-- (void) pickerView: (UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent: (NSInteger)component
+#pragma mark - table view delegate
+
+- (CGFloat) tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
 {
-    _selectedRow = row;
+    return _rowHeight;//44;
+}
+
+- (void) tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    if (!_showConfirmButton)
+    {
+        [_actionSheet dismissWithClickedButtonIndex: -1 animated: YES];
+        
+        if (_selectedHandler)
+            _selectedHandler(indexPath.row);
+    }
 }
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0 && _selectedRow != -1)
+    if (_showConfirmButton && buttonIndex == 0)
     {
-        _selectedHandler(_selectedRow);
+        if (_selectedHandler)
+            _selectedHandler(_tableView.indexPathForSelectedRow.row);
     }
     else
     {
-        _cancelledHandler();
+        if (_cancelledHandler)
+            _cancelledHandler();
     }
 }
 
