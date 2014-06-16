@@ -358,6 +358,8 @@
 
 - (void) submitAction: (id)sender
 {
+    [self tapOutsideKeyboardAction];
+    
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent;
     

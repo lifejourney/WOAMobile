@@ -42,6 +42,7 @@
  
  */
 /**issue
+ 0. 内存
  1. length for account and password
  2. http request error for login fail, session invalid
  3. protocol:
@@ -151,5 +152,5 @@
  6.13: 8h
  6.14: 3h
  6.15: 8h
- 6.16: 6h
+ 6.16: 7h
 */
