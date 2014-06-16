@@ -11,6 +11,7 @@
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
 #import "WOAFlowController.h"
+#import "NSData+HexadecimalRepresentation.h"
 
 
 @interface WOAAppDelegate ()
@@ -93,11 +94,21 @@
 
 - (void) application: (UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken: (NSData *)deviceToken
 {
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken");
+    //TO-DO: resend login when changed?
+    //TO-DO: resend login when nil -> string
+    
+    if (self.sessionID && !self.deviceToken)
+    {
+        NSLog(@"get device token after login: %@", _deviceToken);
+    }
+    
+    self.deviceToken = [deviceToken hexadecimalRepresentation];
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToke: %@", _deviceToken);
 }
 
 - (void) application: (UIApplication *)application didFailToRegisterForRemoteNotificationsWithError: (NSError *)error
 {
+    //TO-DO: resend login?
     self.deviceToken = nil;
     
     NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
