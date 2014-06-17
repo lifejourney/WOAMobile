@@ -247,6 +247,14 @@
     }
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if ([searchBar isFirstResponder])
+    {
+        [searchBar resignFirstResponder];
+    }
+}
+
 #pragma mark - WOAStartWorkflowActionReqeust
 - (void) parseResponseContent: (NSDictionary*)content
 {
