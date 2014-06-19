@@ -22,6 +22,10 @@
             msgType = @"login";
             break;
             
+        case WOAFLowActionType_Logout:
+            msgType = @"logout";
+            break;
+            
         case WOAFLowActionType_GetWorkflowTypeList:
             msgType = @"getTableList";
             break;
@@ -108,6 +112,15 @@
     //TO-DO
     //[dict setValue:  forKey: @"checkSum"];
     [dict setValue: deviceToken forKey: @"deviceToken"];
+    
+    return dict;
+}
+
++ (NSDictionary*) packetForLogout
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_Logout] forKey: @"head"];
     
     return dict;
 }

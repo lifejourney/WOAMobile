@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, WOAFLowActionType)
 {
     WOAFLowActionType_None,
     WOAFLowActionType_Login,
+    WOAFLowActionType_Logout,
     WOAFLowActionType_GetWorkflowTypeList,
     WOAFLowActionType_GetWorkflowTypeDetail,
     WOAFLowActionType_InitiateWorkflow,

@@ -44,6 +44,7 @@
 		DC8B09AA193B89B800217F45 /* WOASession.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B0990193B89B800217F45 /* WOASession.m */; };
 		DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */; };
 		DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */; };
+		DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */; };
 		DCA7A27019490E48000D7EBE /* VSActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
@@ -133,6 +134,8 @@
 		DC8B099A193B89B800217F45 /* WOAWorkflowFormListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowFormListViewController.m; sourceTree = "<group>"; };
 		DC8B099B193B89B800217F45 /* WOAWorkflowTypeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAWorkflowTypeListViewController.h; sourceTree = "<group>"; };
 		DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAWorkflowTypeListViewController.m; sourceTree = "<group>"; };
+		DC8F5B38195397B400C0688C /* UIColor+AppTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppTheme.h"; sourceTree = "<group>"; };
+		DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppTheme.m"; sourceTree = "<group>"; };
 		DCA7A26E19490E48000D7EBE /* VSActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSActionSheetPickerView.h; sourceTree = "<group>"; };
 		DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSActionSheetPickerView.m; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */,
 				43460A6B194EACE000E9CDDE /* NSData+HexadecimalRepresentation.h */,
 				43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */,
+				DC8F5B38195397B400C0688C /* UIColor+AppTheme.h */,
+				DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -441,6 +446,7 @@
 				DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
 				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
+				DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
 				DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */,
 				DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */,

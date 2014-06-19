@@ -21,6 +21,7 @@
 + (NSDictionary*) packetForLogin: (NSString*)accountID
                         password: (NSString*)password
                      deviceToken: (NSString*)deviceToken;
++ (NSDictionary*) packetForLogout;
 + (NSDictionary*) packetForWorkflowTypeList;
 + (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID;
 + (NSDictionary*) packetForItemWithKey: (NSString*)key

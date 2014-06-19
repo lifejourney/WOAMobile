@@ -14,7 +14,6 @@
 
 @interface WOALoginViewController () <UITextFieldDelegate>
 
-@property (nonatomic, strong) IBOutlet UILabel *appTitleLabel;
 @property (nonatomic, strong) IBOutlet UITextField *accountTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
@@ -70,6 +69,10 @@
 {
     [super viewDidLoad];
     
+    //TO-DO
+    //self.accountTextField.leftView = [UIImage imageNamed: @""];
+    //self.passwordTextField.leftView = [UIImage imageNamed: @""];
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapOutsideKeyboardAction)];
     [self.view addGestureRecognizer: tapGesture];
     
@@ -95,6 +98,7 @@
 {
     NSString *resultString = [textField.text stringByReplacingCharactersInRange: range withString: string];
     
+    //TO-DO
     if ([resultString length] > 0)
     {
         
@@ -108,6 +112,10 @@
     if (textField == self.accountTextField)
     {
         [self.passwordTextField becomeFirstResponder];
+    }
+    else if (textField == self.passwordTextField)
+    {
+        [self onLoginAction: self.loginButton];
     }
     
     return YES;

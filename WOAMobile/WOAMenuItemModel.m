@@ -11,13 +11,17 @@
 
 @implementation WOAMenuItemModel
 
-+ (WOAMenuItemModel*) menuItemModel: (NSString*)itemID title: (NSString*)title imageName: (NSString*)imageName
++ (WOAMenuItemModel*) menuItemModel: (NSString*)itemID
+                              title: (NSString*)title
+                          imageName: (NSString*)imageName
+                      showAccessory: (BOOL)showAccessory
 {
     WOAMenuItemModel *item = [[WOAMenuItemModel alloc] init];
     
     item.itemID = itemID;
     item.title = title;
     item.imageName = imageName;
+    item.showAccessory = showAccessory;
     
     return item;
 }

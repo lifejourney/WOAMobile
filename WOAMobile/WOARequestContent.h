@@ -18,6 +18,7 @@
 + (WOARequestContent*) contentForLogin: (NSString*)accountID
                               password: (NSString*)password
                            deviceToken: (NSString*)deviceToken;
++ (WOARequestContent*) contentForLogout;
 + (WOARequestContent*) contentForWorkflowTypeList;
 + (WOARequestContent*) contentForWorkflowTypeDetail: (NSString*)tableID;
 + (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID

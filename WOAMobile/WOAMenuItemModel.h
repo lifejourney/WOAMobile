@@ -14,7 +14,11 @@
 @property (nonatomic, copy) NSString *itemID;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *imageName;
+@property (nonatomic, assign) BOOL showAccessory;
 
-+ (WOAMenuItemModel*) menuItemModel: (NSString*)itemID title: (NSString*)title imageName: (NSString*)imageName;
++ (WOAMenuItemModel*) menuItemModel: (NSString*)itemID
+                              title: (NSString*)title
+                          imageName: (NSString*)imageName
+                      showAccessory: (BOOL)showAccessory;
 
 @end

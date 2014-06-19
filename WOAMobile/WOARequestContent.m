@@ -32,6 +32,15 @@
     return content;
 }
 
++ (WOARequestContent*) contentForLogout
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_Logout];
+    
+    content.bodyDictionary = [WOAPacketHelper packetForLogout];
+    
+    return content;
+}
+
 + (WOARequestContent*) contentForWorkflowTypeList
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowTypeList];
