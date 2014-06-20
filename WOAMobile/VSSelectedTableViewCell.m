@@ -33,7 +33,7 @@
 }
 
 - (instancetype) initWithStyle: (UITableViewCellStyle)style
-               reuseIdentifier:(NSString *)reuseIdentifier
+               reuseIdentifier: (NSString *)reuseIdentifier
                        section: (NSInteger)section
                            row: (NSInteger)row
                       delegate: (NSObject<VSSelectedTableViewCellDelegate>*)delegate

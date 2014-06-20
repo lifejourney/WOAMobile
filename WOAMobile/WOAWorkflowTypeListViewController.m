@@ -11,13 +11,16 @@
 #import "WOAAppDelegate.h"
 #import "WOAPacketHelper.h"
 #import "WOAWorkflowDetailViewController.h"
+#import "VSPopoverController.h"
+#import "WOAListViewController.h"
 
 
-@interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate, WOAListViewControllerDelegate, VSPopoverControllerDelegate>
 
 @property (nonatomic, strong) UILabel *selectedCategoryLabel;
 @property (nonatomic, strong) UIButton *filterCategoryButton;
 @property (nonatomic, strong) UITableView *listView;
+@property (nonatomic, strong) VSPopoverController *filterPopoperVC;
 
 @property (nonatomic, assign) NSInteger selectedCategory;
 @property (nonatomic, strong) NSArray *categoryInfoArray;
@@ -110,12 +113,6 @@
     [self.listView reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - table view datasource
 
 - (NSInteger) numberOfSectionsInTableView: (UITableView *)tableView
@@ -178,7 +175,33 @@
 
 - (void) onFilterCategoryButtonAction: (id)sender
 {
+    WOAListViewController *contentVC = [[WOAListViewController alloc] initWithItemArray: _categoryInfoArray
+                                                                               delegate: self];
     
+    self.filterPopoperVC = [[VSPopoverController alloc] initWithContentViewController: contentVC delegate: self];
+    
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *inView = window.rootViewController.view;
+    [self.filterPopoperVC presentPopoverFromRect: _filterCategoryButton.frame
+                                          inView: inView
+                        permittedArrowDirections: VSPopoverArrowDirectionUp
+                                        animated: YES];
+}
+
+- (void) listViewControllerClickOnRow: (NSInteger)row
+{
+    [self.filterPopoperVC dismissPopoverAnimated: YES];
+    
+    _listView.delegate = nil;
+    self.selectedCategory = row;
+    _listView.delegate = self;
+    
+    [_listView reloadData];
+}
+
+- (void) popoverControllerDidDismissPopover: (VSPopoverController *)popoverController
+{
+    self.filterPopoperVC = nil;
 }
 
 #pragma mark - public

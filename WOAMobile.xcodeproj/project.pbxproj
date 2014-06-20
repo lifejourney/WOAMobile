@@ -14,6 +14,12 @@
 		433B431D1953CC4A00B2D5D0 /* WOASplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433B431B1953CC4A00B2D5D0 /* WOASplashViewController.m */; };
 		4343832819485AF200F108A3 /* WOADynamicLabelTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */; };
 		43460A6D194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */; };
+		4393824919540D6100062FC9 /* VSPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393824819540D6100062FC9 /* VSPopoverBackgroundView.m */; };
+		4393824C19540E2E00062FC9 /* VSPopoverDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393824B19540E2E00062FC9 /* VSPopoverDefine.m */; };
+		4393824F195415F900062FC9 /* VSPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393824E195415F900062FC9 /* VSPopoverView.m */; };
+		4393825219541A8C00062FC9 /* VSPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825119541A8C00062FC9 /* VSPopoverController.m */; };
+		4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825419541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m */; };
+		4393825819542A2400062FC9 /* WOAListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825719542A2400062FC9 /* WOAListViewController.m */; };
 		DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
 		DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */; };
 		DC2D3FBC193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
@@ -81,6 +87,18 @@
 		4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOADynamicLabelTextField.m; sourceTree = "<group>"; };
 		43460A6B194EACE000E9CDDE /* NSData+HexadecimalRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+HexadecimalRepresentation.h"; sourceTree = "<group>"; };
 		43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+HexadecimalRepresentation.m"; sourceTree = "<group>"; };
+		4393824719540D6100062FC9 /* VSPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSPopoverBackgroundView.h; sourceTree = "<group>"; };
+		4393824819540D6100062FC9 /* VSPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPopoverBackgroundView.m; sourceTree = "<group>"; };
+		4393824A19540E2E00062FC9 /* VSPopoverDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSPopoverDefine.h; sourceTree = "<group>"; };
+		4393824B19540E2E00062FC9 /* VSPopoverDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPopoverDefine.m; sourceTree = "<group>"; };
+		4393824D195415F900062FC9 /* VSPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSPopoverView.h; sourceTree = "<group>"; };
+		4393824E195415F900062FC9 /* VSPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPopoverView.m; sourceTree = "<group>"; };
+		4393825019541A8C00062FC9 /* VSPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSPopoverController.h; sourceTree = "<group>"; };
+		4393825119541A8C00062FC9 /* VSPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSPopoverController.m; sourceTree = "<group>"; };
+		4393825319541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+VSPopoverViewController.h"; sourceTree = "<group>"; };
+		4393825419541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+VSPopoverViewController.m"; sourceTree = "<group>"; };
+		4393825619542A2400062FC9 /* WOAListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAListViewController.h; sourceTree = "<group>"; };
+		4393825719542A2400062FC9 /* WOAListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAListViewController.m; sourceTree = "<group>"; };
 		DC19B9AD194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DC19B9AE194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +310,18 @@
 				DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */,
 				433B431A1953CC4A00B2D5D0 /* WOASplashViewController.h */,
 				433B431B1953CC4A00B2D5D0 /* WOASplashViewController.m */,
+				4393824A19540E2E00062FC9 /* VSPopoverDefine.h */,
+				4393824B19540E2E00062FC9 /* VSPopoverDefine.m */,
+				4393824719540D6100062FC9 /* VSPopoverBackgroundView.h */,
+				4393824819540D6100062FC9 /* VSPopoverBackgroundView.m */,
+				4393824D195415F900062FC9 /* VSPopoverView.h */,
+				4393824E195415F900062FC9 /* VSPopoverView.m */,
+				4393825019541A8C00062FC9 /* VSPopoverController.h */,
+				4393825119541A8C00062FC9 /* VSPopoverController.m */,
+				4393825319541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.h */,
+				4393825419541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m */,
+				4393825619542A2400062FC9 /* WOAListViewController.h */,
+				4393825719542A2400062FC9 /* WOAListViewController.m */,
 			);
 			path = WOAMobile;
 			sourceTree = "<group>";
@@ -429,9 +459,12 @@
 				DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */,
 				DC834F3D19445FBF00C724BE /* WOALayout.m in Sources */,
 				DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */,
+				4393825219541A8C00062FC9 /* VSPopoverController.m in Sources */,
 				DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */,
 				DC8B09A1193B89B800217F45 /* WOAWorkflowDetailViewController.m in Sources */,
 				DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */,
+				4393824C19540E2E00062FC9 /* VSPopoverDefine.m in Sources */,
+				4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */,
 				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,
 				4343832819485AF200F108A3 /* WOADynamicLabelTextField.m in Sources */,
 				DC2D3FC8193A10C300069BB8 /* WOAAppDelegate.m in Sources */,
@@ -446,14 +479,17 @@
 				DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */,
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
 				433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */,
+				4393824F195415F900062FC9 /* VSPopoverView.m in Sources */,
 				DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */,
 				DC8B09A4193B89B800217F45 /* WOALoadingViewController.m in Sources */,
 				DC8B099E193B89B800217F45 /* WOAFlowDefine.m in Sources */,
+				4393825819542A2400062FC9 /* WOAListViewController.m in Sources */,
 				DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
 				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
 				DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
+				4393824919540D6100062FC9 /* VSPopoverBackgroundView.m in Sources */,
 				DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */,
 				DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */,
 				43460A6D194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m in Sources */,
