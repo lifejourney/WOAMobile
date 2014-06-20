@@ -136,6 +136,8 @@
     NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
     
     cell.textLabel.text = [self.tableInfoDictionary objectForKey: [selectedTables objectAtIndex: indexPath.row]];
+    //TO-DO: backgroundView?
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyColor] : [UIColor listLightColor];
     
     return cell;
 }

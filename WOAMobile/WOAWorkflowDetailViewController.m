@@ -89,7 +89,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectZero];
     titleLabel.text = @"";
-    titleLabel.backgroundColor = [UIColor blackColor];
+    titleLabel.backgroundColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.1];
     
     CGFloat splitTopMargin = 4;
     CGRect titleRect = CGRectMake(fromOrigin.x, fromOrigin.y + splitTopMargin, sizeWidth, 1);

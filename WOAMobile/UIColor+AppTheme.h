@@ -14,5 +14,7 @@
 + (UIColor*) mainColor;
 + (UIColor*) textNormalColor;
 + (UIColor*) textHighlightedColor;
++ (UIColor*) listLightColor;
++ (UIColor*) listHeavyColor;
 
 @end

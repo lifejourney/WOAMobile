@@ -85,9 +85,9 @@
                                       selfRect.size.width,
                                       searchBarHeight);
     CGRect tableViewRect = CGRectMake(selfRect.origin.x,
-                                      selfRect.origin.y + contentOriginY + searchBarHeight + 1,
+                                      selfRect.origin.y + contentOriginY + searchBarHeight,
                                       selfRect.size.width,
-                                      selfRect.size.height - contentOriginY - searchBarHeight - 1);
+                                      selfRect.size.height - contentOriginY - searchBarHeight);
     
     self.searchBar = [[UISearchBar alloc] initWithFrame: searchBarRect];
     _searchBar.showsCancelButton = YES;
@@ -137,6 +137,8 @@
     
     cell.textLabel.text = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
     cell.detailTextLabel.text = [self itemDetailsFromDictionary: itemDictionary];
+    //TO-DO: backgroundView?
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyColor] : [UIColor listLightColor];
     
     return cell;
 }

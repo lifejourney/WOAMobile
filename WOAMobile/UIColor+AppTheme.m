@@ -28,4 +28,14 @@
     return [UIColor whiteColor];
 }
 
++ (UIColor*) listLightColor
+{
+    return [UIColor whiteColor];
+}
+
++ (UIColor*) listHeavyColor
+{
+    return [UIColor lightGrayColor];
+}
+
 @end
