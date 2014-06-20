@@ -177,7 +177,7 @@
     {
         WOAAboutViewController *aboutVC = [[WOAAboutViewController alloc] init];
         
-        [self presentViewController: aboutVC animated: YES completion: ^{}];
+        [self.navigationController pushViewController: aboutVC animated: YES];
     }
     else if ([itemID isEqualToString: kWOAMenuItemKey_Logout])
     {

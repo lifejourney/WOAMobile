@@ -36,18 +36,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"返回"
+                                                                          style: UIBarButtonItemStylePlain
+                                                                         target: self
+                                                                         action: @selector(backAction:)];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.navigationItem.title = @"关于我们";
 }
 
-- (void)didReceiveMemoryWarning
+- (IBAction) backAction: (id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction) onReturnAction: (id)sender
-{
-    [self dismissViewControllerAnimated: YES completion: ^{}];
+    [self.navigationController popViewControllerAnimated: YES];
 }
 
 @end
