@@ -8,13 +8,14 @@
 
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
+#import "WOASplashViewController.h"
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
 #import "WOAFlowController.h"
 #import "NSData+HexadecimalRepresentation.h"
 
 
-@interface WOAAppDelegate ()
+@interface WOAAppDelegate () <WOASplashViewControllerDelegate>
 
 @property (nonatomic, strong) WOALoadingViewController *loadingVC;
 @property (nonatomic, strong) WOALoginViewController *loginVC;
@@ -87,7 +88,10 @@
     
     [self.window makeKeyAndVisible];
     
-    [self presentLoginViewController: NO];
+    UIViewController *presentedVC = [self presentedViewController];
+    UIViewController *splashVC = [[WOASplashViewController alloc] initWithDelegate: self];
+    
+    [presentedVC presentViewController: splashVC animated: NO completion: ^{}];
     
     return YES;
 }
@@ -139,6 +143,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void) splashViewDidHiden
+{
+    [self presentLoginViewController: NO];
 }
 
 #pragma mark - Public
