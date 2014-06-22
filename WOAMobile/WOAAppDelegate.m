@@ -115,7 +115,7 @@
     //TO-DO: resend login?
     self.deviceToken = nil;
     
-    NSLog(@"didFailToRegisterForRemoteNotificationsWithError");
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError: %@", error);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

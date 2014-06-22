@@ -98,7 +98,7 @@ static BOOL isNewVersionAvailable = NO;
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate showTransparentLoadingView];
+    [appDelegate showLoadingViewController];
     
     [NSURLConnection sendAsynchronousRequest: request
                                        queue: queue
