@@ -50,6 +50,7 @@
     labelRect.origin.x = (self.view.frame.size.width - labelRect.size.width) / 2;
     labelRect.origin.y = self.view.frame.size.height - labelRect.size.height - 40;
     [versionLabel setFrame: labelRect];
+    versionLabel.textColor = [UIColor whiteColor];
     [self.view addSubview: versionLabel];
     
     [self performSelector: @selector(closeSelf) withObject: nil afterDelay: 3.0f];
