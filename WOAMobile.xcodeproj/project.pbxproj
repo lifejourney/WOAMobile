@@ -60,9 +60,9 @@
 		DCA8B6AF195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */; };
 		DCA8B6B0195CD93200C0363B /* SearchWorkFlowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */; };
 		DCA8B6B1195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */; };
-		DCA8B6B2195CD93200C0363B /* TabBarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AB195CD93200C0363B /* TabBarBg.png */; };
 		DCA8B6B3195CD93200C0363B /* TodoWorkFlowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */; };
 		DCA8B6B4195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */; };
+		DCA8B6B6195CE17B00C0363B /* NavigationBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6B5195CE17B00C0363B /* NavigationBarBg@2x.png */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
 		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
@@ -176,9 +176,9 @@
 		DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreFeatureSelectedIcon@2x.png"; sourceTree = "<group>"; };
 		DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchWorkFlowIcon@2x.png"; sourceTree = "<group>"; };
 		DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchWorkFlowSelectedIcon@2x.png"; sourceTree = "<group>"; };
-		DCA8B6AB195CD93200C0363B /* TabBarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBg.png; sourceTree = "<group>"; };
 		DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TodoWorkFlowIcon@2x.png"; sourceTree = "<group>"; };
 		DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TodoWorkFlowSelectedIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6B5195CE17B00C0363B /* NavigationBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NavigationBarBg@2x.png"; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
 		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
 		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
@@ -379,11 +379,11 @@
 		DCA8B631195B8B8800C0363B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DCA8B6B5195CE17B00C0363B /* NavigationBarBg@2x.png */,
 				DCA8B6A7195CD93200C0363B /* MoreFeatureIcon@2x.png */,
 				DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */,
 				DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */,
 				DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */,
-				DCA8B6AB195CD93200C0363B /* TabBarBg.png */,
 				DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */,
 				DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */,
 				DCA8B6A3195B951D00C0363B /* NewWorkFlowIcon@2x.png */,
@@ -471,11 +471,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
+				DCA8B6B6195CE17B00C0363B /* NavigationBarBg@2x.png in Resources */,
 				DCB3465C194BDA20006519E8 /* WOALoadingViewController.xib in Resources */,
 				DCA8B6B0195CD93200C0363B /* SearchWorkFlowIcon@2x.png in Resources */,
 				DCA8B6B1195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png in Resources */,
 				DCA8B6AF195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png in Resources */,
-				DCA8B6B2195CD93200C0363B /* TabBarBg.png in Resources */,
 				DCA8B6A6195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png in Resources */,
 				DCA8B6A5195B951D00C0363B /* NewWorkFlowIcon@2x.png in Resources */,
 				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,

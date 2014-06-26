@@ -307,26 +307,28 @@
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
     //TO-DO: Draft
+    UILabel *titleView = [WOALayout lableForNavigationTitleView: @""];
     if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
     {
-        self.navigationItem.title = @"新建工作";
+        titleView.text = @"新建工作";
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     }
     else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
     {
-        self.navigationItem.title = @"代办工作";
+        titleView.text = @"代办工作";
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     }
     else  if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
     {
-        self.navigationItem.title = @"事务查询";
+        titleView.text = @"事务查询";
         self.navigationItem.rightBarButtonItem = nil;
     }
     else
     {
-        self.navigationItem.title = @"";
+        titleView.text = @"";
         self.navigationItem.rightBarButtonItem = nil;
     }
+    self.navigationItem.titleView = titleView;
     
     
     self.scrollView = [[UIScrollView alloc] initWithFrame: self.view.frame];

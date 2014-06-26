@@ -9,6 +9,7 @@
 #import "WOASelectNextReviewerViewController.h"
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
+#import "UIColor+AppTheme.h"
 #import "WOAPacketHelper.h"
 #import "VSSelectedTableViewCell.h"
 
@@ -88,7 +89,7 @@
                                                                            style: UIBarButtonItemStylePlain
                                                                           target: self
                                                                           action: @selector(submitAction:)];
-    self.navigationItem.title = @"下一步";
+    self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"下一步"];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     

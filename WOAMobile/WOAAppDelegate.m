@@ -89,10 +89,16 @@
     
     NSDictionary *titleAttributeForNormalState = @{NSForegroundColorAttributeName: [UIColor tabbarItemNormalColor]};
     NSDictionary *titleAttributeForSelectedState = @{NSForegroundColorAttributeName: [UIColor tabbarItemSelectedColor]};
+    NSDictionary *navigationItemAttribute = @{NSForegroundColorAttributeName: [UIColor navigationItemNormalColor]};
+    
     [[UITabBarItem appearanceWhenContainedIn: [UITabBar class], nil] setTitleTextAttributes: titleAttributeForNormalState
                                                                                    forState: UIControlStateNormal];
     [[UITabBarItem appearanceWhenContainedIn: [UITabBar class], nil] setTitleTextAttributes: titleAttributeForSelectedState
                                                                                    forState: UIControlStateSelected];
+    [[UIBarButtonItem appearanceWhenContainedIn: [UINavigationBar class], nil] setTitleTextAttributes: navigationItemAttribute
+                                                                                             forState: UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedIn: [UINavigationBar class], nil] setTitleTextAttributes: navigationItemAttribute
+                                                                                             forState: UIControlStateHighlighted];
     
     [self.window makeKeyAndVisible];
     

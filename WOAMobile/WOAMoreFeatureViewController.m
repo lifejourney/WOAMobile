@@ -11,6 +11,8 @@
 #import "WOAMenuItemModel.h"
 #import "WOACheckForUpdate.h"
 #import "WOAAboutViewController.h"
+#import "WOALayout.h"
+#import "UIColor+AppTheme.h"
 
 
 #define kWOAMenuItemKey_Seperator @"seperator"
@@ -87,7 +89,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"更多";
+    self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"更多"];
     
     self.tableView = [[UITableView alloc] initWithFrame: self.view.frame style: UITableViewStylePlain];
     _tableView.delegate = self;

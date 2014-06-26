@@ -18,6 +18,11 @@
     return [UIColor orangeColor];
 }
 
++ (UIColor*) navigationItemNormalColor
+{
+    return [UIColor whiteColor];
+}
+
 + (UIColor*) tabbarItemNormalColor
 {
     return [UIColor whiteColor];

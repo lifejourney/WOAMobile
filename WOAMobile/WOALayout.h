@@ -24,4 +24,7 @@
 
 @interface WOALayout : NSObject
 
++ (CGRect) rectForNavigationTitleView;
++ (UILabel*) lableForNavigationTitleView: (NSString*)text;
+
 @end

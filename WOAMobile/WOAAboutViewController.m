@@ -7,6 +7,9 @@
 //
 
 #import "WOAAboutViewController.h"
+#import "WOALayout.h"
+#import "UIColor+AppTheme.h"
+
 
 @interface WOAAboutViewController ()
 
@@ -42,7 +45,7 @@
                                                                          target: self
                                                                          action: @selector(backAction:)];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    self.navigationItem.title = @"关于我们";
+    self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"关于我们"];
 }
 
 - (IBAction) backAction: (id)sender

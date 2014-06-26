@@ -51,25 +51,26 @@
 {
     [super viewDidLoad];
     
-    NSString *navigationTitle = @"";
+    UILabel *titleView = [WOALayout lableForNavigationTitleView: @""];
+    
     switch (self.listActionType)
     {
         case WOAFLowActionType_GetTodoWorkflowList:
-            navigationTitle = @"代办事项";
+            titleView.text = @"代办事项";
             break;
             
         case WOAFLowActionType_GetHistoryWorkflowList:
-            navigationTitle = @"查询";
+            titleView.text = @"查询";
             break;
         case WOAFLowActionType_GetDraftWorkflowList:
-            navigationTitle = @"草稿箱";
+            titleView.text = @"草稿箱";
             break;
             
         default:
             break;
     }
     
-    self.navigationItem.title = navigationTitle;
+    self.navigationItem.titleView = titleView;
     
     //TO-DO
     CGFloat contentOriginY = [self.topLayoutGuide length];
