@@ -45,29 +45,46 @@
 {
     if (self = [self initWithNibName: nil bundle: nil])
     {
+        self.tabBar.backgroundImage = [UIImage imageNamed: @"TabBarBg"];
+        
         self.vcArray = [[NSMutableArray alloc] init];
+        
+        UITabBarItem *typeListItem = [[UITabBarItem alloc] initWithTitle: @"新建"
+                                                                   image: [[UIImage imageNamed: @"NewWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
+                                                           selectedImage: [[UIImage imageNamed: @"NewWorkFlowSelectedIcon"]  imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
+        
+        UITabBarItem *todoItem = [[UITabBarItem alloc] initWithTitle: @"代办"
+                                                               image: [[UIImage imageNamed: @"TodoWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
+                                                       selectedImage: [[UIImage imageNamed: @"TodoWorkFlowSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
+        
+        UITabBarItem *historyItem = [[UITabBarItem alloc] initWithTitle: @"搜索"
+                                                                  image: [[UIImage imageNamed: @"SearchWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
+                                                          selectedImage: [[UIImage imageNamed: @"SearchWorkFlowSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
+        
+        UITabBarItem *moreItem = [[UITabBarItem alloc] initWithTitle: @"更多"
+                                                               image: [[UIImage imageNamed: @"MoreFeatureIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
+                                                       selectedImage: [[UIImage imageNamed: @"MoreFeatureSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
         
         WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
         _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
-        _initiateWorkflowNavC.tabBarItem.title = @"新建";
+        _initiateWorkflowNavC.tabBarItem = typeListItem;
         [self.vcArray addObject: _initiateWorkflowNavC];
         
         WOAWorkflowFormListViewController *todoListVC = [[WOAWorkflowFormListViewController alloc] init];
         todoListVC.listActionType = WOAFLowActionType_GetTodoWorkflowList;
         _todoWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: todoListVC];
-        _todoWorkflowNavC.tabBarItem.title = @"代办";
+        _todoWorkflowNavC.tabBarItem = todoItem;
         [self.vcArray addObject: _todoWorkflowNavC];
         
         WOAWorkflowFormListViewController *historyListVC = [[WOAWorkflowFormListViewController alloc] init];
         historyListVC.listActionType = WOAFLowActionType_GetHistoryWorkflowList;
         _appliedWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: historyListVC];
-        _appliedWorkflowNavC.tabBarItem.title = @"搜索";
+        _appliedWorkflowNavC.tabBarItem = historyItem;
         [self.vcArray addObject: _appliedWorkflowNavC];
         
         WOAMoreFeatureViewController *moreFeatureVC = [[WOAMoreFeatureViewController alloc] init];
-        moreFeatureVC.navigationItem.title = @"更多";
         _moreFeatureNavC = [[UINavigationController alloc] initWithRootViewController: moreFeatureVC];
-        _moreFeatureNavC.tabBarItem.title = @"更多";
+        _moreFeatureNavC.tabBarItem = moreItem;
         [self.vcArray addObject: _moreFeatureNavC];
         
         self.delegate = self;

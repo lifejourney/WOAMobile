@@ -53,6 +53,16 @@
 		DC8B09B0193B89B800217F45 /* WOAWorkflowTypeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8B099C193B89B800217F45 /* WOAWorkflowTypeListViewController.m */; };
 		DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */; };
 		DCA7A27019490E48000D7EBE /* VSActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */; };
+		DCA8B6A2195B8C8E00C0363B /* TabBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A1195B8C8E00C0363B /* TabBarBg@2x.png */; };
+		DCA8B6A5195B951D00C0363B /* NewWorkFlowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A3195B951D00C0363B /* NewWorkFlowIcon@2x.png */; };
+		DCA8B6A6195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A4195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png */; };
+		DCA8B6AE195CD93200C0363B /* MoreFeatureIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A7195CD93200C0363B /* MoreFeatureIcon@2x.png */; };
+		DCA8B6AF195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */; };
+		DCA8B6B0195CD93200C0363B /* SearchWorkFlowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */; };
+		DCA8B6B1195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */; };
+		DCA8B6B2195CD93200C0363B /* TabBarBg.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AB195CD93200C0363B /* TabBarBg.png */; };
+		DCA8B6B3195CD93200C0363B /* TodoWorkFlowIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */; };
+		DCA8B6B4195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
 		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
@@ -159,6 +169,16 @@
 		DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppTheme.m"; sourceTree = "<group>"; };
 		DCA7A26E19490E48000D7EBE /* VSActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSActionSheetPickerView.h; sourceTree = "<group>"; };
 		DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSActionSheetPickerView.m; sourceTree = "<group>"; };
+		DCA8B6A1195B8C8E00C0363B /* TabBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarBg@2x.png"; sourceTree = "<group>"; };
+		DCA8B6A3195B951D00C0363B /* NewWorkFlowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewWorkFlowIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6A4195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewWorkFlowSelectedIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6A7195CD93200C0363B /* MoreFeatureIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreFeatureIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreFeatureSelectedIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchWorkFlowIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchWorkFlowSelectedIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6AB195CD93200C0363B /* TabBarBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarBg.png; sourceTree = "<group>"; };
+		DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TodoWorkFlowIcon@2x.png"; sourceTree = "<group>"; };
+		DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TodoWorkFlowSelectedIcon@2x.png"; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
 		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
 		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
@@ -239,6 +259,7 @@
 			children = (
 				DC2D3FC6193A10C300069BB8 /* WOAAppDelegate.h */,
 				DC2D3FC7193A10C300069BB8 /* WOAAppDelegate.m */,
+				DCA8B631195B8B8800C0363B /* Resource */,
 				DC2D3FC9193A10C300069BB8 /* Images.xcassets */,
 				DC2D3FBE193A10C300069BB8 /* Supporting Files */,
 				DC834F3B19445FBF00C724BE /* WOALayout.h */,
@@ -355,6 +376,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DCA8B631195B8B8800C0363B /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DCA8B6A7195CD93200C0363B /* MoreFeatureIcon@2x.png */,
+				DCA8B6A8195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png */,
+				DCA8B6A9195CD93200C0363B /* SearchWorkFlowIcon@2x.png */,
+				DCA8B6AA195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png */,
+				DCA8B6AB195CD93200C0363B /* TabBarBg.png */,
+				DCA8B6AC195CD93200C0363B /* TodoWorkFlowIcon@2x.png */,
+				DCA8B6AD195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png */,
+				DCA8B6A3195B951D00C0363B /* NewWorkFlowIcon@2x.png */,
+				DCA8B6A4195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png */,
+				DCA8B6A1195B8C8E00C0363B /* TabBarBg@2x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -434,9 +472,19 @@
 			files = (
 				DC2D3FC2193A10C300069BB8 /* InfoPlist.strings in Resources */,
 				DCB3465C194BDA20006519E8 /* WOALoadingViewController.xib in Resources */,
+				DCA8B6B0195CD93200C0363B /* SearchWorkFlowIcon@2x.png in Resources */,
+				DCA8B6B1195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png in Resources */,
+				DCA8B6AF195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png in Resources */,
+				DCA8B6B2195CD93200C0363B /* TabBarBg.png in Resources */,
+				DCA8B6A6195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png in Resources */,
+				DCA8B6A5195B951D00C0363B /* NewWorkFlowIcon@2x.png in Resources */,
 				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,
 				DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */,
+				DCA8B6B3195CD93200C0363B /* TodoWorkFlowIcon@2x.png in Resources */,
 				DC2D3FCA193A10C300069BB8 /* Images.xcassets in Resources */,
+				DCA8B6A2195B8C8E00C0363B /* TabBarBg@2x.png in Resources */,
+				DCA8B6B4195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png in Resources */,
+				DCA8B6AE195CD93200C0363B /* MoreFeatureIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

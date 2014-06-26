@@ -13,6 +13,7 @@
 #import "WOALoadingViewController.h"
 #import "WOAFlowController.h"
 #import "NSData+HexadecimalRepresentation.h"
+#import "UIColor+AppTheme.h"
 
 
 @interface WOAAppDelegate () <WOASplashViewControllerDelegate>
@@ -85,6 +86,13 @@
     
     UIRemoteNotificationType apnsType = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: apnsType];
+    
+    NSDictionary *titleAttributeForNormalState = @{NSForegroundColorAttributeName: [UIColor tabbarItemNormalColor]};
+    NSDictionary *titleAttributeForSelectedState = @{NSForegroundColorAttributeName: [UIColor tabbarItemSelectedColor]};
+    [[UITabBarItem appearanceWhenContainedIn: [UITabBar class], nil] setTitleTextAttributes: titleAttributeForNormalState
+                                                                                   forState: UIControlStateNormal];
+    [[UITabBarItem appearanceWhenContainedIn: [UITabBar class], nil] setTitleTextAttributes: titleAttributeForSelectedState
+                                                                                   forState: UIControlStateSelected];
     
     [self.window makeKeyAndVisible];
     

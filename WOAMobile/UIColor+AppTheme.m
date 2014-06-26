@@ -18,6 +18,16 @@
     return [UIColor orangeColor];
 }
 
++ (UIColor*) tabbarItemNormalColor
+{
+    return [UIColor whiteColor];
+}
+
++ (UIColor*) tabbarItemSelectedColor
+{
+    return [UIColor colorWithRed: 231/255.f green: 222/255.f blue: 127/255.f alpha: 1.0];
+}
+
 + (UIColor*) textNormalColor
 {
     return [UIColor blackColor];
