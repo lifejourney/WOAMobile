@@ -11,11 +11,14 @@
 
 @implementation UIColor (AppTheme)
 
-+ (UIColor*) mainColor
++ (UIColor*) mainItemBgColor
 {
-    //TO-DO
-    //return [UIColor colorWithRed:  green:  blue:  alpha: ];
-    return [UIColor orangeColor];
+    return [UIColor colorWithRed: 242/255.f green: 90/255.f blue: 41/255.f alpha: 1.0];
+}
+
++ (UIColor*) mainItemColor
+{
+    return [UIColor whiteColor];
 }
 
 + (UIColor*) navigationItemNormalColor

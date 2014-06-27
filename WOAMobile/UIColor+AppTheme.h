@@ -11,7 +11,8 @@
 
 @interface UIColor (AppTheme)
 
-+ (UIColor*) mainColor;
++ (UIColor*) mainItemBgColor;
++ (UIColor*) mainItemColor;
 + (UIColor*) navigationItemNormalColor;
 + (UIColor*) tabbarItemNormalColor;
 + (UIColor*) tabbarItemSelectedColor;

@@ -146,8 +146,8 @@
     cell.textLabel.text = itemModel.title;
     cell.accessoryType = itemModel.showAccessory ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
-    cell.selectedBackgroundView.backgroundColor = [UIColor mainColor];
-    cell.textLabel.highlightedTextColor = [UIColor textHighlightedColor];
+    cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
+    cell.textLabel.highlightedTextColor = [UIColor mainItemColor];
     
     return cell;
 }

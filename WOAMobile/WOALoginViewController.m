@@ -7,6 +7,7 @@
 //
 
 #import "WOALoginViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
 #import "WOAPropertyInfo.h"
@@ -69,9 +70,25 @@
 {
     [super viewDidLoad];
     
-    //TO-DO
-    //self.accountTextField.leftView = [UIImage imageNamed: @""];
-    //self.passwordTextField.leftView = [UIImage imageNamed: @""];
+    UIColor *boderColor = [UIColor colorWithRed: 128/255.f green: 130/255.f blue: 133/255.f alpha: 1.0];
+    UIColor *textColor = [UIColor colorWithRed: 199/255.f green: 199/255.f blue: 201/255.f alpha: 1.0];
+    UIColor *bgColor = [UIColor colorWithRed: 241/255.f green: 239/255.f blue: 237/255.f alpha: 1.0];
+    
+    _accountTextField.layer.borderColor = [boderColor CGColor];
+    _accountTextField.layer.borderWidth = 1.0;
+    _accountTextField.textColor = textColor;
+    _accountTextField.backgroundColor = bgColor;
+    _accountTextField.leftViewMode = UITextFieldViewModeAlways;
+    _accountTextField.leftView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"AccountIcon"]];
+    
+    _passwordTextField.layer.borderColor = boderColor.CGColor;
+    _passwordTextField.layer.borderWidth = 1.0;
+    _passwordTextField.textColor = textColor;
+    _passwordTextField.backgroundColor = bgColor;
+    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    _passwordTextField.leftView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"PasswordIcon"]];
+    
+    [_loginButton setTitleColor: [UIColor mainItemColor] forState: UIControlStateNormal];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapOutsideKeyboardAction)];
     [self.view addGestureRecognizer: tapGesture];
@@ -79,13 +96,13 @@
     NSString *latestAccountID = [WOAPropertyInfo latestLoginAccountID];
     if (latestAccountID)
     {
-        self.accountTextField.text = latestAccountID;
+        _accountTextField.text = latestAccountID;
     }
     
-    if ([self.accountTextField.text length] > 0)
-        [self.passwordTextField becomeFirstResponder];
+    if ([_accountTextField.text length] > 0)
+        [_passwordTextField becomeFirstResponder];
     else
-        [self.accountTextField becomeFirstResponder];
+        [_accountTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
