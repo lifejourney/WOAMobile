@@ -40,11 +40,7 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"返回"
-                                                                          style: UIBarButtonItemStylePlain
-                                                                         target: self
-                                                                         action: @selector(backAction:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [WOALayout backBarButtonItemWithTarget: self action: @selector(backAction:)];
     self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"关于我们"];
 }
 

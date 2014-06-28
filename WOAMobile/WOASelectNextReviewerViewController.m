@@ -80,17 +80,12 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"返回"
-                                                                          style: UIBarButtonItemStylePlain
-                                                                         target: self
-                                                                         action: @selector(backAction:)];
-    
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"提交"
                                                                            style: UIBarButtonItemStylePlain
                                                                           target: self
                                                                           action: @selector(submitAction:)];
     self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"下一步"];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [WOALayout backBarButtonItemWithTarget: self action: @selector(backAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     self.tableView = [[UITableView alloc] initWithFrame: self.view.frame style: UITableViewStyleGrouped];

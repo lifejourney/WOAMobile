@@ -26,5 +26,6 @@
 
 + (CGRect) rectForNavigationTitleView;
 + (UILabel*) lableForNavigationTitleView: (NSString*)text;
++ (UIBarButtonItem*) backBarButtonItemWithTarget:(id)target action:(SEL)action;
 
 @end

@@ -66,4 +66,9 @@
     return [UIColor mainItemBgColor];
 }
 
++ (UIColor*) workflowTitleViewBgColor
+{
+    return [UIColor colorWithRed: 239/255.f green: 161/255.f blue: 25/255.f alpha: 1.0f];
+}
+
 @end

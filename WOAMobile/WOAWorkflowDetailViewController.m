@@ -73,6 +73,8 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectZero];
     titleLabel.text = self.tableName;
     titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.backgroundColor = [UIColor workflowTitleViewBgColor];
+    titleLabel.textColor = [UIColor textHighlightedColor];
     
     CGRect titleRect = CGRectMake(fromOrigin.x, fromOrigin.y, sizeWidth, kWOALayout_ItemCommonHeight);
     [titleLabel setFrame: titleRect];
@@ -162,8 +164,8 @@
     CGFloat contentWidth = scrollView.frame.size.width - kWOALayout_DefaultLeftMargin - kWOALayout_DefaultRightMargin;
     
     totalHeight += [self createTitleLabelInView: scrollView
-                                     fromOrigin: CGPointMake(kWOALayout_DefaultLeftMargin, totalHeight)
-                                      sizeWidth: contentWidth];
+                                     fromOrigin: CGPointMake(0, totalHeight)
+                                      sizeWidth: scrollView.frame.size.width];
     totalHeight += [self createDynamicWorkflowItemInView: scrollView
                                               fromOrigin: CGPointMake(kWOALayout_DefaultLeftMargin, totalHeight)
                                                sizeWidth: contentWidth];
@@ -295,16 +297,11 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"返回"
-                                                                          style: UIBarButtonItemStylePlain
-                                                                         target: self
-                                                                         action: @selector(backAction:)];
-    
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"提交"
                                                                            style: UIBarButtonItemStylePlain
                                                                           target: self
                                                                           action: @selector(submitAction:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.navigationItem.leftBarButtonItem = [WOALayout backBarButtonItemWithTarget: self action: @selector(backAction:)];
     
     //TO-DO: Draft
     UILabel *titleView = [WOALayout lableForNavigationTitleView: @""];

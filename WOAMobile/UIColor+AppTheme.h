@@ -22,5 +22,6 @@
 + (UIColor*) listLightBgColor;
 + (UIColor*) listDarkBgColor;
 + (UIColor*) listSelectedBgColor;
++ (UIColor*) workflowTitleViewBgColor;
 
 @end
