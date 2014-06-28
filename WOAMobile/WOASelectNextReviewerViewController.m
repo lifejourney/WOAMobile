@@ -19,6 +19,7 @@
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, strong) NSArray *groupNameArray;
 @property (nonatomic, strong) NSArray *groupItemArray;
+@property (nonatomic, strong) NSMutableArray *statusArray;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -51,6 +52,7 @@
         
         NSMutableArray *groupNameArray = [[NSMutableArray alloc] init];
         NSMutableArray *groupItemArray = [[NSMutableArray alloc] init];
+        self.statusArray = [[NSMutableArray alloc] init];
         
         for (NSDictionary *groupDictionary in accountGroupsArray)
         {
@@ -65,6 +67,13 @@
             
             [groupNameArray addObject: key];
             [groupItemArray addObject: valueArray];
+            
+            NSMutableArray *selectedArray = [[NSMutableArray alloc] initWithCapacity: [valueArray count]];
+            for (NSUInteger i = 0; i < [valueArray count]; i++)
+            {
+                [selectedArray addObject: [NSNumber numberWithBool: NO]];
+            }
+            [_statusArray addObject: selectedArray];
         }
         
         self.groupNameArray = groupNameArray;
@@ -92,7 +101,6 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.allowsMultipleSelection = YES;
     _tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview: _tableView];
     
@@ -110,10 +118,46 @@
     [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
+- (BOOL) statusFromIndexPath: (NSIndexPath*)indexPath
+{
+    NSArray *items = [_statusArray objectAtIndex: indexPath.section];
+    NSNumber *status = [items objectAtIndex: indexPath.row];
+    
+    return [status boolValue];
+}
+
+- (void) setStatus: (BOOL)status forIndexPath: (NSIndexPath*)indexPath
+{
+    NSMutableArray *items = [_statusArray objectAtIndex: indexPath.section];
+    
+    [items replaceObjectAtIndex: indexPath.row withObject: [NSNumber numberWithBool: status]];
+}
+
+- (NSArray*) indexPathsForSelectedRows
+{
+    NSMutableArray *selectedArray = [[NSMutableArray alloc] init];
+    
+    for (NSUInteger section = 0; section < [_statusArray count]; section++)
+    {
+        NSArray *items = [_statusArray objectAtIndex: section];
+        
+        NSNumber *status;
+        for (NSUInteger row = 0; row < [items count]; row++)
+        {
+            status = [items objectAtIndex: row];
+            
+            if ([status boolValue])
+                [selectedArray addObject: [NSIndexPath indexPathForRow: row inSection: section]];
+        }
+    }
+    
+    return selectedArray;
+}
+
 - (void) submitAction: (id)sender
 {
     NSMutableArray *selectedAccountArray = [[NSMutableArray alloc] init];
-    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows)
+    for (NSIndexPath *indexPath in [self indexPathsForSelectedRows])
     {
         NSArray *itemArray = [self.groupItemArray objectAtIndex: indexPath.section];
         NSDictionary *itemDictionary = [itemArray objectAtIndex: indexPath.row];
@@ -187,12 +231,19 @@
                                           reuseIdentifier: nil
                                                   section: indexPath.section
                                                       row: indexPath.row
+                                            checkedButton: [self statusFromIndexPath: indexPath]
                                                  delegate: self];
     
     NSArray *itemArray = [self.groupItemArray objectAtIndex: indexPath.section];
     NSDictionary *itemDictionary = [itemArray objectAtIndex: indexPath.row];
     
     cell.contentLabel.text = [WOAPacketHelper accountNameFromDictionary: itemDictionary];
+    
+    cell.contentLabel.textColor = [UIColor textNormalColor];
+    cell.contentLabel.highlightedTextColor = [UIColor textHighlightedColor];
+    cell.backgroundColor = [UIColor listLightBgColor];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
     
     return cell;
 }
@@ -201,9 +252,14 @@
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath: indexPath animated: NO];
+    
+    BOOL status = [self statusFromIndexPath: indexPath];
+    [self setStatus: !status forIndexPath: indexPath];
+    
     VSSelectedTableViewCell *cell = (VSSelectedTableViewCell*)[tableView cellForRowAtIndexPath: indexPath];
     
-    cell.selectButton.selected = YES;
+    [cell.selectButton setSelected: !status];
 }
 
 - (void)tableView: (UITableView *)tableView didDeselectRowAtIndexPath: (NSIndexPath *)indexPath
@@ -219,16 +275,7 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow: tableViewCell.row inSection: tableViewCell.section];
     
-    if (tableViewCell.isSelected)
-    {
-        [self.tableView deselectRowAtIndexPath: indexPath animated: NO];
-        [self tableView: self.tableView didDeselectRowAtIndexPath: indexPath];
-    }
-    else
-    {
-        [self.tableView selectRowAtIndexPath: indexPath animated: NO scrollPosition: UITableViewScrollPositionMiddle];
-        [self tableView: self.tableView didSelectRowAtIndexPath: indexPath];
-    }
+    [self tableView: _tableView didSelectRowAtIndexPath: indexPath];
 }
 
 #pragma mark - UIAlertView

@@ -10,16 +10,19 @@
 
 @implementation VSSelectedTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id) initWithStyle: (UITableViewCellStyle)style
+     reuseIdentifier: (NSString *)reuseIdentifier
+       checkedButton: (BOOL)checkedButton
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
     {
         self.selectButton = [UIButton buttonWithType: UIButtonTypeCustom];
-        //TO-DO
-        //[_selectButton setImage:  forState: UIControlStateNormal];
-        //[_selectButton setImage:  forState: UIControlStateSelected];
-        [_selectButton setTitle: @"" forState: UIControlStateNormal];
-        [_selectButton setTitle: @"O" forState: UIControlStateSelected];
+        
+        _selectButton.selected = checkedButton;
+        
+        UIImage *selectedImage = [[UIImage imageNamed: @"checkedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+        [_selectButton setImage: nil forState: UIControlStateNormal];
+        [_selectButton setImage: selectedImage forState: UIControlStateSelected];
         [_selectButton setAdjustsImageWhenHighlighted: NO];
         [_selectButton addTarget: self action: @selector(selectButtonAction:) forControlEvents: UIControlEventTouchUpInside];
         [self.contentView addSubview: _selectButton];
@@ -36,9 +39,10 @@
                reuseIdentifier: (NSString *)reuseIdentifier
                        section: (NSInteger)section
                            row: (NSInteger)row
+                 checkedButton: (BOOL)checkedButton
                       delegate: (NSObject<VSSelectedTableViewCellDelegate>*)delegate
 {
-    if (self = [self initWithStyle: style reuseIdentifier: reuseIdentifier])
+    if (self = [self initWithStyle: style reuseIdentifier: reuseIdentifier checkedButton: checkedButton])
     {
         self.section = section;
         self.row = row;
@@ -52,13 +56,19 @@
 {
     [super layoutSubviews];
     
-    self.selectButton.frame = CGRectMake(0, 6, 32, 32);
-    self.contentLabel.frame = CGRectMake(32+1, 6, self.contentView.frame.size.width - 33, 32);
+    CGFloat leftMargin = 10;
+    CGFloat topMargin = 6;
+    CGFloat imgWidth = 20;
+    CGFloat labelHeight = 32;
+    CGFloat labelOriginX = leftMargin + imgWidth + 1;
+    CGFloat labelWidth = self.contentView.frame.size.width - labelOriginX;
+    self.selectButton.frame = CGRectMake(leftMargin, topMargin, imgWidth, labelHeight);
+    self.contentLabel.frame = CGRectMake(labelOriginX, topMargin, labelWidth, labelHeight);
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)setSelected: (BOOL)selected animated: (BOOL)animated
 {
-    [super setSelected:selected animated:animated];
+    [super setSelected: selected animated: animated];
 
     // Configure the view for the selected state
 }

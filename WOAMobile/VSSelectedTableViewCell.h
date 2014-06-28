@@ -29,6 +29,7 @@
                reuseIdentifier:(NSString *)reuseIdentifier
                        section: (NSInteger)section
                            row: (NSInteger)row
+                 checkedButton: (BOOL)checkedButton
                       delegate: (NSObject<VSSelectedTableViewCellDelegate>*)delegate;
 
 @end
