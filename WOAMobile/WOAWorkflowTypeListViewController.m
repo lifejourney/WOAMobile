@@ -71,7 +71,7 @@
     self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"新建工作"];
     
     UIView *filterView = [[UIView alloc] initWithFrame: CGRectZero];
-    filterView.backgroundColor = [UIColor colorWithRed: 240/255.f green: 240/255.f blue: 240/255.f alpha: 1.0f];
+    filterView.backgroundColor = [UIColor filterViewBgColor];
     [self.view addSubview: filterView];
     
     self.filterTextField = [[UITextField alloc] initWithFrame: CGRectZero];
@@ -133,7 +133,7 @@
     
     cell.textLabel.textColor = [UIColor textNormalColor];
     cell.textLabel.highlightedTextColor = [UIColor textHighlightedColor];
-    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyBgColor] : [UIColor listLightBgColor];
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listDarkBgColor] : [UIColor listLightBgColor];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
     cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
     

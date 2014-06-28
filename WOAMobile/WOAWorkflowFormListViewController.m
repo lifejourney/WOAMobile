@@ -93,6 +93,7 @@
     self.searchBar = [[UISearchBar alloc] initWithFrame: searchBarRect];
     _searchBar.showsCancelButton = YES;
     _searchBar.delegate = self;
+    _searchBar.barTintColor = [UIColor filterViewBgColor];
     [self.view addSubview: _searchBar];
     
     self.tableView = [[UITableView alloc] initWithFrame: tableViewRect style: UITableViewStylePlain];
@@ -142,7 +143,7 @@
     cell.textLabel.textColor = [UIColor textNormalColor];
     cell.textLabel.highlightedTextColor = [UIColor textHighlightedColor];
     //TO-DO, detailTextLabel
-    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyBgColor] : [UIColor listLightBgColor];
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listDarkBgColor] : [UIColor listLightBgColor];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
     cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
     

@@ -36,6 +36,11 @@
     return [UIColor colorWithRed: 231/255.f green: 222/255.f blue: 127/255.f alpha: 1.0];
 }
 
++ (UIColor*) filterViewBgColor
+{
+    return [UIColor colorWithRed: 240/255.f green: 240/255.f blue: 240/255.f alpha: 1.0f];
+}
+
 + (UIColor*) textNormalColor
 {
     return [UIColor blackColor];
@@ -51,7 +56,7 @@
     return [UIColor whiteColor];
 }
 
-+ (UIColor*) listHeavyBgColor
++ (UIColor*) listDarkBgColor
 {
     return [UIColor colorWithRed: 255/255.f green: 250/255.f blue: 244/255.f alpha: 1.0f];
 }

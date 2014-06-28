@@ -87,6 +87,9 @@
     UIRemoteNotificationType apnsType = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes: apnsType];
     
+    
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor: [UIColor mainItemBgColor]];
+    
     NSDictionary *titleAttributeForNormalState = @{NSForegroundColorAttributeName: [UIColor tabbarItemNormalColor]};
     NSDictionary *titleAttributeForSelectedState = @{NSForegroundColorAttributeName: [UIColor tabbarItemSelectedColor]};
     NSDictionary *navigationItemAttribute = @{NSForegroundColorAttributeName: [UIColor navigationItemNormalColor]};

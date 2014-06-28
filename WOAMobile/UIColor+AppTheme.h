@@ -16,10 +16,11 @@
 + (UIColor*) navigationItemNormalColor;
 + (UIColor*) tabbarItemNormalColor;
 + (UIColor*) tabbarItemSelectedColor;
++ (UIColor*) filterViewBgColor;
 + (UIColor*) textNormalColor;
 + (UIColor*) textHighlightedColor;
 + (UIColor*) listLightBgColor;
-+ (UIColor*) listHeavyBgColor;
++ (UIColor*) listDarkBgColor;
 + (UIColor*) listSelectedBgColor;
 
 @end
