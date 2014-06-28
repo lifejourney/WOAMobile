@@ -65,7 +65,9 @@
                                      destructiveButtonTitle: nil
                                           otherButtonTitles: nil, nil];
                                           //otherButtonTitles: @"确定", nil];
-    [_actionSheet showInView: view];
+    //TO-DO
+    //[_actionSheet showInView: view];
+    [_actionSheet showInView: [UIApplication sharedApplication].keyWindow];
     
     if (!_tableView)
     {

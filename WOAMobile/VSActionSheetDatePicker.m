@@ -44,7 +44,9 @@
     _datePicker.date = currentDate ? currentDate : [NSDate date];
     
     [actionSheet addSubview: _datePicker];
+    //TO-DO
     [actionSheet showInView: view];
+    [actionSheet showInView: [UIApplication sharedApplication].keyWindow];
 }
 
 - (void) showInView: (UIView*)view
