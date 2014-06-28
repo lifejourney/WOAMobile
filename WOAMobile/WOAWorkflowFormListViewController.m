@@ -138,8 +138,13 @@
     
     cell.textLabel.text = [WOAPacketHelper formTitleFromDictionary: itemDictionary];
     cell.detailTextLabel.text = [self itemDetailsFromDictionary: itemDictionary];
-    //TO-DO: backgroundView?
-    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyColor] : [UIColor listLightColor];
+    
+    cell.textLabel.textColor = [UIColor textNormalColor];
+    cell.textLabel.highlightedTextColor = [UIColor textHighlightedColor];
+    //TO-DO, detailTextLabel
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyBgColor] : [UIColor listLightBgColor];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
     
     return cell;
 }

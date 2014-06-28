@@ -18,7 +18,8 @@
 + (UIColor*) tabbarItemSelectedColor;
 + (UIColor*) textNormalColor;
 + (UIColor*) textHighlightedColor;
-+ (UIColor*) listLightColor;
-+ (UIColor*) listHeavyColor;
++ (UIColor*) listLightBgColor;
++ (UIColor*) listHeavyBgColor;
++ (UIColor*) listSelectedBgColor;
 
 @end

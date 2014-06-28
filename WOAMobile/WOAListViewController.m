@@ -54,6 +54,7 @@
     _tableView.dataSource = self;
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.separatorColor = [UIColor colorWithRed: 207/255.f green: 207/255.f blue: 207/255.f alpha: 1.0f];
     
     [self.view addSubview: _tableView];
     
@@ -88,6 +89,14 @@
     UITableViewCell *cell  = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: nil];
     
     cell.textLabel.text = [_itemArray objectAtIndex: indexPath.row];
+    cell.textLabel.highlightedTextColor = [UIColor mainItemBgColor];
+    //TO-DO
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    
+    UIView *selectedBgView = [[UIView alloc] initWithFrame: cell.textLabel.frame];
+    selectedBgView.backgroundColor = [UIColor clearColor];
+    cell.selectedBackgroundView = selectedBgView;
+    
     
     return cell;
 }
@@ -106,6 +115,16 @@
     if (_delegate && [_delegate respondsToSelector: @selector(listViewControllerClickOnRow:)])
     {
         [_delegate listViewControllerClickOnRow: indexPath.row];
+    }
+}
+
+- (void) selectRow: (NSInteger)row
+{
+    if (row < [self.itemArray count] && row >= 0)
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: 0];
+        
+        [_tableView selectRowAtIndexPath: indexPath animated: NO scrollPosition: UITableViewScrollPositionMiddle];
     }
 }
 

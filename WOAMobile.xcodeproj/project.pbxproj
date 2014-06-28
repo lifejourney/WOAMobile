@@ -68,6 +68,7 @@
 		DCA8B740195DC02300C0363B /* AccountIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B73E195DC02300C0363B /* AccountIcon@2x.png */; };
 		DCA8B741195DC02300C0363B /* BrandLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B73F195DC02300C0363B /* BrandLogo@2x.png */; };
 		DCA8B743195DCDEB00C0363B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA8B742195DCDEB00C0363B /* QuartzCore.framework */; };
+		DCA8B745195E660B00C0363B /* DropDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA8B744195E660B00C0363B /* DropDownIcon@2x.png */; };
 		DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */; };
 		DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */; };
 		DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */; };
@@ -189,6 +190,7 @@
 		DCA8B73E195DC02300C0363B /* AccountIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AccountIcon@2x.png"; sourceTree = "<group>"; };
 		DCA8B73F195DC02300C0363B /* BrandLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrandLogo@2x.png"; sourceTree = "<group>"; };
 		DCA8B742195DCDEB00C0363B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DCA8B744195E660B00C0363B /* DropDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropDownIcon@2x.png"; sourceTree = "<group>"; };
 		DCAAE19B193F478A00AF2AF0 /* WOAMenuItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMenuItemModel.h; sourceTree = "<group>"; };
 		DCAAE19C193F478A00AF2AF0 /* WOAMenuItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMenuItemModel.m; sourceTree = "<group>"; };
 		DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAAboutViewController.h; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		DCA8B631195B8B8800C0363B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DCA8B744195E660B00C0363B /* DropDownIcon@2x.png */,
 				DCA8B73F195DC02300C0363B /* BrandLogo@2x.png */,
 				DCA8B73E195DC02300C0363B /* AccountIcon@2x.png */,
 				DCA8B73C195DC01800C0363B /* PasswordIcon@2x.png */,
@@ -492,6 +495,7 @@
 				DCA8B6B0195CD93200C0363B /* SearchWorkFlowIcon@2x.png in Resources */,
 				DCA8B73B195DBDA300C0363B /* LoginBtnBg@2x.png in Resources */,
 				DCA8B6B1195CD93200C0363B /* SearchWorkFlowSelectedIcon@2x.png in Resources */,
+				DCA8B745195E660B00C0363B /* DropDownIcon@2x.png in Resources */,
 				DCA8B6AF195CD93200C0363B /* MoreFeatureSelectedIcon@2x.png in Resources */,
 				DCA8B6A6195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png in Resources */,
 				DCA8B73D195DC01800C0363B /* PasswordIcon@2x.png in Resources */,

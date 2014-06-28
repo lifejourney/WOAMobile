@@ -15,10 +15,9 @@
 #import "WOAListViewController.h"
 
 
-@interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate, WOAListViewControllerDelegate, VSPopoverControllerDelegate>
+@interface WOAWorkflowTypeListViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, WOAListViewControllerDelegate, VSPopoverControllerDelegate>
 
-@property (nonatomic, strong) UILabel *selectedCategoryLabel;
-@property (nonatomic, strong) UIButton *filterCategoryButton;
+@property (nonatomic, strong) UITextField *filterTextField;
 @property (nonatomic, strong) UITableView *listView;
 @property (nonatomic, strong) VSPopoverController *filterPopoperVC;
 
@@ -57,7 +56,7 @@
 {
     _selectedCategory = value;
         
-    self.selectedCategoryLabel.text = self.categoryInfoArray[_selectedCategory];
+    self.filterTextField.text = self.categoryInfoArray[_selectedCategory];
 }
 
 - (void) loadView
@@ -71,20 +70,20 @@
     
     self.navigationItem.titleView = [WOALayout lableForNavigationTitleView: @"新建工作"];
     
-    self.selectedCategoryLabel = [[UILabel alloc] initWithFrame: self.view.frame];
-    _selectedCategoryLabel.text = @"全部";
-    [_selectedCategoryLabel setTextAlignment: NSTextAlignmentCenter];
-    _selectedCategoryLabel.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview: _selectedCategoryLabel];
+    UIView *filterView = [[UIView alloc] initWithFrame: CGRectZero];
+    filterView.backgroundColor = [UIColor colorWithRed: 240/255.f green: 240/255.f blue: 240/255.f alpha: 1.0f];
+    [self.view addSubview: filterView];
     
-    self.filterCategoryButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    [_filterCategoryButton setTitle: @"@" forState: UIControlStateNormal];
-    [_filterCategoryButton setTitleColor: [UIColor blackColor] forState: UIControlStateNormal];
-    //TO-DO
-    //[_filterCategoryButton setBackgroundImage: [UIImage imageNamed: @""] forState: UIControlStateNormal];
-    _filterCategoryButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [_filterCategoryButton addTarget: self action: @selector(onFilterCategoryButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview: _filterCategoryButton];
+    self.filterTextField = [[UITextField alloc] initWithFrame: CGRectZero];
+    _filterTextField.delegate = self;
+    _filterTextField.text = @"全部";
+    _filterTextField.textAlignment = NSTextAlignmentCenter;
+    _filterTextField.borderStyle = UITextBorderStyleRoundedRect;
+    _filterTextField.backgroundColor = [UIColor whiteColor];
+    _filterTextField.rightViewMode = UITextFieldViewModeAlways;
+    _filterTextField.rightView = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"DropDownIcon"]];
+    [_filterTextField addTarget: self action: @selector(onFilterCategoryButtonAction:) forControlEvents: UIControlEventTouchDown];
+    [self.view addSubview: _filterTextField];
     
     self.listView = [[UITableView alloc] initWithFrame: CGRectZero style: UITableViewStylePlain];
     _listView.dataSource = self;
@@ -95,19 +94,17 @@
     CGRect selfRect = self.view.frame;
     CGRect navRect = self.navigationController.navigationBar.frame;
     CGFloat contentTopMargin = self.navigationController.navigationBar.isHidden ? 0 : (navRect.origin.y + navRect.size.height);
-    contentTopMargin += kWOALayout_DefaultTopMargin;
     
-    CGFloat buttonWidth = 44;
     CGFloat buttonHeight = 30;
-    _filterCategoryButton.frame = CGRectMake(selfRect.size.width - buttonWidth - kWOALayout_DefaultRightMargin,
-                                             contentTopMargin,
-                                             buttonWidth,
-                                             buttonHeight);
-    _selectedCategoryLabel.frame = CGRectMake(kWOALayout_DefaultLeftMargin,
-                                              contentTopMargin,
-                                              selfRect.size.width - kWOALayout_DefaultLeftMargin - buttonWidth - kWOALayout_DefaultRightMargin,
-                                              buttonHeight);
-    CGFloat listOriginY = contentTopMargin + buttonHeight + kWOALayout_DefaultTopMargin;
+    CGFloat buttonTopMargin = 7;
+    CGFloat filterHeight = buttonHeight + buttonTopMargin * 2;
+    CGFloat listOriginY = contentTopMargin + filterHeight;
+    
+    filterView.frame = CGRectMake(0, contentTopMargin, selfRect.size.width, filterHeight);
+    _filterTextField.frame = CGRectMake(kWOALayout_DefaultLeftMargin,
+                                        contentTopMargin + buttonTopMargin,
+                                        selfRect.size.width - kWOALayout_DefaultLeftMargin - kWOALayout_DefaultRightMargin,
+                                        buttonHeight);
     _listView.frame = CGRectMake(0, listOriginY, selfRect.size.width, selfRect.size.height - listOriginY);
     
     [self.listView reloadData];
@@ -133,8 +130,13 @@
     NSArray *selectedTables = self.categoryTablesArray[self.selectedCategory];
     
     cell.textLabel.text = [self.tableInfoDictionary objectForKey: [selectedTables objectAtIndex: indexPath.row]];
-    //TO-DO: backgroundView?
-    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyColor] : [UIColor listLightColor];
+    
+    cell.textLabel.textColor = [UIColor textNormalColor];
+    cell.textLabel.highlightedTextColor = [UIColor textHighlightedColor];
+    cell.backgroundColor = ((indexPath.row % 2) == 0) ? [UIColor listHeavyBgColor] : [UIColor listLightBgColor];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
+    
     
     return cell;
 }
@@ -182,10 +184,12 @@
     
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     UIView *inView = window.rootViewController.view;
-    [self.filterPopoperVC presentPopoverFromRect: _filterCategoryButton.frame
+    [self.filterPopoperVC presentPopoverFromRect: _filterTextField.frame
                                           inView: inView
                         permittedArrowDirections: VSPopoverArrowDirectionUp
                                         animated: YES];
+    
+    [contentVC selectRow: _selectedCategory];
 }
 
 - (void) listViewControllerClickOnRow: (NSInteger)row
@@ -202,6 +206,11 @@
 - (void) popoverControllerDidDismissPopover: (VSPopoverController *)popoverController
 {
     self.filterPopoperVC = nil;
+}
+
+- (BOOL) textFieldShouldBeginEditing: (UITextField *)textField
+{
+    return NO;
 }
 
 #pragma mark - public

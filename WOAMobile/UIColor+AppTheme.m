@@ -46,14 +46,19 @@
     return [UIColor whiteColor];
 }
 
-+ (UIColor*) listLightColor
++ (UIColor*) listLightBgColor
 {
     return [UIColor whiteColor];
 }
 
-+ (UIColor*) listHeavyColor
++ (UIColor*) listHeavyBgColor
 {
-    return [UIColor lightGrayColor];
+    return [UIColor colorWithRed: 255/255.f green: 250/255.f blue: 244/255.f alpha: 1.0f];
+}
+
++ (UIColor*) listSelectedBgColor
+{
+    return [UIColor mainItemBgColor];
 }
 
 @end
