@@ -7,6 +7,7 @@
 //
 
 #import "VSActionSheetPickerView.h"
+#import "UIColor+AppTheme.h"
 
 
 @interface VSActionSheetPickerView () <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -124,6 +125,13 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: nil];
     
     cell.textLabel.text = [_dataModel objectAtIndex: indexPath.row];
+    
+    cell.textLabel.highlightedTextColor = [UIColor mainItemColor];
+    //TO-DO
+    //cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame: cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor mainItemBgColor];
     
     return cell;
 }

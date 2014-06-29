@@ -26,7 +26,7 @@
      datePickerMode: (UIDatePickerMode)datePickerMode
         currentDate: (NSDate*)currentDate
 {
-    NSString *title = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation) ? @"\n\n\n\n\n\n\n\n\n" : @"\n\n\n\n\n\n\n\n\n\n\n\n" ;
+    NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: title
                                                              delegate: self
