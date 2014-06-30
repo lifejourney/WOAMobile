@@ -260,10 +260,13 @@
     
     [categoryTablesArray replaceObjectAtIndex: 0 withObject: allTablesArray];
     
+    _listView.delegate = nil;
     self.categoryInfoArray = categoryInfoArray;
     self.tableInfoDictionary = tableInfoDictionary;
     self.categoryTablesArray = categoryTablesArray;
     self.selectedCategory = MIN(self.selectedCategory, [self.categoryInfoArray count] - 1);
+    _listView.delegate = self;
+    [_listView reloadData];
 }
 
 - (void) sendRequestByActionType
@@ -275,8 +278,6 @@
                   onSuccuess:^(WOAResponeContent *responseContent)
     {
         [self parseResponseContent: responseContent.bodyDictionary];
-        
-        [self.listView reloadData];
     }
                    onFailure:^(WOAResponeContent *responseContent)
     {
