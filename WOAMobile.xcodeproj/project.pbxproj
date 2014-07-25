@@ -466,6 +466,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = steven.zhuang;
 				TargetAttributes = {
+					DC2D3FB3193A10C300069BB8 = {
+						DevelopmentTeam = NS4T7JG2UT;
+					};
 					DC2D3FCE193A10C300069BB8 = {
 						TestTargetID = DC2D3FB3193A10C300069BB8;
 					};
