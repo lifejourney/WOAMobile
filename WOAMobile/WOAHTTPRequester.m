@@ -12,7 +12,7 @@
 
 + (NSMutableURLRequest*) URLRequestWithBodyData: (NSData*)bodyData
 {
-    NSString *urlString = @"http://121.199.17.180/Ryan/servletTest";
+    NSString *urlString = @"http://220.162.12.167:8080/?action=app";
     NSString *httpMethod = @"POST";
     //@"multipart/mixed; boundary=%@"
     NSDictionary *headers = @{@"Content-Type": @"application/json;charset=UTF-8",
