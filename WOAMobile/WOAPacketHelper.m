@@ -19,7 +19,7 @@
     switch (flowActionType)
     {
         case WOAFLowActionType_Login:
-            msgType = @"login";
+            msgType = kWOAValue_MsgType_Login;
             break;
             
         case WOAFLowActionType_Logout:

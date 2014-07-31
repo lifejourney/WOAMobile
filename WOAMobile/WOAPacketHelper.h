@@ -15,6 +15,7 @@
 #define kWOAItemIndexPath_RowKey @"_row"
 #define kWOAKey_ProcessID @"processID"
 #define kWOAKey_CreateTime @"createTime"
+#define kWOAValue_MsgType_Login @"login"
 
 @interface WOAPacketHelper : NSObject
 

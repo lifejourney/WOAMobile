@@ -15,7 +15,7 @@
     NSString *urlString = @"http://220.162.12.167:8080/?action=app";
     NSString *httpMethod = @"POST";
     //@"multipart/mixed; boundary=%@"
-    NSDictionary *headers = @{@"Content-Type": @"application/json;charset=UTF-8",
+    NSDictionary *headers = @{@"Content-Type": @"application/x-www-form-urlencoded",
                               @"Accept": @"application/json;charset=UTF-8"};
     
     
