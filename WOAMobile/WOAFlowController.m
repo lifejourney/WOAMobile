@@ -106,7 +106,7 @@
 	return requestResult;
 }
 
-- (void) sendRequestWithType: (WOARequestContent*)requestContent
+- (void) sendRequestWithContent: (WOARequestContent*)requestContent
 {
     NSError *error;
     self.httpResponse = nil;
@@ -122,7 +122,7 @@
         
         NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
         
-        NSLog(@"To send request for action: %d\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
+        NSLog(@"To send request for action: %lu\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
         
         self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                               delegate: self
@@ -131,10 +131,40 @@
     else
     {
         self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
+        self.responseContent.resultDescription = @"无效的请求内容";
         
         NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], self.requestContent.bodyDictionary);
         
         self.httpConnection = nil;
+    }
+}
+
+- (void) actionForCommonError
+{
+    if (!self.responseContent || self.isCancelled)
+        return;
+    
+    
+    if (self.responseContent.requestResult != WOAHTTPRequestResult_Success)
+    {
+        if (self.responseContent.requestResult == WOAHTTPRequestResult_InvalidSession)
+        {
+            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            [appDelegate presentLoginViewController: NO];
+        }
+        
+        NSString *msgContent = self.responseContent.resultDescription;
+        
+        if (msgContent && ([msgContent length] > 0))
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: nil
+                                                                message: msgContent
+                                                               delegate: nil
+                                                      cancelButtonTitle: @"确定"
+                                                      otherButtonTitles: nil, nil];
+            
+            [alertView show];
+        }
     }
 }
 
@@ -148,7 +178,7 @@
         self.currentThread = [NSThread currentThread];
         self.httpConnection = nil;
         
-        [self sendRequestWithType: self.requestContent];
+        [self sendRequestWithContent: self.requestContent];
         
         while (self.httpConnection)
         {
@@ -164,12 +194,23 @@
     {
         if (self.completeOnMainQueue)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
                 self.completionHandler(self.responseContent);
+                
+                [self actionForCommonError];
             });
         }
         else
+        {
             self.completionHandler(self.responseContent);
+            
+            [self performSelectorOnMainThread: @selector(actionForCommonError) withObject: nil waitUntilDone: YES];
+        }
+    }
+    else
+    {
+        [self performSelectorOnMainThread: @selector(actionForCommonError) withObject: nil waitUntilDone: YES];
     }
 }
 
@@ -193,105 +234,124 @@
 - (void) connectionDidFinishLoading: (NSURLConnection *)connection
 {
     NSError *error;
+    NSDictionary *bodyDictionary = nil;
     WOAHTTPRequestResult requestResult;
+    NSString *resultDescription = nil;
     
-    if (self.httpResponse == nil)
-        requestResult = WOAHTTPRequestResult_NetError;
-    else
-        requestResult = [self httpRequestResultFromHTTPStatus: self.httpResponse.statusCode];
-    
-    self.responseContent.requestResult = requestResult;
-    self.responseContent.HTTPStatus = self.httpResponse.statusCode;
-    
-    if (requestResult == WOAHTTPRequestResult_Success)
+    if (self.httpResponse)
     {
-//        //TO-DO:
-//        NSString *tmpString = [[NSString alloc] initWithData: self.receivedData encoding: NSUTF8StringEncoding];
-//        tmpString = [tmpString stringByReplacingOccurrencesOfString: @"\000" withString: @""];
-//        NSData *tmpData = [tmpString dataUsingEncoding: NSUTF8StringEncoding];
+        requestResult = [self httpRequestResultFromHTTPStatus: self.httpResponse.statusCode];
         
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData: self.receivedData
-                                                             options: 0
-                                                               error: &error];
-        
-        if (dict)
+        if (requestResult == WOAHTTPRequestResult_Success)
         {
-            NSLog(@"Received response for action: %d\n%@", self.currentActionType, dict);
+            //TO-DO:
+            NSString *tmpString = [[NSString alloc] initWithData: self.receivedData encoding: NSUTF8StringEncoding];
+            tmpString = [tmpString stringByReplacingOccurrencesOfString: @"\000" withString: @""];
             
-            WOAWorkflowResultCode resultCode = [WOAPacketHelper resultCodeFromPacketDictionary: dict];
+            bodyDictionary = [NSJSONSerialization JSONObjectWithData: self.receivedData
+                                                                 options: 0
+                                                               error: &error];
             
-            //TO-DO: how about other response code
-            if (resultCode == WOAWorkflowResultCode_InvalidSession)
+            if (bodyDictionary)
             {
-                if (self.currentActionType == self.responseContent.flowActionType)
+                NSLog(@"Received response for action: %lu\n%@", self.currentActionType, bodyDictionary);
+                
+                WOAWorkflowResultCode resultCode = [WOAPacketHelper resultCodeFromPacketDictionary: bodyDictionary];
+                
+                if (resultCode != WOAWorkflowResultCode_Success)
                 {
-                    if (self.responseContent.flowActionType == WOAFLowActionType_Login)
-                    {
-                        self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
-                        
-                        NSLog(@"Request fail for invalid session (login). error: %@\n respone body: %@", [error localizedDescription], dict);
-                        
-                        self.httpConnection = nil;
-                    }
+                    if (resultCode == WOAWorkflowResultCode_InvalidSession)
+                        requestResult = WOAHTTPRequestResult_InvalidSession;
                     else
+                        requestResult = WOAHTTPRequestResult_ErrorWithDescription;
+                    
+                    resultDescription = [WOAPacketHelper resultDescriptionFromPacketDictionary: bodyDictionary];
+                    
+                    if (!resultDescription || ([resultDescription length] <= 0))
                     {
-                        //Auto relogin
-                        if (self.hasRefreshSession)
-                        {
-                            self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
-                            
-                            NSLog(@"Request fail for invalid session (request retried). error: %@\n respone body: %@", [error localizedDescription], dict);
-                            
-                            self.httpConnection = nil;
-                        }
-                        else
-                        {
-                            self.hasRefreshSession = YES;
-                            
-                            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-                            
-                            [self sendRequestWithType: appDelegate.latestLoginRequestContent];
-                        }
+                        resultDescription = [NSString stringWithFormat: @"code: %lu", resultCode];
                     }
-                }
-                else
-                {
-                    self.responseContent.requestResult = WOAHTTPRequestResult_SessionInvalid;
-                    
-                    NSLog(@"currentAction: %d, origin action: %d, resultCode: %d", self.currentActionType, self.responseContent.flowActionType, resultCode);
-                    NSLog(@"Request fail for invalid session (login when retrying). error: %@\n respone body: %@", [error localizedDescription], dict);
-                    
-                    self.httpConnection = nil;
                 }
             }
             else
             {
-                if (self.currentActionType == WOAFLowActionType_Login)
-                {
-                    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-                    
-                    appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: dict];
-                    appDelegate.latestLoginRequestContent = self.requestContent;
-                }
+                requestResult = WOAHTTPRequestResult_JSONParseError;
+                resultDescription = @"无效的响应内容";
                 
-                if (self.currentActionType == self.responseContent.flowActionType)
+                NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
+            }
+        }
+    }
+    else
+    {
+        requestResult = WOAHTTPRequestResult_NetError;
+        resultDescription = @"无响应内容";
+    }
+    
+    self.responseContent.HTTPStatus = self.httpResponse.statusCode;
+    self.responseContent.requestResult = requestResult;
+    self.responseContent.resultDescription = resultDescription;
+    self.responseContent.bodyDictionary = bodyDictionary;
+    
+    if (requestResult == WOAHTTPRequestResult_Success)
+    {
+        if (self.currentActionType == WOAFLowActionType_Login)
+        {
+            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: bodyDictionary];
+            
+            appDelegate.latestLoginRequestContent = self.requestContent;
+        }
+        
+        if (self.currentActionType == self.responseContent.flowActionType)
+        {
+            self.responseContent.bodyDictionary = bodyDictionary;
+            
+            self.httpConnection = nil;
+        }
+        else
+        {
+            //Resend the request
+            [self sendRequestWithContent: self.requestContent];
+        }
+    }
+    else if (requestResult == WOAHTTPRequestResult_InvalidSession)
+    {
+        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        appDelegate.sessionID = nil;
+        
+        if (self.currentActionType == self.responseContent.flowActionType)
+        {
+            if (self.responseContent.flowActionType == WOAFLowActionType_Login)
+            {
+                NSLog(@"Request fail for invalid session (login). error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
+                
+                self.httpConnection = nil;
+            }
+            else
+            {
+                if (self.hasRefreshSession)
                 {
-                    self.responseContent.bodyDictionary = dict;
+                    //Auto relogined
+                    NSLog(@"Request fail for invalid session (request retried). error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
                     
                     self.httpConnection = nil;
                 }
                 else
                 {
-                    //Resend the request
-                    [self sendRequestWithType: self.requestContent];
+                    self.hasRefreshSession = YES;
+                    
+                    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                    
+                    [self sendRequestWithContent: appDelegate.latestLoginRequestContent];
                 }
             }
         }
         else
         {
-            self.responseContent.requestResult = WOAHTTPRequestResult_JSONParseError;
-            
-            NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], dict);
+            NSLog(@"currentAction: %lu, origin action: %lu", self.currentActionType, self.responseContent.flowActionType);
+            NSLog(@"Request fail for invalid session (login when retrying). error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
             
             self.httpConnection = nil;
         }
@@ -307,10 +367,11 @@
 
 - (void) connection: (NSURLConnection *)connection didFailWithError: (NSError *)error
 {
-    NSLog(@"Connection error[%d] reason: %@. \n response: %@", [error code], [error localizedFailureReason], self.httpResponse);
+    NSLog(@"Connection error[%ld] reason: %@. \n response: %@", (long)[error code], [error localizedFailureReason], self.httpResponse);
     self.connectionError = error;
     
     self.responseContent.requestResult = WOAHTTPRequestResult_NetError;
+    self.responseContent.resultDescription = [NSString stringWithFormat: @"网络连接失败: %ld", (long)[error code]];
     
     self.httpConnection = nil;
 }

@@ -54,10 +54,10 @@
                                                                 title: @"关于我们"
                                                             imageName: nil
                                                         showAccessory: YES];
-        WOAMenuItemModel *itemDraft = [WOAMenuItemModel menuItemModel: kWOAMenuItemKey_Draft
-                                                                title: @"草稿箱"
-                                                            imageName: nil
-                                                        showAccessory: YES];
+//        WOAMenuItemModel *itemDraft = [WOAMenuItemModel menuItemModel: kWOAMenuItemKey_Draft
+//                                                                title: @"草稿箱"
+//                                                            imageName: nil
+//                                                        showAccessory: YES];
         WOAMenuItemModel *itemLogout = [WOAMenuItemModel menuItemModel: kWOAMenuItemKey_Logout
                                                                  title: @"退出登陆"
                                                              imageName: nil
@@ -68,8 +68,11 @@
                                                                 imageName: nil
                                                             showAccessory: NO];
         
-        self.itemArray = [NSArray arrayWithObjects: itemCheckForUpdate, itemAbout, itemDraft,
-                                                    itemSeperator, itemLogout, nil];
+        self.itemArray = [NSArray arrayWithObjects: itemCheckForUpdate,
+                                                    itemAbout,
+                                                    //itemDraft,
+                                                    itemSeperator,
+                                                    itemLogout, nil];
         
     }
     
@@ -199,7 +202,7 @@
          }
                        onFailure:^(WOAResponeContent *responseContent)
          {
-             NSLog(@"Login fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+             NSLog(@"Login fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
          }];
     }
 }

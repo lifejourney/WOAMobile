@@ -8,6 +8,7 @@
 
 #import "WOAPacketHelper.h"
 #import "WOAAppDelegate.h"
+#import "CommonCrypto/CommonDigest.h"
 
 
 @implementation WOAPacketHelper
@@ -99,6 +100,25 @@
     return dict;
 }
 
++ (NSString*) checkSumForLogin: (NSString*)account password: (NSString*)password
+{
+    NSString *mixed = [NSString stringWithFormat: @"%@%@%@", kWOAValue_MsgType_Login, account, password];
+    
+    const char *cStr = [mixed UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH] = {0};
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+    NSString *md5 = [NSString stringWithFormat:
+                     @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                    result[0], result[1], result[2], result[3],
+                    result[4], result[5], result[6], result[7],
+                    result[8], result[9], result[10], result[11],
+                    result[12], result[13], result[14], result[15]
+                    ];
+    
+    NSRange range = NSMakeRange(8, 24);
+    return [md5 substringWithRange: range];
+}
+
 + (NSDictionary*) packetForLogin: (NSString*)accountID
                         password: (NSString*)password
                      deviceToken: (NSString*)deviceToken
@@ -109,8 +129,7 @@
     
     [dict setValue: accountID forKey: @"account"];
     [dict setValue: password forKey: @"psw"];
-    //TO-DO
-    //[dict setValue:  forKey: @"checkSum"];
+    [dict setValue: [self checkSumForLogin: accountID password: password] forKey: @"checkSum"];
     [dict setValue: deviceToken forKey: @"deviceToken"];
     
     return dict;
@@ -225,12 +244,12 @@
     return dict;
 }
 
-+ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)workID
++ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)itemID
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowFormDetail] forKey: @"head"];
-    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: itemID forKey: @"itemID"];
     
     return dict;
 }
@@ -304,14 +323,21 @@
     return resultCode;
 }
 
++ (NSString*) resultDescriptionFromPacketDictionary: (NSDictionary*)dict
+{
+    NSDictionary *resultDict = [self resultFromPacketDictionary: dict];
+    
+    return [resultDict valueForKey: @"description"];
+}
+
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"workID"];
 }
 
-+ (NSString*) workIDFromDictionary: (NSDictionary*)dict
++ (NSString*) itemIDFromDictionary: (NSDictionary*)dict
 {
-    return [dict valueForKey: @"workID"];
+    return [dict valueForKey: @"itemID"];
 }
 
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict

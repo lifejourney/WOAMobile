@@ -41,7 +41,7 @@
 + (NSDictionary*) packetForSelectNextReviewer: (NSString*)workID
                                  accountArray: (NSArray*)accountArray;
 + (NSDictionary*) packetForTodoWorkflowList;
-+ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)workID;
++ (NSDictionary*) packetForWorkflowFormDetail: (NSString*)itemID;
 + (NSDictionary*) packetForReviewWorkflow: (NSString*)workID
                                itemsArray: (NSArray*)itemsArray;
 + (NSDictionary*) packetForHistoryWorkflowList;
@@ -50,9 +50,10 @@
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
 + (WOAWorkflowResultCode) resultCodeFromPacketDictionary: (NSDictionary*)dict;
++ (NSString*) resultDescriptionFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict;
-+ (NSString*) workIDFromDictionary: (NSDictionary*)dict;
++ (NSString*) itemIDFromDictionary: (NSDictionary*)dict;
 + (NSArray*) itemsArrayFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) itemNameFromDictionary: (NSDictionary*)dict;
 + (NSString*) itemTypeFromDictionary: (NSDictionary *)dict;

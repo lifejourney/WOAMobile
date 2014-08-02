@@ -56,7 +56,7 @@
     switch (self.listActionType)
     {
         case WOAFLowActionType_GetTodoWorkflowList:
-            titleView.text = @"代办事项";
+            titleView.text = @"待办事项";
             break;
             
         case WOAFLowActionType_GetHistoryWorkflowList:
@@ -167,15 +167,15 @@
     }
     
     NSDictionary *itemDictionary = [self.filteredArray objectAtIndex: indexPath.row];
-    NSString *workID = [WOAPacketHelper workIDFromDictionary: itemDictionary];
+    NSString *itemID = [WOAPacketHelper itemIDFromDictionary: itemDictionary];
     
     WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent;
     
     if (_listActionType == WOAFLowActionType_GetTodoWorkflowList)
-        requestContent = [WOARequestContent contentForWorkflowFormDetail: workID];
+        requestContent = [WOARequestContent contentForWorkflowFormDetail: itemID];
     else if (_listActionType == WOAFLowActionType_GetHistoryWorkflowList)
-        requestContent = [WOARequestContent contentForWorkflowViewDetail: workID];
+        requestContent = [WOARequestContent contentForWorkflowViewDetail: itemID];
     else if (_listActionType == WOAFLowActionType_GetDraftWorkflowList)
         return;//TO-DO: requestContent = [WOARequestContent contentForDraftWorkflowList];
     else
@@ -202,7 +202,7 @@
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Get [actionType: %d] workflow detail fail: %d, HTTPStatus=%d", self.listActionType, responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Get [actionType: %lu] workflow detail fail: %lu, HTTPStatus=%ld", self.listActionType, responseContent.requestResult, (long)responseContent.HTTPStatus);
      }];
 }
 
@@ -310,7 +310,7 @@
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Get workflow typeList fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Get workflow typeList fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
      }];
 }
 

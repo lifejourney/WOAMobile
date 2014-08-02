@@ -49,13 +49,13 @@
         
         self.vcArray = [[NSMutableArray alloc] init];
         
+        UITabBarItem *todoItem = [[UITabBarItem alloc] initWithTitle: @"待办"
+                                                               image: [[UIImage imageNamed: @"TodoWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
+                                                       selectedImage: [[UIImage imageNamed: @"TodoWorkFlowSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
+        
         UITabBarItem *typeListItem = [[UITabBarItem alloc] initWithTitle: @"新建"
                                                                    image: [[UIImage imageNamed: @"NewWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
                                                            selectedImage: [[UIImage imageNamed: @"NewWorkFlowSelectedIcon"]  imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
-        
-        UITabBarItem *todoItem = [[UITabBarItem alloc] initWithTitle: @"代办"
-                                                               image: [[UIImage imageNamed: @"TodoWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
-                                                       selectedImage: [[UIImage imageNamed: @"TodoWorkFlowSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
         
         UITabBarItem *historyItem = [[UITabBarItem alloc] initWithTitle: @"搜索"
                                                                   image: [[UIImage imageNamed: @"SearchWorkFlowIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
@@ -65,18 +65,18 @@
                                                                image: [[UIImage imageNamed: @"MoreFeatureIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]
                                                        selectedImage: [[UIImage imageNamed: @"MoreFeatureSelectedIcon"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
         
-        WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
-        _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
-        _initiateWorkflowNavC.tabBarItem = typeListItem;
-        [_initiateWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
-        [self.vcArray addObject: _initiateWorkflowNavC];
-        
         WOAWorkflowFormListViewController *todoListVC = [[WOAWorkflowFormListViewController alloc] init];
         todoListVC.listActionType = WOAFLowActionType_GetTodoWorkflowList;
         _todoWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: todoListVC];
         _todoWorkflowNavC.tabBarItem = todoItem;
         [_todoWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
         [self.vcArray addObject: _todoWorkflowNavC];
+        
+        WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
+        _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
+        _initiateWorkflowNavC.tabBarItem = typeListItem;
+        [_initiateWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
+        [self.vcArray addObject: _initiateWorkflowNavC];
         
         WOAWorkflowFormListViewController *historyListVC = [[WOAWorkflowFormListViewController alloc] init];
         historyListVC.listActionType = WOAFLowActionType_GetHistoryWorkflowList;
@@ -138,7 +138,7 @@
 
 - (void) switchToInitiateWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
 {
-    [self setSelectedIndex: 0];
+    [self setSelectedIndex: 1];
     
     if (popToRootVC)
     {
@@ -156,7 +156,7 @@
 
 - (void) switchToTodoWorkflow: (BOOL) popToRootVC shouldRefresh: (BOOL)shouldRefresh
 {
-    [self setSelectedIndex: 1];
+    [self setSelectedIndex: 0];
     
     if (popToRootVC)
     {

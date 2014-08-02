@@ -187,7 +187,7 @@
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Select next reviewer [Initiate workflow] fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Select next reviewer [Initiate workflow] fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
      }];
 }
 

@@ -169,7 +169,7 @@
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Get workflow typeDetail fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Get workflow typeDetail fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
      }];
 }
 
@@ -281,7 +281,7 @@
     }
                    onFailure:^(WOAResponeContent *responseContent)
     {
-        NSLog(@"Get workflow typeList fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+        NSLog(@"Get workflow typeList fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
     }];
 }
 

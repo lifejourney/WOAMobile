@@ -249,7 +249,7 @@
              }
                            onFailure:^(WOAResponeContent *responseContent)
              {
-                 NSLog(@"SelectNextStep [Initiate workflow] fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+                 NSLog(@"SelectNextStep [Initiate workflow] fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
              }];
         }
     }
@@ -312,7 +312,7 @@
     }
     else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
     {
-        titleView.text = @"代办工作";
+        titleView.text = @"待办工作";
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     }
     else  if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
@@ -392,7 +392,7 @@
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
-         NSLog(@"Initiate workflow fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+         NSLog(@"Initiate workflow fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
      }];
 }
 

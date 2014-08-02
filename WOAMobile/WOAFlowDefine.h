@@ -31,9 +31,10 @@ typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)
 {
     WOAHTTPRequestResult_Unknown,
     WOAHTTPRequestResult_Success,
+    WOAHTTPRequestResult_ErrorWithDescription,
     WOAHTTPRequestResult_NotFound,
     WOAHTTPRequestResult_Unauthorized,
-    WOAHTTPRequestResult_SessionInvalid,
+    WOAHTTPRequestResult_InvalidSession,
     WOAHTTPRequestResult_NetError,
     WOAHTTPRequestResult_RequestError,
     WOAHTTPRequestResult_ServerError,
@@ -47,7 +48,8 @@ typedef NS_ENUM(NSUInteger, WOAWorkflowResultCode)
 {
     WOAWorkflowResultCode_Unknown = -1,
     WOAWorkflowResultCode_Success = 0,
-    WOAWorkflowResultCode_InvalidSession
+    WOAWorkflowResultCode_Error = 1,
+    WOAWorkflowResultCode_InvalidSession = 99
 };
 
 

@@ -161,12 +161,12 @@
              
              [appDelegate dismissLoginViewController: YES];
              
-             [[appDelegate rootViewController] switchToInitiateWorkflow: YES shouldRefresh: YES];
+             [[appDelegate rootViewController] switchToTodoWorkflow: YES shouldRefresh: YES];
             
         }
                        onFailure:^(WOAResponeContent *responseContent)
         {
-            NSLog(@"Login fail: %d, HTTPStatus=%d", responseContent.requestResult, responseContent.HTTPStatus);
+            NSLog(@"Login fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
         }];
     }
 }

@@ -173,9 +173,12 @@
 {
     UIViewController *presentedVC = [self presentedViewController];
     
-    [presentedVC presentViewController: self.loginVC
-                              animated: animated
-                            completion: ^{}];
+    if (![presentedVC isKindOfClass: [self.loginVC class]])
+    {
+        [presentedVC presentViewController: self.loginVC
+                                  animated: animated
+                                completion: ^{}];
+    }
 }
 
 - (void) dismissLoginViewController: (BOOL)animated
