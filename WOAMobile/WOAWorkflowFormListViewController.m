@@ -307,6 +307,20 @@
          [self parseResponseContent: responseContent.bodyDictionary];
          
          [self.tableView reloadData];
+         
+         if (_listActionType == WOAFLowActionType_GetTodoWorkflowList)
+         {
+             if (!self.itemsArray || [self.itemsArray count] <= 0)
+             {
+                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: nil
+                                                                     message: @"无待办事项"
+                                                                    delegate: nil
+                                                           cancelButtonTitle: @"确定"
+                                                           otherButtonTitles: nil, nil];
+                 
+                 [alertView show];
+             }
+         }
      }
                    onFailure:^(WOAResponeContent *responseContent)
      {
