@@ -189,9 +189,10 @@
         [itemsArray addObject: itemDict];
     }
     
-    NSSortDescriptor *sectionKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_SectionKey ascending: YES];
-    NSSortDescriptor *rowKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_RowKey ascending: YES];
-    NSArray *sortedArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: sectionKey, rowKey, nil]];
+//    NSSortDescriptor *sectionKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_SectionKey ascending: YES];
+//    NSSortDescriptor *rowKey = [[NSSortDescriptor alloc] initWithKey: kWOAItemIndexPath_RowKey ascending: YES];
+//    NSArray *sortedArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: sectionKey, rowKey, nil]];
+    NSArray *sortedArray = [NSArray arrayWithArray: itemsArray];
     
     NSInteger section = -1;
     NSMutableArray *itemsGroup = [[NSMutableArray alloc] init];

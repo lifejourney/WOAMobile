@@ -107,11 +107,11 @@
     return content;
 }
 
-+ (WOARequestContent*) contentForWorkflowFormDetail: (NSString*)workID
++ (WOARequestContent*) contentForWorkflowFormDetail: (NSString*)itemID
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowFormDetail];
     
-    content.bodyDictionary = [WOAPacketHelper packetForWorkflowFormDetail: workID];
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowFormDetail: itemID];
     
     return content;
 }
@@ -136,11 +136,11 @@
     return content;
 }
 
-+ (WOARequestContent*) contentForWorkflowViewDetail: (NSString*)workID
++ (WOARequestContent*) contentForWorkflowViewDetail: (NSString*)itemID
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_GetWorkflowViewDetail];
     
-    content.bodyDictionary = [WOAPacketHelper packetForWorkflowViewDetail: workID];
+    content.bodyDictionary = [WOAPacketHelper packetForWorkflowViewDetail: itemID];
     
     return content;
 }

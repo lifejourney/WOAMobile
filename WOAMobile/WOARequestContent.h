@@ -31,10 +31,10 @@
                                        accountArray: (NSArray*)accountArray;
 + (WOARequestContent*) contentForTodoWorkflowList;
 
-+ (WOARequestContent*) contentForWorkflowFormDetail: (NSString*)workID;
++ (WOARequestContent*) contentForWorkflowFormDetail: (NSString*)itemID;
 + (WOARequestContent*) contentForReviewWorkflow: (NSString*)workID
                                      itemsArray: (NSArray*)itemsArray;
 + (WOARequestContent*) contentForHistoryWorkflowList;
-+ (WOARequestContent*) contentForWorkflowViewDetail: (NSString*)workID;
++ (WOARequestContent*) contentForWorkflowViewDetail: (NSString*)itemID;
 + (WOARequestContent*) contentForDraftWorkflowList;
 @end

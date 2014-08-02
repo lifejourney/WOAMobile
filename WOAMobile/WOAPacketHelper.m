@@ -275,12 +275,12 @@
     return dict;
 }
 
-+ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)workID
++ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)itemID
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     [dict setValue: [self headerForFlowActionType: WOAFLowActionType_GetWorkflowViewDetail] forKey: @"head"];
-    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: itemID forKey: @"itemID"];
     
     return dict;
 }
@@ -453,6 +453,11 @@
 + (NSString*) formTitleFromDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"workStyle"];
+}
+
++ (NSString*) abstractFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"abstract"];
 }
 
 + (NSString*) createTimeFromDictionary: (NSDictionary*)dict

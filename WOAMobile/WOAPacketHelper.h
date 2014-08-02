@@ -45,7 +45,7 @@
 + (NSDictionary*) packetForReviewWorkflow: (NSString*)workID
                                itemsArray: (NSArray*)itemsArray;
 + (NSDictionary*) packetForHistoryWorkflowList;
-+ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)workID;
++ (NSDictionary*) packetForWorkflowViewDetail: (NSString*)itemID;
 + (NSDictionary*) packetForDraftWorkflowList;
 
 + (NSDictionary*) resultFromPacketDictionary: (NSDictionary*)dict;
@@ -71,6 +71,7 @@
 + (NSString*) accountIDFromDictionary: (NSDictionary*)dict;
 + (NSString*) accountNameFromDictionary: (NSDictionary*)dict;
 + (NSString*) formTitleFromDictionary: (NSDictionary*)dict;
++ (NSString*) abstractFromDictionary: (NSDictionary*)dict;
 + (NSString*) createTimeFromDictionary: (NSDictionary*)dict;
 
 @end

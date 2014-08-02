@@ -127,8 +127,9 @@
 
 - (NSString*) itemDetailsFromDictionary: (NSDictionary*)itemDictionary
 {
-    //TO-DO
-    return [WOAPacketHelper createTimeFromDictionary: itemDictionary];
+    return [NSString stringWithFormat: @"%@ %@",
+            [WOAPacketHelper abstractFromDictionary: itemDictionary],
+            [WOAPacketHelper createTimeFromDictionary: itemDictionary]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -269,9 +270,9 @@
 {
     NSArray *itemsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: content];
     
-    //TO-DO, key
-    NSSortDescriptor *createTimeKey = [[NSSortDescriptor alloc] initWithKey: kWOAKey_CreateTime ascending: NO];
-    itemsArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: createTimeKey, nil]];
+//    //TO-DO, key
+//    NSSortDescriptor *createTimeKey = [[NSSortDescriptor alloc] initWithKey: kWOAKey_CreateTime ascending: NO];
+//    itemsArray = [itemsArray sortedArrayUsingDescriptors: [NSArray arrayWithObjects: createTimeKey, nil]];
     
     NSMutableArray *withInitialArray = [[NSMutableArray alloc] initWithCapacity: [itemsArray count]];
     for (NSUInteger i = 0; i < [itemsArray count]; i++)

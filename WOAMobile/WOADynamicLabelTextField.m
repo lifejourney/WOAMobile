@@ -79,6 +79,10 @@
         BOOL isWritable = [WOAPacketHelper itemWritableFromDictionary: itemModel];
         
         self.defaultValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
+        //TO-DO,
+        if ([self.defaultValue isKindOfClass: [NSArray class]])
+            self.defaultValue = nil;
+        
         self.extendType = [self extendTypeFromString: typeString];
         if (self.extendType == WOAExtendTextFieldType_PickerView)
         {
