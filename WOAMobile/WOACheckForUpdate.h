@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+#define kSelfAppleID @"827404068"
+
 @interface WOACheckForUpdate : NSObject <UIAlertViewDelegate>
 
-+ (void) checkingUpdateFromAppStore: (BOOL)forceUpdate;
++ (void) checkingUpdateFromAppStore: (void (^)())startHandler endHandler: (void (^)(NSDictionary* appData))endHandler;
 
 @end

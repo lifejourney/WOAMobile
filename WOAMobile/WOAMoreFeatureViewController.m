@@ -12,6 +12,7 @@
 #import "WOAMenuItemModel.h"
 #import "WOACheckForUpdate.h"
 #import "WOAAboutViewController.h"
+#import "WOAVersionInfoViewController.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
 
@@ -179,7 +180,11 @@
     }
     else if ([itemID isEqualToString: kWOAMenuItemKey_CheckForUpdate])
     {
-        [WOACheckForUpdate checkingUpdateFromAppStore: NO];
+        //[WOACheckForUpdate checkingUpdateFromAppStore: NO];
+        
+        WOAVersionInfoViewController *versionVC = [[WOAVersionInfoViewController alloc] init];
+        
+        [self.navigationController pushViewController: versionVC animated: YES];
     }
     else if ([itemID isEqualToString: kWOAMenuItemKey_About])
     {

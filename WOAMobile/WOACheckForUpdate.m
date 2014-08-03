@@ -10,9 +10,6 @@
 #import "WOAAppDelegate.h"
 
 
-//TO-DO
-#define kSelfAppleID @"827404068"
-
 static BOOL isForceUpdate = NO;
 static BOOL isNewVersionAvailable = NO;
 
@@ -87,9 +84,41 @@ static BOOL isNewVersionAvailable = NO;
 
 #pragma mark - Public
 
-+ (void) checkingUpdateFromAppStore: (BOOL)forceUpdate
++ (void) requesVersionInfoStartHandler
 {
-    isForceUpdate = forceUpdate;
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate showLoadingViewController];
+}
+
++ (void) requestVersionInfoEndHandler: (NSDictionary*)appData
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        [appDelegate hideLoadingViewController];
+        
+        NSArray *versionsInAppStore = [[appData valueForKey: @"results"] valueForKey: @"version"];
+        NSString *currentAppStoreVersion;
+        
+        if (versionsInAppStore && [versionsInAppStore count] > 0)
+        {
+            currentAppStoreVersion = [versionsInAppStore firstObject];
+            NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: (NSString*)kCFBundleVersionKey];
+            
+            isNewVersionAvailable = ([currentVersion compare: currentAppStoreVersion options: NSNumericSearch] == NSOrderedAscending);
+        }
+        
+        if (isNewVersionAvailable)
+            [self showAlertWithAppStoreVersion: currentAppStoreVersion];
+        else
+            [self showAlertForAlreadyNewest];
+    });
+}
+
++ (void) checkingUpdateFromAppStore: (void (^)())startHandler endHandler: (void (^)(NSDictionary* appData))endHandler
+{
+    //isForceUpdate = forceUpdate;
     
     NSString *storeString = [NSString stringWithFormat: @"http://itunes.apple.com/lookup?id=%@", kSelfAppleID];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: [NSURL URLWithString: storeString]];
@@ -97,8 +126,8 @@ static BOOL isNewVersionAvailable = NO;
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
-    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [appDelegate showLoadingViewController];
+    if (startHandler)
+        startHandler();
     
     [NSURLConnection sendAsynchronousRequest: request
                                        queue: queue
@@ -109,26 +138,8 @@ static BOOL isNewVersionAvailable = NO;
             NSDictionary *appData = [NSJSONSerialization JSONObjectWithData: data
                                                                     options: NSJSONReadingAllowFragments
                                                                       error: nil];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [appDelegate hideLoadingViewController];
-                
-                NSArray *versionsInAppStore = [[appData valueForKey: @"results"] valueForKey: @"version"];
-                NSString *currentAppStoreVersion;
-                
-                if (versionsInAppStore && [versionsInAppStore count] > 0)
-                {
-                    currentAppStoreVersion = [versionsInAppStore firstObject];
-                    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: (NSString*)kCFBundleVersionKey];
-                    
-                    isNewVersionAvailable = ([currentVersion compare: currentAppStoreVersion options: NSNumericSearch] == NSOrderedAscending);
-                }
-                
-                if (isNewVersionAvailable)
-                    [self showAlertWithAppStoreVersion: currentAppStoreVersion];
-                else
-                    [self showAlertForAlreadyNewest];
-            });
+            if (endHandler)
+                endHandler(appData);
         }
     }];
 }

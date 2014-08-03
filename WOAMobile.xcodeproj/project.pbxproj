@@ -32,6 +32,8 @@
 		DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
 		DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */; };
 		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
+		DC7E0ADE198DE3AF00975227 /* WOAVersionInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E0ADC198DE3AF00975227 /* WOAVersionInfoViewController.m */; };
+		DC7E0ADF198DE3AF00975227 /* WOAVersionInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC7E0ADD198DE3AF00975227 /* WOAVersionInfoViewController.xib */; };
 		DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834E731942176000C724BE /* WOAPacketHelper.m */; };
 		DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */; };
 		DC834F3D19445FBF00C724BE /* WOALayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834F3C19445FBF00C724BE /* WOALayout.m */; };
@@ -135,6 +137,9 @@
 		DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobileTests-Info.plist"; sourceTree = "<group>"; };
 		DC2D3FDA193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAMobileTests.m; sourceTree = "<group>"; };
+		DC7E0ADB198DE3AF00975227 /* WOAVersionInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAVersionInfoViewController.h; sourceTree = "<group>"; };
+		DC7E0ADC198DE3AF00975227 /* WOAVersionInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAVersionInfoViewController.m; sourceTree = "<group>"; };
+		DC7E0ADD198DE3AF00975227 /* WOAVersionInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAVersionInfoViewController.xib; sourceTree = "<group>"; };
 		DC834E721942176000C724BE /* WOAPacketHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAPacketHelper.h; sourceTree = "<group>"; };
 		DC834E731942176000C724BE /* WOAPacketHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAPacketHelper.m; sourceTree = "<group>"; };
 		DC834F2E194288A000C724BE /* NSString+PinyinInitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinyinInitial.h"; sourceTree = "<group>"; };
@@ -331,6 +336,9 @@
 				DCAAE257193FE10A00AF2AF0 /* WOAAboutViewController.h */,
 				DCAAE258193FE10A00AF2AF0 /* WOAAboutViewController.m */,
 				DCAAE259193FE10A00AF2AF0 /* WOAAboutViewController.xib */,
+				DC7E0ADB198DE3AF00975227 /* WOAVersionInfoViewController.h */,
+				DC7E0ADC198DE3AF00975227 /* WOAVersionInfoViewController.m */,
+				DC7E0ADD198DE3AF00975227 /* WOAVersionInfoViewController.xib */,
 				DC834F2E194288A000C724BE /* NSString+PinyinInitial.h */,
 				DC834F2F194288A000C724BE /* NSString+PinyinInitial.m */,
 				433871E919470B18007FD6D5 /* VSActionSheetDatePicker.h */,
@@ -519,6 +527,7 @@
 				DCA8B6B4195CD93200C0363B /* TodoWorkFlowSelectedIcon@2x.png in Resources */,
 				DCA8B741195DC02300C0363B /* BrandLogo@2x.png in Resources */,
 				DCA8B6AE195CD93200C0363B /* MoreFeatureIcon@2x.png in Resources */,
+				DC7E0ADF198DE3AF00975227 /* WOAVersionInfoViewController.xib in Resources */,
 				DCA8B740195DC02300C0363B /* AccountIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +578,7 @@
 				4393825819542A2400062FC9 /* WOAListViewController.m in Sources */,
 				DCAAE25A193FE10A00AF2AF0 /* WOAAboutViewController.m in Sources */,
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
+				DC7E0ADE198DE3AF00975227 /* WOAVersionInfoViewController.m in Sources */,
 				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
 				DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
@@ -660,6 +670,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				ProductCNName = "校园OA";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -696,6 +707,7 @@
 					"$(SRCROOT)/WOAMobile/thirdparty",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ProductCNName = "校园OA";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
