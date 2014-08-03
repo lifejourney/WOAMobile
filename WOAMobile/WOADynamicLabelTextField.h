@@ -45,4 +45,6 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 
 - (NSDictionary*) toDataModelWithIndexPath;
 
+- (void) selectDefaultValueFromPickerView;
+
 @end

@@ -47,7 +47,7 @@
     
     //TO-DO
     NSInteger maxRow = 5;
-    NSInteger minRow = 2;
+    NSInteger minRow = 1;
     NSInteger itemRows = dataModel ? [dataModel count] : 0;
     if (itemRows > maxRow) itemRows = maxRow;
     else if (itemRows < minRow) itemRows = minRow;

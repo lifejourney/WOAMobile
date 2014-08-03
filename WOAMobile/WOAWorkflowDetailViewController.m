@@ -93,7 +93,7 @@
     titleLabel.text = @"";
     titleLabel.backgroundColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.1];
     
-    CGFloat splitTopMargin = 4;
+    CGFloat splitTopMargin = kWOALayout_ItemTopMargin;
     CGRect titleRect = CGRectMake(fromOrigin.x, fromOrigin.y + splitTopMargin, sizeWidth, 1);
     [titleLabel setFrame: titleRect];
     [view addSubview: titleLabel];
@@ -131,7 +131,11 @@
                                                                   itemModel: itemModel];
             itemTextField.delegate = self;
             
-            if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
+            if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
+            {
+                [itemTextField selectDefaultValueFromPickerView];
+            }
+            else if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
             {
                 itemTextField.textField.borderStyle = UITextBorderStyleNone;
             }
@@ -278,8 +282,8 @@
     else
     {
         //TO-DO
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"已完结"
-                                                            message: nil
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: nil
+                                                            message: @"已完结"
                                                            delegate: self
                                                   cancelButtonTitle: @"确定"
                                                   otherButtonTitles: nil, nil];

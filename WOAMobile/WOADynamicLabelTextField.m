@@ -19,7 +19,6 @@
 @property (nonatomic, weak) UIView *popoverShowInView;
 
 @property (nonatomic, assign) WOAExtendTextFieldType extendType;
-@property (nonatomic, copy) NSString *defaultValue;
 @property (nonatomic, strong) NSArray *optionArray;
 
 @property (nonatomic, strong) VSActionSheetDatePicker *actionSheetDatePicker;
@@ -78,30 +77,34 @@
         NSString *labelText = [WOAPacketHelper itemNameFromDictionary: itemModel];
         BOOL isWritable = [WOAPacketHelper itemWritableFromDictionary: itemModel];
         
-        self.defaultValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
+        id itemValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
         //TO-DO,
-        if ([self.defaultValue isKindOfClass: [NSArray class]])
-            self.defaultValue = nil;
+        if ([itemValue isKindOfClass: [NSArray class]])
+            itemValue = nil;
         
         self.extendType = [self extendTypeFromString: typeString];
         if (self.extendType == WOAExtendTextFieldType_PickerView)
         {
             NSArray *optionArray = [WOAPacketHelper optionArrayFromDictionary: itemModel];
             
-            self.optionArray = [optionArray sortedArrayUsingSelector: @selector(compare:)];
+            //DO NOT need to sort at client side
+            //self.optionArray = [optionArray sortedArrayUsingSelector: @selector(compare:)];
+            self.optionArray = optionArray;
         }
         else
         {
             self.optionArray = nil;
         }
         self.label = [[UILabel alloc] initWithFrame: CGRectZero];
+        _label.font = [_label.font fontWithSize: 12.0f];
         _label.text = labelText;
         _label.textAlignment = NSTextAlignmentLeft;
         [self addSubview: _label];
         
         self.textField = [[UITextField alloc] initWithFrame: CGRectZero];
+        _textField.font = [_textField.font fontWithSize: 12.0f];
         _textField.delegate = self;
-        _textField.text = self.defaultValue;
+        _textField.text = itemValue;
         _textField.textAlignment = NSTextAlignmentLeft;
         _textField.borderStyle = UITextBorderStyleRoundedRect;
         _textField.userInteractionEnabled = isWritable;
@@ -141,7 +144,7 @@
         
         
         //set frames
-        CGFloat originY = frame.origin.x + kWOALayout_ItemTopMargin;
+        CGFloat originY = kWOALayout_ItemTopMargin;
         CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
         CGFloat labelOriginX = frame.origin.x;
         CGFloat labelWidth = kWOALayout_ItemLabelWidth;
@@ -262,6 +265,17 @@
                                            value: self.textField.text
                                          section: sectionNum
                                              row: rowNum];
+}
+
+- (void) selectDefaultValueFromPickerView
+{
+    if (self.extendType == WOAExtendTextFieldType_PickerView)
+    {
+        if ([_textField.text length] <= 0)
+        {
+            _textField.text = [self.optionArray firstObject];
+        }
+    }
 }
 
 @end

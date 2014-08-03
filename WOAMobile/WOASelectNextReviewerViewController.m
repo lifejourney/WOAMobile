@@ -177,8 +177,12 @@
     [appDelegate sendRequest: requestContent
                   onSuccuess:^(WOAResponeContent *responseContent)
      {
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"已转至下一步"
-                                                             message: nil
+         NSString *msgContent = [WOAPacketHelper descriptionFromPacketDictionary: responseContent.bodyDictionary];
+         if (!msgContent || [msgContent length] <= 0)
+             msgContent = @"已转至下一步";
+         
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: nil
+                                                             message: msgContent
                                                             delegate: self
                                                    cancelButtonTitle: @"确定"
                                                    otherButtonTitles: nil, nil];

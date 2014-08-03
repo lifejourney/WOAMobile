@@ -330,6 +330,11 @@
     return [resultDict valueForKey: @"description"];
 }
 
++ (NSString*) descriptionFromPacketDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"description"];
+}
+
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"workID"];
