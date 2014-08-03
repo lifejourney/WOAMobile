@@ -164,12 +164,12 @@
 
 - (void) splashViewDidHiden
 {
-    [self presentLoginViewController: NO];
+    [self presentLoginViewController: YES animated: NO];
 }
 
 #pragma mark - Public
 
-- (void) presentLoginViewController: (BOOL)animated
+- (void) presentLoginViewController: (BOOL)loginImmediately animated: (BOOL)animated
 {
     UIViewController *presentedVC = [self presentedViewController];
     
@@ -177,7 +177,11 @@
     {
         [presentedVC presentViewController: self.loginVC
                                   animated: animated
-                                completion: ^{}];
+                                completion: ^
+        {
+            if (loginImmediately)
+                [self.loginVC tryLogin];
+        }];
     }
 }
 

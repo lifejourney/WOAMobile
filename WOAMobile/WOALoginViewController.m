@@ -93,11 +93,9 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(tapOutsideKeyboardAction)];
     [self.view addGestureRecognizer: tapGesture];
     
-    NSString *latestAccountID = [WOAPropertyInfo latestLoginAccountID];
-    if (latestAccountID)
-    {
-        _accountTextField.text = latestAccountID;
-    }
+    WOAAccountCredential *latestAccount = [WOAPropertyInfo latestLoginedAccount];
+    _accountTextField.text = latestAccount.accountID;
+    _passwordTextField.text = latestAccount.password;
     
     if ([_accountTextField.text length] > 0)
         [_passwordTextField becomeFirstResponder];
@@ -143,7 +141,6 @@
     self.latestResponder = textField;
 }
 
-
 - (IBAction) onLoginAction: (id)sender
 {
     if ([self validateInput])
@@ -157,7 +154,8 @@
         [appDelegate sendRequest: requestContent
                       onSuccuess:^(WOAResponeContent *responseContent)
          {
-             [WOAPropertyInfo saveLatestLoginAccount: self.accountTextField.text];
+             [WOAPropertyInfo saveLatestLoginAccountID: self.accountTextField.text
+                                              password: self.passwordTextField.text];
              
              [appDelegate dismissLoginViewController: YES];
              
@@ -168,6 +166,14 @@
         {
             NSLog(@"Login fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
         }];
+    }
+}
+
+- (void) tryLogin
+{
+    if ([self.accountTextField.text length] > 0)
+    {
+        [self onLoginAction: self.loginButton];
     }
 }
 

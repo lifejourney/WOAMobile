@@ -26,7 +26,7 @@
 @property (nonatomic, assign) BOOL isLaunchByAPNS;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
-- (void) presentLoginViewController: (BOOL)animated;
+- (void) presentLoginViewController: (BOOL)loginImmediately animated: (BOOL)animated;
 - (void) dismissLoginViewController: (BOOL)animated;
 - (void) showLoadingViewController;
 - (void) showTransparentLoadingView;

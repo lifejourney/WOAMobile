@@ -22,4 +22,6 @@
 
 @property (nonatomic, weak) id<WOALoginViewControllerDelegate> delegate;
 
+- (void) tryLogin;
+
 @end

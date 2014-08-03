@@ -8,6 +8,7 @@
 
 #import "WOAMoreFeatureViewController.h"
 #import "WOAAppDelegate.h"
+#import "WOAPropertyInfo.h"
 #import "WOAMenuItemModel.h"
 #import "WOACheckForUpdate.h"
 #import "WOAAboutViewController.h"
@@ -189,21 +190,28 @@
     else if ([itemID isEqualToString: kWOAMenuItemKey_Logout])
     {
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        WOARequestContent *requestContent = [WOARequestContent contentForLogout];
         
-        [appDelegate sendRequest: requestContent
-                      onSuccuess:^(WOAResponeContent *responseContent)
-         {
-             appDelegate.sessionID = nil;
-             appDelegate.latestLoginRequestContent = nil;
-             
-             [appDelegate presentLoginViewController: YES];
-             
-         }
-                       onFailure:^(WOAResponeContent *responseContent)
-         {
-             NSLog(@"Login fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
-         }];
+        appDelegate.sessionID = nil;
+        
+        [WOAPropertyInfo saveLatestLoginAccountID: nil
+                                         password: nil];
+        
+        [appDelegate presentLoginViewController: NO animated: YES];
+//        WOARequestContent *requestContent = [WOARequestContent contentForLogout];
+//        
+//        [appDelegate sendRequest: requestContent
+//                      onSuccuess:^(WOAResponeContent *responseContent)
+//         {
+//             appDelegate.sessionID = nil;
+//             appDelegate.latestLoginRequestContent = nil;
+//             
+//             [appDelegate presentLoginViewController: YES];
+//             
+//         }
+//                       onFailure:^(WOAResponeContent *responseContent)
+//         {
+//             NSLog(@"Login fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
+//         }];
     }
 }
 

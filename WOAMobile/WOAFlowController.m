@@ -150,7 +150,7 @@
         if (self.responseContent.requestResult == WOAHTTPRequestResult_InvalidSession)
         {
             WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-            [appDelegate presentLoginViewController: NO];
+            [appDelegate presentLoginViewController: NO animated: NO];
         }
         
         NSString *msgContent = self.responseContent.resultDescription;

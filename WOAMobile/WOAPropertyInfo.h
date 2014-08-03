@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WOAAccountCredential.h"
 
 
 @interface WOAPropertyInfo : NSObject
 
-+ (NSString*) latestLoginAccountID;
-+ (void) saveLatestLoginAccount: (NSString*)accountID;
++ (WOAAccountCredential*) latestLoginedAccount;
++ (void) saveLatestLoginAccount: (WOAAccountCredential*)account;
++ (void) saveLatestLoginAccountID: (NSString*)accountID password: (NSString*)password;
 
 @end

@@ -51,14 +51,35 @@
     return value;
 }
 
-+ (NSString*) latestLoginAccountID
++ (WOAAccountCredential*) latestLoginedAccount
 {
-    return [self stringValueFromKey: @"latestAccount" subKey: @"accountID"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *latestAccount = [userDefaults dictionaryForKey: @"latestAccount"];
+    
+    return [WOAAccountCredential accountCredentialWithAccountID: [latestAccount valueForKey: @"account"]
+                                                       password: [latestAccount valueForKey: @"pwd"]];
 }
 
-+ (void) saveLatestLoginAccount: (NSString*)accountID
++ (void) saveLatestLoginAccount: (WOAAccountCredential*)account
 {
-    [self saveObject: accountID key: @"latestAccount" subKey: @"accountID"];
+    NSDictionary *latestAccount = [NSDictionary dictionaryWithObjectsAndKeys: account.accountID, @"account",
+                                                                              account.password, @"pwd",
+                                                                              nil];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject: latestAccount forKey: @"latestAccount"];
+    [userDefaults synchronize];
+}
+
++ (void) saveLatestLoginAccountID: (NSString*)accountID password: (NSString*)password
+{
+    WOAAccountCredential *account = [WOAAccountCredential accountCredentialWithAccountID: accountID password: password];
+    
+    [self saveLatestLoginAccount: account];
 }
 
 @end
+
+
+
