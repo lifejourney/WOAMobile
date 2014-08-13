@@ -670,6 +670,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "1B783C9A-3DC3-4D9D-88CB-6F0F29DF05CC";
 				ProductCNName = "智慧云";
 				SDKROOT = iphoneos;
 			};
@@ -707,6 +708,7 @@
 					"$(SRCROOT)/WOAMobile/thirdparty",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "1B783C9A-3DC3-4D9D-88CB-6F0F29DF05CC";
 				ProductCNName = "智慧云";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -719,10 +721,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
 				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1B783C9A-3DC3-4D9D-88CB-6F0F29DF05CC";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -733,10 +737,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WOAMobile/WOAMobile-Prefix.pch";
 				INFOPLIST_FILE = "WOAMobile/WOAMobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1B783C9A-3DC3-4D9D-88CB-6F0F29DF05CC";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

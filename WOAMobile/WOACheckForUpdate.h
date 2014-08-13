@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-#define kSelfAppleID @"827404068"
+#define kSelfAppleID @"908853362"
 
 @interface WOACheckForUpdate : NSObject <UIAlertViewDelegate>
 
