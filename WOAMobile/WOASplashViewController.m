@@ -44,7 +44,7 @@
     [self.view addSubview: imageView];
     
     UILabel *versionLabel = [[UILabel alloc] initWithFrame: CGRectZero];
-    versionLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString*)kCFBundleVersionKey];
+    versionLabel.text = [[[NSBundle mainBundle] infoDictionary] valueForKeyPath: @"CFBundleShortVersionString"];
     [versionLabel sizeToFit];
     CGRect labelRect = versionLabel.frame;
     labelRect.origin.x = (self.view.frame.size.width - labelRect.size.width) / 2;
