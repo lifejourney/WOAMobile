@@ -122,7 +122,9 @@
         
         NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
         
-        NSLog(@"To send request for action: %lu\n%@", requestContent.flowActionType, requestContent.bodyDictionary);
+        NSLog(@"To send request for action: %lu\n%@\n-------->\n\n",
+                requestContent.flowActionType,
+                [self formattedString: [[NSString alloc] initWithData: bodyData encoding: NSUTF8StringEncoding]]);//requestContent.bodyDictionary);
         
         self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                               delegate: self
@@ -231,6 +233,16 @@
     [self.receivedData appendData: data];
 }
 
+- (NSString*) formattedString: (NSString*)str
+{
+    NSString *logString = [str stringByReplacingOccurrencesOfString: @"," withString: @",\n"];
+    logString = [logString stringByReplacingOccurrencesOfString: @"]," withString: @"},\n"];
+    logString = [logString stringByReplacingOccurrencesOfString: @"}," withString: @"},\n"];
+    logString = [logString stringByReplacingOccurrencesOfString: @":[" withString: @":[\n"];
+    logString = [logString stringByReplacingOccurrencesOfString: @":{" withString: @":{\n"];
+    
+    return logString;
+}
 - (void) connectionDidFinishLoading: (NSURLConnection *)connection
 {
     NSError *error;
@@ -254,7 +266,9 @@
             
             if (bodyDictionary)
             {
-                NSLog(@"Received response for action: %lu\n%@", self.currentActionType, bodyDictionary);
+                NSLog(@"Received response for action: %lu\n%@\n<--------\n\n",
+                        self.currentActionType,
+                        [self formattedString: tmpString]);//bodyDictionary);
                 
                 WOAWorkflowResultCode resultCode = [WOAPacketHelper resultCodeFromPacketDictionary: bodyDictionary];
                 
