@@ -17,6 +17,9 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
     WOAExtendTextFieldType_TimePicker,
     WOAExtendTextFieldType_DateTimePicker,
     WOAExtendTextFieldType_PickerView,
+    WOAExtendTextFieldType_AttachFile,
+    WOAExtendTextFieldType_TextList,
+    WOAExtendTextFieldType_CheckUserList,
 };
 
 @protocol WOADynamicLabelTextFieldDelegate <NSObject>
@@ -31,16 +34,11 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 
 @property (nonatomic, weak) id<WOADynamicLabelTextFieldDelegate> delegate;
 
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) UITextField *textField;
-
-@property (nonatomic, assign) NSInteger section;
-@property (nonatomic, assign) NSInteger row;
-
 - (instancetype) initWithFrame: (CGRect)frame
              popoverShowInView: (UIView*)popoverShowInView
                        section: (NSInteger)section
                            row: (NSInteger)row
+                    isEditable: (BOOL)isEditable
                      itemModel: (NSDictionary*)itemModel;
 
 - (NSDictionary*) toDataModelWithIndexPath;

@@ -128,16 +128,13 @@
                                                           popoverShowInView: self.view
                                                                     section: groupIndex
                                                                         row: itemIndex
+                                                                 isEditable: (_detailActionType != WOAFLowActionType_GetWorkflowViewDetail)
                                                                   itemModel: itemModel];
             itemTextField.delegate = self;
             
             if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
             {
                 [itemTextField selectDefaultValueFromPickerView];
-            }
-            else if (_detailActionType == WOAFLowActionType_GetWorkflowViewDetail)
-            {
-                itemTextField.textField.borderStyle = UITextBorderStyleNone;
             }
             
             [scrollView addSubview: itemTextField];

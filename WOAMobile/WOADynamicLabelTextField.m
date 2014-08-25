@@ -11,9 +11,17 @@
 #import "VSActionSheetDatePicker.h"
 #import "VSActionSheetPickerView.h"
 #import "WOALayout.h"
+#import "UIColor+AppTheme.h"
 
 
 @interface WOADynamicLabelTextField () <UITextFieldDelegate>
+
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UITextField *textField;
+
+@property (nonatomic, assign) NSInteger section;
+@property (nonatomic, assign) NSInteger row;
+@property (nonatomic, assign) BOOL isEditable;
 
 //TO-DO: weak? strong?
 @property (nonatomic, weak) UIView *popoverShowInView;
@@ -48,23 +56,118 @@
             extendType = WOAExtendTextFieldType_Normal;
         else if ([lowerCaseTypeString isEqualToString: @"int"])
             extendType = WOAExtendTextFieldType_IntString;
-        else if ([lowerCaseTypeString isEqualToString: @"combobox"])
-            extendType = WOAExtendTextFieldType_PickerView;
-        else if ([lowerCaseTypeString isEqualToString: @"datetime"])
-            extendType = WOAExtendTextFieldType_DateTimePicker;
         else if ([lowerCaseTypeString isEqualToString: @"date"])
             extendType = WOAExtendTextFieldType_DatePicker;
         else if ([lowerCaseTypeString isEqualToString: @"time"])
             extendType = WOAExtendTextFieldType_TimePicker;
+        else if ([lowerCaseTypeString isEqualToString: @"datetime"])
+            extendType = WOAExtendTextFieldType_DateTimePicker;
+        else if ([lowerCaseTypeString isEqualToString: @"combobox"])
+            extendType = WOAExtendTextFieldType_PickerView;
+        else if ([lowerCaseTypeString isEqualToString: @"attfile"])
+            extendType = WOAExtendTextFieldType_AttachFile;
+        else if ([lowerCaseTypeString isEqualToString: @"textlist"])
+            extendType = WOAExtendTextFieldType_TextList;
+        else if ([lowerCaseTypeString isEqualToString: @"checkuserlist"])
+            extendType = WOAExtendTextFieldType_CheckUserList;
     }
     
     return extendType;
+}
+
+- (BOOL) couldUserInteractEvenUnWritable: (WOAExtendTextFieldType)extendType
+{
+    return (extendType == WOAExtendTextFieldType_AttachFile);
+}
+
+- (UIView*) rightViewWithExtendType: (WOAExtendTextFieldType)extendType isWritable: (BOOL)isWritable viewHeight: (CGFloat)viewHeight
+{
+    SEL clickSelector;
+    NSString *title;
+    
+    switch (_extendType)
+    {
+        case WOAExtendTextFieldType_Normal:
+        case WOAExtendTextFieldType_IntString:
+            clickSelector = nil;
+            title = nil;
+            break;
+            
+        case WOAExtendTextFieldType_DatePicker:
+            clickSelector = @selector(showDatePicker:);
+            title = @"...";
+            break;
+            
+        case WOAExtendTextFieldType_TimePicker:
+            clickSelector = @selector(showTimePicker:);
+            title = @"...";
+            break;
+            
+        case WOAExtendTextFieldType_DateTimePicker:
+            clickSelector = @selector(showDateTimePicker:);
+            title = @"...";
+            break;
+            
+        case WOAExtendTextFieldType_PickerView:
+            clickSelector = @selector(showPickerView:);
+            title = @"...";
+            break;
+            
+        case WOAExtendTextFieldType_AttachFile:
+            if (isWritable)
+                clickSelector = @selector(selectAttachment:);
+            else
+                clickSelector = @selector(viewAttachment:);
+            title = @"...";
+            break;
+            
+        case WOAExtendTextFieldType_TextList:
+            clickSelector = nil;
+            title = nil;
+            break;
+            
+        case WOAExtendTextFieldType_CheckUserList:
+            clickSelector = nil;
+            title = nil;
+            break;
+            
+        default:
+            clickSelector = nil;
+            title = nil;
+            break;
+    }
+    
+    BOOL couldShouldRightView = ((_isEditable && isWritable) || [self couldUserInteractEvenUnWritable: extendType]);
+    
+    UIButton *rightButton;
+    if (title && couldShouldRightView)
+    {
+        rightButton = [UIButton buttonWithType: UIButtonTypeSystem];
+        [rightButton setTitle: title forState: UIControlStateNormal];
+        [rightButton setTitleColor: [UIColor textNormalColor] forState: UIControlStateNormal];
+        
+        if (clickSelector != nil)
+        {
+            [rightButton addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
+        }
+        
+        CGFloat viewWidth = viewHeight;
+        CGRect rect = CGRectMake(0, 0, viewWidth, viewHeight);
+        [rightButton setFrame: rect];
+    }
+    else
+    {
+        rightButton = nil;
+    }
+    
+    return rightButton;
 }
 
 - (instancetype) initWithFrame: (CGRect)frame
              popoverShowInView: (UIView*)popoverShowInView
                        section: (NSInteger)section
                            row: (NSInteger)row
+                    isEditable: (BOOL)isEditable
                      itemModel: (NSDictionary*)itemModel
 {
     if (self = [self initWithFrame: frame])
@@ -72,6 +175,7 @@
         self.popoverShowInView = popoverShowInView;
         self.section = section;
         self.row = row;
+        self.isEditable = isEditable;
         
         NSString *typeString = [WOAPacketHelper itemTypeFromDictionary: itemModel];
         NSString *labelText = [WOAPacketHelper itemNameFromDictionary: itemModel];
@@ -106,40 +210,15 @@
         _textField.delegate = self;
         _textField.text = itemValue;
         _textField.textAlignment = NSTextAlignmentLeft;
-        _textField.borderStyle = UITextBorderStyleRoundedRect;
-        _textField.userInteractionEnabled = isWritable;
+        _textField.borderStyle = isEditable ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
+        _textField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
         _textField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
-        //TO-DO
-        //_textField.rightView = ;
         
         //readonly
-        SEL clickSelector;
-        switch (_extendType)
-        {
-            case WOAExtendTextFieldType_PickerView:
-                clickSelector = @selector(showPickerView:);
-                break;
-                
-            case WOAExtendTextFieldType_DateTimePicker:
-                clickSelector = @selector(showDateTimePicker:);
-                break;
-                
-            case WOAExtendTextFieldType_DatePicker:
-                clickSelector = @selector(showDatePicker:);
-                break;
-                
-            case WOAExtendTextFieldType_TimePicker:
-                clickSelector = @selector(showTimePicker:);
-                break;
-                
-            default:
-                clickSelector = nil;
-                break;
-        }
-        if (clickSelector != nil)
-        {
-            [_textField addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
-        }
+        UIView *rightView = [self rightViewWithExtendType: self.extendType isWritable: isWritable viewHeight: kWOALayout_ItemCommonHeight];
+        _textField.rightView = rightView;
+        _textField.rightViewMode = rightView ? UITextFieldViewModeAlways : UITextFieldViewModeNever;
+        
         [self addSubview: _textField];
         
         
@@ -193,16 +272,16 @@
     NSString *dateFormatString;
     switch (self.extendType)
     {
-        case WOAExtendTextFieldType_DateTimePicker:
-            dateFormatString = kWOADefaultDateTimeFormat;
-            break;
-            
         case WOAExtendTextFieldType_DatePicker:
             dateFormatString = kWOADefaultDateFormat;
             break;
             
         case WOAExtendTextFieldType_TimePicker:
             dateFormatString = kWOADefaultTimeFormat;
+            break;
+            
+        case WOAExtendTextFieldType_DateTimePicker:
+            dateFormatString = kWOADefaultDateTimeFormat;
             break;
             
         default:
@@ -236,6 +315,16 @@
 - (void) showDateTimePicker: (id)sender
 {
     [self showActionSheetDatePicker: sender datePickerMode: UIDatePickerModeDateAndTime];
+}
+
+- (void) viewAttachment: (id)sender
+{
+    NSLog(@"viewAttachment");
+}
+
+- (void) selectAttachment: (id)sender
+{
+    
 }
 
 #pragma mark - UITextFieldDelegate
