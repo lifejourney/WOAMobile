@@ -296,7 +296,7 @@
                                      [tmpString length],
                                      tmpString];
                 
-                NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
+                NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], tmpString);
             }
         }
     }
