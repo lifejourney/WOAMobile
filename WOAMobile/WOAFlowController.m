@@ -287,12 +287,19 @@
                 
                 if (resultCode != WOAWorkflowResultCode_Success)
                 {
-                    if (resultCode == WOAWorkflowResultCode_InvalidSession)
-                        requestResult = WOAHTTPRequestResult_InvalidSession;
-                    else
-                        requestResult = WOAHTTPRequestResult_ErrorWithDescription;
-                    
                     resultDescription = [WOAPacketHelper resultDescriptionFromPacketDictionary: bodyDictionary];
+                    
+                    //TO-DO, temporarily
+//                    if (resultCode == WOAWorkflowResultCode_InvalidSession)
+//                        requestResult = WOAHTTPRequestResult_InvalidSession;
+//                    else
+//                        requestResult = WOAHTTPRequestResult_ErrorWithDescription;
+                    
+                    NSString *testString = [resultDescription stringByReplacingOccurrencesOfString: @"用户未登录" withString: @""];
+                    if ([testString isEqualToString: resultDescription])
+                        requestResult = WOAHTTPRequestResult_ErrorWithDescription;
+                    else
+                        requestResult = WOAHTTPRequestResult_InvalidSession;
                     
                     if (!resultDescription || ([resultDescription length] <= 0))
                     {
