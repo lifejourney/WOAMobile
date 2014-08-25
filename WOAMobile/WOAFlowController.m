@@ -113,29 +113,42 @@
     self.connectionError = nil;
     self.receivedData = [[NSMutableData alloc] init];
     
-    NSData *bodyData = [NSJSONSerialization dataWithJSONObject: requestContent.bodyDictionary
-                                                       options: 0
-                                                         error: &error];
-    if (bodyData)
+    if (requestContent.bodyDictionary)
     {
-        self.currentActionType = requestContent.flowActionType;
+        NSData *bodyData = [NSJSONSerialization dataWithJSONObject: requestContent.bodyDictionary
+                                                           options: 0
+                                                             error: &error];
         
-        NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
-        
-        NSLog(@"To send request for action: %lu\n%@\n-------->\n\n",
-                requestContent.flowActionType,
-                [self formattedString: [[NSString alloc] initWithData: bodyData encoding: NSUTF8StringEncoding]]);//requestContent.bodyDictionary);
-        
-        self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
-                                                              delegate: self
-                                                      startImmediately: YES];
+        if (bodyData)
+        {
+            self.currentActionType = requestContent.flowActionType;
+            
+            NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithBodyData: bodyData];
+            
+            NSLog(@"To send request for action: %lu\n%@\n-------->\n\n",
+                    requestContent.flowActionType,
+                    [self formattedString: [[NSString alloc] initWithData: bodyData encoding: NSUTF8StringEncoding]]);//requestContent.bodyDictionary);
+            
+            self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
+                                                                  delegate: self
+                                                          startImmediately: YES];
+        }
+        else
+        {
+            self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
+            self.responseContent.resultDescription = @"无效的请求内容.";
+            
+            NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], requestContent.bodyDictionary);
+            
+            self.httpConnection = nil;
+        }
     }
     else
     {
         self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
-        self.responseContent.resultDescription = @"无效的请求内容";
+        self.responseContent.resultDescription = @"无效的请求.";
         
-        NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], self.requestContent.bodyDictionary);
+        NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], requestContent.bodyDictionary);
         
         self.httpConnection = nil;
     }
