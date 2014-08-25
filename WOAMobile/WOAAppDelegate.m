@@ -102,6 +102,8 @@
                                                                                              forState: UIControlStateNormal];
     [[UIBarButtonItem appearanceWhenContainedIn: [UINavigationBar class], nil] setTitleTextAttributes: navigationItemAttribute
                                                                                              forState: UIControlStateHighlighted];
+    [[UINavigationBar appearanceWhenContainedIn: [UINavigationController class], nil] setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"]
+                                                                                           forBarMetrics: UIBarMetricsDefault];
     
     [self.window makeKeyAndVisible];
     

@@ -110,6 +110,7 @@
     CGFloat itemSizeWidth = sizeWidth;
     CGFloat itemSizeHeight = 1; //just for placeholder
     CGFloat totalHeight = 0;
+    UINavigationController *hostNavigationController = self.navigationController;
     
     NSArray *itemGroupsArray = [WOAPacketHelper itemsArrayFromPacketDictionary: self.detailDictionary];
     WOADynamicLabelTextField *itemTextField;
@@ -131,6 +132,7 @@
                                                                  isEditable: (_detailActionType != WOAFLowActionType_GetWorkflowViewDetail)
                                                                   itemModel: itemModel];
             itemTextField.delegate = self;
+            itemTextField.hostNavigation = hostNavigationController;
             
             if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
             {

@@ -69,26 +69,22 @@
         todoListVC.listActionType = WOAFLowActionType_GetTodoWorkflowList;
         _todoWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: todoListVC];
         _todoWorkflowNavC.tabBarItem = todoItem;
-        [_todoWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
         [self.vcArray addObject: _todoWorkflowNavC];
         
         WOAWorkflowTypeListViewController *typeListVC = [[WOAWorkflowTypeListViewController alloc] init];
         _initiateWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: typeListVC];
         _initiateWorkflowNavC.tabBarItem = typeListItem;
-        [_initiateWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
         [self.vcArray addObject: _initiateWorkflowNavC];
         
         WOAWorkflowFormListViewController *historyListVC = [[WOAWorkflowFormListViewController alloc] init];
         historyListVC.listActionType = WOAFLowActionType_GetHistoryWorkflowList;
         _appliedWorkflowNavC = [[UINavigationController alloc] initWithRootViewController: historyListVC];
         _appliedWorkflowNavC.tabBarItem = historyItem;
-        [_appliedWorkflowNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
         [self.vcArray addObject: _appliedWorkflowNavC];
         
         WOAMoreFeatureViewController *moreFeatureVC = [[WOAMoreFeatureViewController alloc] init];
         _moreFeatureNavC = [[UINavigationController alloc] initWithRootViewController: moreFeatureVC];
         _moreFeatureNavC.tabBarItem = moreItem;
-        [_moreFeatureNavC.navigationBar setBackgroundImage: [UIImage imageNamed: @"NavigationBarBg"] forBarMetrics: UIBarMetricsDefault];
         [self.vcArray addObject: _moreFeatureNavC];
         
         self.delegate = self;

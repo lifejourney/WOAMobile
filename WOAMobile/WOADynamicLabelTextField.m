@@ -14,7 +14,7 @@
 #import "UIColor+AppTheme.h"
 
 
-@interface WOADynamicLabelTextField () <UITextFieldDelegate>
+@interface WOADynamicLabelTextField () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UITextField *textField;
@@ -319,12 +319,28 @@
 
 - (void) viewAttachment: (id)sender
 {
-    NSLog(@"viewAttachment");
+    NSString *filePath = self.textField.text;
+    
+    if (filePath && [filePath length] > 0)
+    {
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: filePath]];
+    }
 }
 
 - (void) selectAttachment: (id)sender
 {
+    UIImagePickerControllerSourceType sourceType;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+        sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    else
+        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
+    UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
+    imagePickerVC.allowsEditing = NO;
+    imagePickerVC.sourceType = sourceType;
+    imagePickerVC.delegate = self;
+    
+    [self.hostNavigation presentViewController: imagePickerVC animated: YES completion: nil];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -365,6 +381,19 @@
             _textField.text = [self.optionArray firstObject];
         }
     }
+}
+
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void) imagePickerController: (UIImagePickerController *)picker
+ didFinishPickingMediaWithInfo: (NSDictionary *)info
+{
+    NSLog(@"%@", info);
+}
+
+- (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated: YES completion: nil];
 }
 
 @end

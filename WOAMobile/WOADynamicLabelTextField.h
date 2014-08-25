@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 @interface WOADynamicLabelTextField : UIView
 
 @property (nonatomic, weak) id<WOADynamicLabelTextFieldDelegate> delegate;
+@property (nonatomic, strong) UINavigationController *hostNavigation;
 
 - (instancetype) initWithFrame: (CGRect)frame
              popoverShowInView: (UIView*)popoverShowInView
