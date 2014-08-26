@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4325F42519AC328300D25C86 /* NSFileManager+AppFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4325F42419AC328300D25C86 /* NSFileManager+AppFolder.m */; };
 		432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 432C2C29193F156F008F25F7 /* WOACheckForUpdate.m */; };
 		43306998193D72D9009006A4 /* WOASessionTokens.m in Sources */ = {isa = PBXBuildFile; fileRef = 43306997193D72D9009006A4 /* WOASessionTokens.m */; };
 		4330699B193D72F1009006A4 /* WOAAccountCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 4330699A193D72F1009006A4 /* WOAAccountCredential.m */; };
@@ -93,6 +94,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4325F42319AC328300D25C86 /* NSFileManager+AppFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+AppFolder.h"; sourceTree = "<group>"; };
+		4325F42419AC328300D25C86 /* NSFileManager+AppFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+AppFolder.m"; sourceTree = "<group>"; };
 		432C2C28193F156F008F25F7 /* WOACheckForUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOACheckForUpdate.h; sourceTree = "<group>"; };
 		432C2C29193F156F008F25F7 /* WOACheckForUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOACheckForUpdate.m; sourceTree = "<group>"; };
 		43306996193D72D9009006A4 /* WOASessionTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOASessionTokens.h; sourceTree = "<group>"; };
@@ -355,6 +358,8 @@
 				43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */,
 				DC8F5B38195397B400C0688C /* UIColor+AppTheme.h */,
 				DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */,
+				4325F42319AC328300D25C86 /* NSFileManager+AppFolder.h */,
+				4325F42419AC328300D25C86 /* NSFileManager+AppFolder.m */,
 				433B431A1953CC4A00B2D5D0 /* WOASplashViewController.h */,
 				433B431B1953CC4A00B2D5D0 /* WOASplashViewController.m */,
 				4393824A19540E2E00062FC9 /* VSPopoverDefine.h */,
@@ -571,6 +576,7 @@
 				DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */,
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
 				433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */,
+				4325F42519AC328300D25C86 /* NSFileManager+AppFolder.m in Sources */,
 				4393824F195415F900062FC9 /* VSPopoverView.m in Sources */,
 				DC8B09A0193B89B800217F45 /* WOAHTTPRequester.m in Sources */,
 				DC8B09A4193B89B800217F45 /* WOALoadingViewController.m in Sources */,

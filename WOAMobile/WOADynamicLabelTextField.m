@@ -12,6 +12,8 @@
 #import "VSActionSheetPickerView.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
+#import "NSFileManager+AppFolder.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 
 @interface WOADynamicLabelTextField () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -22,6 +24,11 @@
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
 @property (nonatomic, assign) BOOL isEditable;
+
+//Attachment
+@property (nonatomic, copy) NSString *imageFileName;
+@property (nonatomic, copy) NSString *imageFullFileName;
+@property (nonatomic, assign) long long imageFileSize;
 
 //TO-DO: weak? strong?
 @property (nonatomic, weak) UIView *popoverShowInView;
@@ -338,6 +345,8 @@
     UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
     imagePickerVC.allowsEditing = NO;
     imagePickerVC.sourceType = sourceType;
+    //imagePickerVC.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: sourceType];
+    imagePickerVC.mediaTypes = @[@"public.image"];
     imagePickerVC.delegate = self;
     
     [self.hostNavigation presentViewController: imagePickerVC animated: YES completion: nil];
@@ -388,7 +397,43 @@
 - (void) imagePickerController: (UIImagePickerController *)picker
  didFinishPickingMediaWithInfo: (NSDictionary *)info
 {
-    NSLog(@"%@", info);
+    NSURL *imageURL = [info valueForKey: UIImagePickerControllerReferenceURL];
+    
+    ALAssetsLibraryAssetForURLResultBlock resultBlock = ^(ALAsset *targetAsset)
+    {
+        ALAssetRepresentation *defaultRepresentation = [targetAsset defaultRepresentation];
+        self.imageFileName = [defaultRepresentation filename];
+        self.imageFileSize = [defaultRepresentation size];
+        
+        self.textField.text = self.imageFileName;
+        
+        NSString *tempPath = [NSFileManager currentAccountTempPath];
+        self.imageFullFileName = [NSString stringWithFormat: @"%@/%@", tempPath, self.imageFileName];
+        
+        [NSFileManager createDirectoryIfNotExists: tempPath];
+        
+        Byte *buffer = (Byte*)malloc((unsigned long) self.imageFileSize);
+        NSUInteger length = [defaultRepresentation getBytes: buffer fromOffset: 0.0 length: (NSUInteger)self.imageFileSize error: nil];
+        NSData *data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: YES];
+        if (![data writeToFile: self.imageFullFileName atomically: YES])
+        {
+            NSLog(@"Dump image failed.");
+        }
+        
+        [picker dismissViewControllerAnimated: YES completion: nil];
+    };
+    
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error)
+    {
+        NSLog(@"image picker error: %@", error);
+        
+        [picker dismissViewControllerAnimated: YES completion: nil];
+    };
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary assetForURL: imageURL
+                   resultBlock: resultBlock
+                  failureBlock: failureBlock];
 }
 
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
