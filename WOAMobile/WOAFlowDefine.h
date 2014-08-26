@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)
     WOAHTTPRequestResult_SaveFileError,
     WOAHTTPRequestResult_JSONSerializationError,
     WOAHTTPRequestResult_JSONParseError,
+    WOAHTTPRequestResult_InvalidAttachmentFile,
     WOAHTTPRequestResult_Cancelled
 };
 

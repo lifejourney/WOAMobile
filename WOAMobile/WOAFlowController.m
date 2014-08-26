@@ -7,6 +7,7 @@
 //
 
 #import "WOAFlowController.h"
+#import "NSFileManager+AppFolder.h"
 #import "WOAAppDelegate.h"
 #import "WOAFlowDefine.h"
 #import "WOAHTTPRequester.h"
@@ -106,8 +107,57 @@
 	return requestResult;
 }
 
+- (void) sendUploadAttachmentWithContent: (WOARequestContent*)requestContent
+{
+    NSError *error;
+    self.httpResponse = nil;
+    self.connectionError = nil;
+    self.receivedData = [[NSMutableData alloc] init];
+    
+    if (requestContent.filePath)
+    {
+        if (![[NSFileManager defaultManager] fileExistsAtPath: requestContent.filePath])
+        {
+            self.currentActionType = requestContent.flowActionType;
+            
+            NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithFilePath: requestContent.filePath];
+            
+            NSLog(@"To send request for upload attachment.\nFile: %@\n-------->\n\n", requestContent.filePath);
+            
+            self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
+                                                                  delegate: self
+                                                          startImmediately: YES];
+        }
+        else
+        {
+            self.responseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
+            self.responseContent.resultDescription = @"无效的上传: 附件不存在.";
+            
+            NSLog(@"Request fail during JSON serialization. filePath: %@", requestContent.filePath);
+            
+            self.httpConnection = nil;
+        }
+    }
+    else
+    {
+        self.responseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
+        self.responseContent.resultDescription = @"无效的上传: 附件名称.";
+        
+        NSLog(@"Request fail during upload attachment.");
+        
+        self.httpConnection = nil;
+    }
+}
+
 - (void) sendRequestWithContent: (WOARequestContent*)requestContent
 {
+    if (requestContent.flowActionType == WOAFLowActionType_UploadAttachment)
+    {
+        [self sendUploadAttachmentWithContent: requestContent];
+        
+        return;
+    }
+    
     NSError *error;
     self.httpResponse = nil;
     self.connectionError = nil;
@@ -148,7 +198,7 @@
         self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
         self.responseContent.resultDescription = @"无效的请求.";
         
-        NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], requestContent.bodyDictionary);
+        NSLog(@"Request fail during JSON serialization.");
         
         self.httpConnection = nil;
     }

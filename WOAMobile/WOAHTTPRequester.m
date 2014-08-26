@@ -38,4 +38,25 @@
     return [self URLRequestWithBodyData: bodyData];
 }
 
++ (NSMutableURLRequest*) URLRequestWithFilePath: (NSString*)filePath
+{
+    NSString *urlString = @"http://220.162.12.167:8080/?action=appfile";
+    NSString *httpMethod = @"POST";
+    //@"multipart/mixed; boundary=%@"
+    NSDictionary *headers = @{@"Content-Type": @"application/x-www-form-urlencoded",
+                              @"Accept": @"application/json;charset=UTF-8"};
+    
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlString]
+                                                           cachePolicy: NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval: 30];
+    [request setHTTPMethod: httpMethod];
+    [request setAllHTTPHeaderFields: headers];
+    //[request setHTTPBody: bodyData];
+    [request setHTTPShouldHandleCookies: NO];
+    
+    return request;
+}
+
 @end
