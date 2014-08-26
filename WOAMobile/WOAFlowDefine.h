@@ -24,7 +24,9 @@ typedef NS_ENUM(NSUInteger, WOAFLowActionType)
     WOAFLowActionType_ReviewWorkflow,
     WOAFLowActionType_GetHistoryWorkflowList,
     WOAFLowActionType_GetWorkflowViewDetail,
-    WOAFLowActionType_GetDraftWorkflowList
+    WOAFLowActionType_GetDraftWorkflowList,
+    
+    WOAFLowActionType_UploadAttachment
 };
 
 typedef NS_ENUM(NSUInteger, WOAHTTPRequestResult)

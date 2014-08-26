@@ -21,6 +21,8 @@
 @property (nonatomic, copy) NSString *tableName;
 @property (nonatomic, strong) NSDictionary *detailDictionary;
 
+@property (nonatomic, strong) WOADynamicLabelTextField *attachmentField;
+
 @property (nonatomic, strong) NSArray *processArray;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -176,6 +178,23 @@
     totalHeight += kWOALayout_DefaultBottomMargin;
     
     return totalHeight;
+}
+
+- (WOADynamicLabelTextField*) selectedAttachmentField
+{
+    for (UIView *subView in self.scrollView.subviews)
+    {
+        if (![subView isKindOfClass: [WOADynamicLabelTextField class]])
+            continue;
+        
+        WOADynamicLabelTextField *subTextField = (WOADynamicLabelTextField*)subView;
+        if ([subTextField imageFullFileName])
+        {
+            return subTextField;
+        }
+    }
+    
+    return nil;
 }
 
 - (NSArray*) allItemsArray
@@ -359,6 +378,39 @@
     [self.navigationController popViewControllerAnimated: YES];
 }
 
+- (void) sendRequestWithContent: (WOARequestContent*)requestContent
+{
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    [appDelegate sendRequest: requestContent
+                  onSuccuess:^(WOAResponeContent *responseContent)
+     {
+         if (responseContent.flowActionType == WOAFLowActionType_UploadAttachment)
+         {
+             self.attachmentField.imageFileNameInServer = [WOAPacketHelper resultUploadedFileNameFromPacketDictionary: responseContent.bodyDictionary];
+             
+             WOARequestContent *initiateRequestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
+                                                                                               tableID: self.tableID
+                                                                                             tableName: self.tableName
+                                                                                            itemsArray: [self allItemsArray]];
+             
+             [self sendRequestWithContent: initiateRequestContent];
+         }
+         else
+         {
+             [self parseCommitWorkflowResponse: responseContent.bodyDictionary];
+         }
+         
+     }
+                   onFailure:^(WOAResponeContent *responseContent)
+     {
+         if (responseContent.flowActionType == WOAFLowActionType_UploadAttachment)
+             NSLog(@"Upload attachment fail.");
+         else
+             NSLog(@"Initiate workflow fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
+     }];
+}
+
 - (void) submitAction: (id)sender
 {
     [self tapOutsideKeyboardAction];
@@ -369,10 +421,19 @@
     //TO-DO: WOAFLowActionType_GetDraftWorkflowList
     if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
     {
-        requestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
-                                                               tableID: self.tableID
-                                                             tableName: self.tableName
-                                                            itemsArray: [self allItemsArray]];
+        //TO-DO: Only support one attachment
+        self.attachmentField = [self selectedAttachmentField];
+        if (self.attachmentField)
+        {
+            requestContent = [WOARequestContent contentForUploadAttachment: self.attachmentField.imageFullFileName];
+        }
+        else
+        {
+            requestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
+                                                                   tableID: self.tableID
+                                                                 tableName: self.tableName
+                                                                itemsArray: [self allItemsArray]];
+        }
     }
     else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
     {
@@ -388,16 +449,7 @@
         return;
     }
     
-    [appDelegate sendRequest: requestContent
-                  onSuccuess:^(WOAResponeContent *responseContent)
-     {
-         [self parseCommitWorkflowResponse: responseContent.bodyDictionary];
-         
-     }
-                   onFailure:^(WOAResponeContent *responseContent)
-     {
-         NSLog(@"Initiate workflow fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
-     }];
+    [self sendRequestWithContent: requestContent];
 }
 
 #pragma mark - WOADynamicLabelTextFieldDelegate

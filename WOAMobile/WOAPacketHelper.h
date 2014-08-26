@@ -52,6 +52,7 @@
 + (WOAWorkflowResultCode) resultCodeFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) resultDescriptionFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) descriptionFromPacketDictionary: (NSDictionary*)dict;
++ (NSString*) resultUploadedFileNameFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) sessionIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict;
 + (NSString*) itemIDFromDictionary: (NSDictionary*)dict;

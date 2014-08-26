@@ -27,7 +27,6 @@
 
 //Attachment
 @property (nonatomic, copy) NSString *imageFileName;
-@property (nonatomic, copy) NSString *imageFullFileName;
 @property (nonatomic, assign) long long imageFileSize;
 
 //TO-DO: weak? strong?
@@ -409,6 +408,7 @@
         
         NSString *tempPath = [NSFileManager currentAccountTempPath];
         self.imageFullFileName = [NSString stringWithFormat: @"%@/%@", tempPath, self.imageFileName];
+        self.imageFileNameInServer = nil;
         
         [NSFileManager createDirectoryIfNotExists: tempPath];
         

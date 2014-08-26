@@ -59,6 +59,15 @@
     return content;
 }
 
++ (WOARequestContent*) contentForUploadAttachment: (NSString*)filePath
+{
+    WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_UploadAttachment];
+    
+    content.filePath = filePath;
+    
+    return content;
+}
+
 + (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName

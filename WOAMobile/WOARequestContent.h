@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) WOAFLowActionType flowActionType;
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
+@property (nonatomic, copy) NSString *filePath;
 
 + (WOARequestContent*) contentForLogin: (NSString*)accountID
                               password: (NSString*)password
@@ -21,6 +22,7 @@
 + (WOARequestContent*) contentForLogout;
 + (WOARequestContent*) contentForWorkflowTypeList;
 + (WOARequestContent*) contentForWorkflowTypeDetail: (NSString*)tableID;
++ (WOARequestContent*) contentForUploadAttachment: (NSString*)filePath;
 + (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName

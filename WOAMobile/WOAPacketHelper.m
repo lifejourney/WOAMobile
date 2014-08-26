@@ -71,6 +71,9 @@
             msgType = @""; //TO-DO
             break;
             
+        case WOAFLowActionType_UploadAttachment:
+            msgType = @"";
+            
         default:
             msgType = @"";
             break;
@@ -333,6 +336,13 @@
 + (NSString*) descriptionFromPacketDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"description"];
+}
+
++ (NSString*) resultUploadedFileNameFromPacketDictionary: (NSDictionary*)dict
+{
+    NSDictionary *resultDict = [self resultFromPacketDictionary: dict];
+    
+    return [resultDict valueForKey: @"ret_file"];
 }
 
 + (NSString*) workIDFromPacketDictionary: (NSDictionary*)dict
