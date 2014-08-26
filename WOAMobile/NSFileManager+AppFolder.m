@@ -26,7 +26,7 @@
 
 + (NSString*) absoluteAppDocumentPath
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSAllDomainsMask, YES);
     
     return [paths lastObject];
 }

@@ -33,6 +33,7 @@
 		DC2D3FD3193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
 		DC2D3FDB193A10C300069BB8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D3FD9193A10C300069BB8 /* InfoPlist.strings */; };
 		DC2D3FDD193A10C300069BB8 /* WOAMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */; };
+		DC57B31719ACCF4F0025B9D1 /* NSMutableData+AppendString.m in Sources */ = {isa = PBXBuildFile; fileRef = DC57B31619ACCF4F0025B9D1 /* NSMutableData+AppendString.m */; };
 		DC7E0ADE198DE3AF00975227 /* WOAVersionInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E0ADC198DE3AF00975227 /* WOAVersionInfoViewController.m */; };
 		DC7E0ADF198DE3AF00975227 /* WOAVersionInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC7E0ADD198DE3AF00975227 /* WOAVersionInfoViewController.xib */; };
 		DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = DC834E731942176000C724BE /* WOAPacketHelper.m */; };
@@ -140,6 +141,8 @@
 		DC2D3FD8193A10C300069BB8 /* WOAMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WOAMobileTests-Info.plist"; sourceTree = "<group>"; };
 		DC2D3FDA193A10C300069BB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC2D3FDC193A10C300069BB8 /* WOAMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOAMobileTests.m; sourceTree = "<group>"; };
+		DC57B31519ACCF4F0025B9D1 /* NSMutableData+AppendString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+AppendString.h"; sourceTree = "<group>"; };
+		DC57B31619ACCF4F0025B9D1 /* NSMutableData+AppendString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+AppendString.m"; sourceTree = "<group>"; };
 		DC7E0ADB198DE3AF00975227 /* WOAVersionInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAVersionInfoViewController.h; sourceTree = "<group>"; };
 		DC7E0ADC198DE3AF00975227 /* WOAVersionInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAVersionInfoViewController.m; sourceTree = "<group>"; };
 		DC7E0ADD198DE3AF00975227 /* WOAVersionInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAVersionInfoViewController.xib; sourceTree = "<group>"; };
@@ -358,6 +361,8 @@
 				43460A6C194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m */,
 				DC8F5B38195397B400C0688C /* UIColor+AppTheme.h */,
 				DC8F5B39195397B400C0688C /* UIColor+AppTheme.m */,
+				DC57B31519ACCF4F0025B9D1 /* NSMutableData+AppendString.h */,
+				DC57B31619ACCF4F0025B9D1 /* NSMutableData+AppendString.m */,
 				4325F42319AC328300D25C86 /* NSFileManager+AppFolder.h */,
 				4325F42419AC328300D25C86 /* NSFileManager+AppFolder.m */,
 				433B431A1953CC4A00B2D5D0 /* WOASplashViewController.h */,
@@ -560,6 +565,7 @@
 				DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */,
 				DC8B09A1193B89B800217F45 /* WOAWorkflowDetailViewController.m in Sources */,
 				DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */,
+				DC57B31719ACCF4F0025B9D1 /* NSMutableData+AppendString.m in Sources */,
 				4393824C19540E2E00062FC9 /* VSPopoverDefine.m in Sources */,
 				4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */,
 				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,

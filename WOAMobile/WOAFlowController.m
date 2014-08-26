@@ -116,7 +116,7 @@
     
     if (requestContent.filePath)
     {
-        if (![[NSFileManager defaultManager] fileExistsAtPath: requestContent.filePath])
+        if ([[NSFileManager defaultManager] fileExistsAtPath: requestContent.filePath])
         {
             self.currentActionType = requestContent.flowActionType;
             
