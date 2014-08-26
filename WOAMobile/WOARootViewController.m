@@ -128,6 +128,12 @@
         if ([selectedRootVC conformsToProtocol: @protocol(WOAStartWorkflowActionReqeust)])
             [selectedRootVC sendRequestByActionType];
     }
+    else
+    {
+        NSObject<WOAStartWorkflowActionReqeust> *selectedRootVC = (NSObject<WOAStartWorkflowActionReqeust> *)[selectedNavC rootViewController];
+        
+        NSLog(@"tab changed, but no refresh. SelectedRootVC: %@", selectedRootVC);
+    }
 }
 
 #pragma mark - public

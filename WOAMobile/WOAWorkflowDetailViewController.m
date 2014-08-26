@@ -435,6 +435,7 @@
                                                                 itemsArray: [self allItemsArray]];
         }
     }
+    //TO-DO: 待办单，可以提交附件吗? itemID
     else if (_detailActionType == WOAFLowActionType_GetWorkflowFormDetail)
     {
         //TO-DO: could commit unwritable?

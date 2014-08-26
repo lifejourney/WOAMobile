@@ -46,34 +46,45 @@
     NSString *urlString = @"http://220.162.12.167:8080/?action=appfile";
     NSString *httpMethod = @"POST";
     NSString *boundary = @"WOABoundary_2014";
-    NSDictionary *headers = @{@"Content-Type": [NSString stringWithFormat: @"multipart/mixed; boundary=%@", boundary],
+    NSDictionary *headers = @{@"Content-Type": [NSString stringWithFormat: @"multipart/form-data; boundary=%@", boundary],
                               @"Accept": @"application/json;charset=UTF-8"};
     
-    NSString *boundaryWithPrefix = [NSString stringWithFormat: @"\r\n\r\n--%@\r\n", boundary];
-    NSString *boundaryWithPreSuffix = [NSString stringWithFormat: @"\r\n--%@--\r\n", boundary];
+    NSString *boundaryWithPrefix = [NSString stringWithFormat: @"--%@\r\n", boundary];
+    NSString *endBoundary = [NSString stringWithFormat: @"--%@--\r\n", boundary];
     
     NSString *fileName = [filePath lastPathComponent];
     NSString *contentDis;
     
+//sessionID: "979"
+//workID: "47"
+//tableID: "3"
+//itemID: 空或0时表示新建的工作事务，非空时表示待办的事务步骤id
+//fieldname:"附件"
+//fieldtype:"attfile"
+//att_title:"附件标题...."
+//att_file: "......\test.jpg"
     [bodyData appendString: boundaryWithPrefix];
-    contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=fieldname\r\n\r\n"];
+    contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"fieldname\"\r\n\r\n"];
     [bodyData appendString: contentDis];
     [bodyData appendString: @"附件"];
+    [bodyData appendString: @"\r\n"];
     
     [bodyData appendString: boundaryWithPrefix];
-    //[bodyData appendString: @"Content-Type: image/png"];
-    //contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=att_file; filename=%@\r\n\r\n", fileName];
-    contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=att_file\r\n\r\n"];
+    contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"att_file\"; filename=\"%@\"\r\n", fileName];
     [bodyData appendString: contentDis];
+    //TO-DO:
+    [bodyData appendString: @"Content-Type: image/png\r\n\r\n"];
     [bodyData appendDataFromFile: filePath];
+    [bodyData appendString: @"\r\n"];
     
-    [bodyData appendString: boundaryWithPreSuffix];
+    [bodyData appendString: endBoundary];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlString]
                                                            cachePolicy: NSURLRequestReloadIgnoringCacheData
                                                        timeoutInterval: 30];
     [request setHTTPMethod: httpMethod];
     [request setAllHTTPHeaderFields: headers];
+    [request setValue: [NSString stringWithFormat: @"%d", [bodyData length]] forHTTPHeaderField: @"Content-Length"];
     [request setHTTPBody: bodyData];
     [request setHTTPShouldHandleCookies: NO];
     
