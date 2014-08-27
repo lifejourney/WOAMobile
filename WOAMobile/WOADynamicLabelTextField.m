@@ -222,6 +222,7 @@
         }
         
         
+        BOOL shouldShowInputTextField = YES;
         //set frames
         CGFloat originY = kWOALayout_ItemTopMargin;
         CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
@@ -240,10 +241,13 @@
         if ((self.extendType == WOAExtendTextFieldType_TextList) || (self.extendType == WOAExtendTextFieldType_CheckUserList))
         {
             CGRect initiateFrame = frame;
-            frame.size.width = textWidth;
+            initiateFrame.size.width = textWidth;
             self.multiField = [[WOAMultiLineTextField alloc] initWithFrame: initiateFrame textsArray: arrayValue];
             
             [self addSubview: _multiField];
+            
+            if (!isWritable)
+                shouldShowInputTextField = NO;
         }
         
         self.textField = [[UITextField alloc] initWithFrame: CGRectZero];
@@ -263,10 +267,18 @@
         [self addSubview: _textField];
         
         CGFloat multiFieldHeight = _multiField ? _multiField.frame.size.height : 0;
-        CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, sizeHeight);
+        CGFloat labelSizeHeight = sizeHeight;
+        CGFloat textFieldSizeHeight = sizeHeight;
+        if (!shouldShowInputTextField)
+        {
+            if (multiFieldHeight != 0)
+                textFieldSizeHeight = 0;
+        }
+        CGFloat placeHolderSizeHeight = multiFieldHeight + textFieldSizeHeight;
+        CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, labelSizeHeight);
         CGRect multiFieldRect = CGRectMake(textOriginX, originY, textWidth, multiFieldHeight);
-        CGRect textRect = CGRectMake(textOriginX, originY + multiFieldHeight, textWidth, sizeHeight);
-        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, originY + sizeHeight + multiFieldHeight);
+        CGRect textRect = CGRectMake(textOriginX, originY + multiFieldHeight, textWidth, textFieldSizeHeight);
+        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, originY + placeHolderSizeHeight);
         
         [self setFrame: selfRect];
         [_label setFrame: labelRect];

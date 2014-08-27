@@ -34,7 +34,7 @@
         
         CGFloat originY = 0;
         
-        CGFloat oneLineHeight = kWOALayout_ItemTopMargin + kWOALayout_ItemCommonHeight;
+        CGFloat oneLineHeight = /*kWOALayout_ItemTopMargin + */kWOALayout_ItemCommonHeight;
         CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, oneLineHeight * [textsArray count]);
         [self setFrame: selfRect];
         
@@ -50,12 +50,12 @@
             oneLineField.keyboardType = UIKeyboardTypeDefault;
             oneLineField.rightViewMode = UITextFieldViewModeNever;
             
-            //[self addSubview: oneLineField];
+            [self addSubview: oneLineField];
             
             //set frames
-            originY += kWOALayout_ItemTopMargin;
+            //originY += kWOALayout_ItemTopMargin;
             CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
-            CGRect textRect = CGRectMake(frame.origin.x, originY, frame.size.width, sizeHeight);
+            CGRect textRect = CGRectMake(0, originY, frame.size.width, sizeHeight);
             
             [oneLineField setFrame: textRect];
             
