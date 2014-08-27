@@ -13,6 +13,6 @@
 + (NSMutableURLRequest*) URLRequestWithBodyData: (NSData*)bodyData;
 + (NSMutableURLRequest*) URLRequestWithBodyString: (NSString*)bodyString;
 
-+ (NSMutableURLRequest*) URLRequestWithFilePath: (NSString*)filePath;
++ (NSMutableURLRequest*) URLRequestForUploadAttachment: (NSDictionary*)bodyDict;
 
 @end

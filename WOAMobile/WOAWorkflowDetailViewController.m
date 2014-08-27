@@ -425,7 +425,10 @@
         self.attachmentField = [self selectedAttachmentField];
         if (self.attachmentField)
         {
-            requestContent = [WOARequestContent contentForUploadAttachment: self.attachmentField.imageFullFileName];
+            requestContent = [WOARequestContent contentForUploadAttachment: self.workID
+                                                                   tableID: self.tableID
+                                                                    itemID: @"0"
+                                                                  filePath: self.attachmentField.imageFullFileName];
         }
         else
         {

@@ -59,11 +59,17 @@
     return content;
 }
 
-+ (WOARequestContent*) contentForUploadAttachment: (NSString*)filePath
++ (WOARequestContent*) contentForUploadAttachment: (NSString*)workID
+                                          tableID: (NSString*)tableID
+                                           itemID: (NSString*)itemID
+                                         filePath: (NSString*)filePath;
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_UploadAttachment];
     
-    content.filePath = filePath;
+    content.bodyDictionary = [WOAPacketHelper packetForUploadAttachment: workID
+                                                                tableID: tableID
+                                                                 itemID: itemID
+                                                               filePath: filePath];
     
     return content;
 }

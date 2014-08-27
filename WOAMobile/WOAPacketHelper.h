@@ -32,6 +32,10 @@
 + (NSDictionary*) itemWithoutIndexPathFromDictionary: (NSDictionary*)fromDict;
 + (NSDictionary*) packetForTableStruct: (NSString*)tableID
                              tableName: (NSString*)tableName;
++ (NSDictionary*) packetForUploadAttachment: (NSString*)workID
+                                    tableID: (NSString*)tableID
+                                     itemID: (NSString*)itemID
+                                   filePath: (NSString*)filePath;
 + (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
                                     tableID: (NSString*)tableID
                                   tableName: (NSString*)tableName
@@ -75,5 +79,7 @@
 + (NSString*) formTitleFromDictionary: (NSDictionary*)dict;
 + (NSString*) abstractFromDictionary: (NSDictionary*)dict;
 + (NSString*) createTimeFromDictionary: (NSDictionary*)dict;
+
++ (NSString*) filePathFromDictionary: (NSDictionary*)dict;
 
 @end

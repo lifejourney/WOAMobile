@@ -109,20 +109,21 @@
 
 - (void) sendUploadAttachmentWithContent: (WOARequestContent*)requestContent
 {
-    NSError *error;
     self.httpResponse = nil;
     self.connectionError = nil;
     self.receivedData = [[NSMutableData alloc] init];
     
-    if (requestContent.filePath)
+    NSString *filePath = [WOAPacketHelper filePathFromDictionary: requestContent.bodyDictionary];
+    
+    if (filePath)
     {
-        if ([[NSFileManager defaultManager] fileExistsAtPath: requestContent.filePath])
+        if ([[NSFileManager defaultManager] fileExistsAtPath: filePath])
         {
             self.currentActionType = requestContent.flowActionType;
             
-            NSMutableURLRequest *request = [WOAHTTPRequester URLRequestWithFilePath: requestContent.filePath];
+            NSMutableURLRequest *request = [WOAHTTPRequester URLRequestForUploadAttachment: requestContent.bodyDictionary];
             
-            NSLog(@"To send request for upload attachment.\nFile: %@\n-------->\n\n", requestContent.filePath);
+            NSLog(@"To send request for upload attachment.\nFile: %@\n-------->\n\n", filePath);
             
             self.httpConnection = [[NSURLConnection alloc] initWithRequest: request
                                                                   delegate: self
@@ -133,7 +134,7 @@
             self.responseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
             self.responseContent.resultDescription = @"无效的上传: 附件不存在.";
             
-            NSLog(@"Request fail during JSON serialization. filePath: %@", requestContent.filePath);
+            NSLog(@"Request fail during JSON serialization. filePath: %@", filePath);
             
             self.httpConnection = nil;
         }
@@ -299,7 +300,7 @@
 - (NSString*) formattedString: (NSString*)str
 {
     NSString *logString = [str stringByReplacingOccurrencesOfString: @"," withString: @",\n"];
-    logString = [logString stringByReplacingOccurrencesOfString: @"]," withString: @"},\n"];
+    logString = [logString stringByReplacingOccurrencesOfString: @"]," withString: @"],\n"];
     logString = [logString stringByReplacingOccurrencesOfString: @"}," withString: @"},\n"];
     logString = [logString stringByReplacingOccurrencesOfString: @":[" withString: @":[\n"];
     logString = [logString stringByReplacingOccurrencesOfString: @":{" withString: @":{\n"];

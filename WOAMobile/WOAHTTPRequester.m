@@ -8,6 +8,7 @@
 
 #import "WOAHTTPRequester.h"
 #import "NSMutableData+AppendString.h"
+#import "WOAPacketHelper.h"
 
 
 @implementation WOAHTTPRequester
@@ -19,8 +20,6 @@
     //@"multipart/mixed; boundary=%@"
     NSDictionary *headers = @{@"Content-Type": @"application/x-www-form-urlencoded",
                               @"Accept": @"application/json;charset=UTF-8"};
-    
-    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlString]
                                                            cachePolicy: NSURLRequestReloadIgnoringCacheData
@@ -40,7 +39,19 @@
     return [self URLRequestWithBodyData: bodyData];
 }
 
-+ (NSMutableURLRequest*) URLRequestWithFilePath: (NSString*)filePath
++ (void) appendToData: (NSMutableData*)bodyData
+       prefixBoundary: (NSString*)prefixBoundary
+                  key: (NSString*)key
+                value: (NSString*)value
+{
+    [bodyData appendString: prefixBoundary];
+    NSString *contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"%@\"\r\n\r\n", key];
+    [bodyData appendString: contentDis];
+    [bodyData appendString: value];
+    [bodyData appendString: @"\r\n"];
+}
+
++ (NSMutableURLRequest*) URLRequestForUploadAttachment: (NSDictionary*)bodyDict
 {
     NSMutableData *bodyData = [[NSMutableData alloc] init];
     NSString *urlString = @"http://220.162.12.167:8080/?action=appfile";
@@ -51,6 +62,12 @@
     
     NSString *boundaryWithPrefix = [NSString stringWithFormat: @"--%@\r\n", boundary];
     NSString *endBoundary = [NSString stringWithFormat: @"--%@--\r\n", boundary];
+    
+    NSString *sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: bodyDict];
+    NSString *workID = [WOAPacketHelper workIDFromPacketDictionary: bodyDict];
+    NSString *tableID = [WOAPacketHelper tableIDFromTableDictionary: bodyDict];
+    NSString *itemID = [WOAPacketHelper itemIDFromDictionary: bodyDict];
+    NSString *filePath = [WOAPacketHelper filePathFromDictionary: bodyDict];
     
     NSString *fileName = [filePath lastPathComponent];
     NSString *contentDis;
@@ -63,11 +80,13 @@
 //fieldtype:"attfile"
 //att_title:"附件标题...."
 //att_file: "......\test.jpg"
-    [bodyData appendString: boundaryWithPrefix];
-    contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"fieldname\"\r\n\r\n"];
-    [bodyData appendString: contentDis];
-    [bodyData appendString: @"附件"];
-    [bodyData appendString: @"\r\n"];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"sessionID" value: sessionID];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"workID" value: workID];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"tableID" value: tableID];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"itemID" value: itemID];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"fieldname" value: @"附件"];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"fieldtype" value: @"attfile"];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"att_title" value: @"附件标题...."];
     
     [bodyData appendString: boundaryWithPrefix];
     contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"att_file\"; filename=\"%@\"\r\n", fileName];

@@ -24,6 +24,7 @@
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
 @property (nonatomic, assign) BOOL isEditable;
+@property (nonatomic, assign) BOOL isWritable;
 
 //Attachment
 @property (nonatomic, copy) NSString *imageFileName;
@@ -186,6 +187,8 @@
         NSString *typeString = [WOAPacketHelper itemTypeFromDictionary: itemModel];
         NSString *labelText = [WOAPacketHelper itemNameFromDictionary: itemModel];
         BOOL isWritable = [WOAPacketHelper itemWritableFromDictionary: itemModel];
+        
+        self.isWritable = isWritable;
         
         id itemValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
         //TO-DO,
@@ -374,8 +377,18 @@
     NSNumber *sectionNum = [NSNumber numberWithInteger: self.section];
     NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
     
+    NSString *value;
+    if (self.isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+    {
+        value = self.imageFileNameInServer;
+    }
+    else
+    {
+        value = self.textField.text;
+    }
+    
     return [WOAPacketHelper packetForItemWithKey: self.label.text
-                                           value: self.textField.text
+                                           value: value
                                          section: sectionNum
                                              row: rowNum];
 }

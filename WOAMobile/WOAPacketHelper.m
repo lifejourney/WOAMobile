@@ -198,6 +198,22 @@
     return [NSDictionary dictionaryWithObjectsAndKeys: tableID, @"tableID", tableName, @"name", nil];
 }
 
++ (NSDictionary*) packetForUploadAttachment: (NSString*)workID
+                                    tableID: (NSString*)tableID
+                                     itemID: (NSString*)itemID
+                                   filePath: (NSString*)filePath
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue: [self headerForFlowActionType: WOAFLowActionType_UploadAttachment] forKey: @"head"];
+    [dict setValue: workID forKey: @"workID"];
+    [dict setValue: tableID forKey: @"tableID"];
+    [dict setValue: itemID forKey: @"itemID"];
+    [dict setValue: filePath forKey: @"filePath"];
+    
+    return dict;
+}
+
 + (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
                                     tableID: (NSString*)tableID
                                   tableName: (NSString*)tableName
@@ -478,6 +494,11 @@
 + (NSString*) createTimeFromDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"createTime"];
+}
+
++ (NSString*) filePathFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"filePath"];
 }
 
 @end
