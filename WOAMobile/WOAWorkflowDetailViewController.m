@@ -8,6 +8,8 @@
 
 #import "WOAWorkflowDetailViewController.h"
 #import "WOAAppDelegate.h"
+#import "UINavigationController+RootViewController.h"
+#import "WOAStartWorkflowActionReqeust.h"
 #import "WOALayout.h"
 #import "WOADynamicLabelTextField.h"
 #import "VSActionSheetPickerView.h"
@@ -475,6 +477,12 @@
 {
     //TO-DO
     [self.navigationController popToRootViewControllerAnimated: YES];
+    
+    UIViewController *navRootVC = [self.navigationController rootViewController];
+    if ([navRootVC respondsToSelector: @selector(sendRequestByActionType)])
+    {
+        [(NSObject<WOAStartWorkflowActionReqeust>*)navRootVC sendRequestByActionType];
+    }
 }
 
 @end

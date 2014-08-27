@@ -7,6 +7,8 @@
 //
 
 #import "WOASelectNextReviewerViewController.h"
+#import "UINavigationController+RootViewController.h"
+#import "WOAStartWorkflowActionReqeust.h"
 #import "WOAAppDelegate.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
@@ -287,6 +289,12 @@
 {
     //TO-DO, 成功以后，应该刷新列表
     [self.navigationController popToRootViewControllerAnimated: YES];
+    
+    UIViewController *navRootVC = [self.navigationController rootViewController];
+    if ([navRootVC respondsToSelector: @selector(sendRequestByActionType)])
+    {
+        [(NSObject<WOAStartWorkflowActionReqeust>*)navRootVC sendRequestByActionType];
+    }
 }
 
 @end

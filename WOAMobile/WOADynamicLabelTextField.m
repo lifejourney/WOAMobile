@@ -460,9 +460,11 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    //TO-DO
     BOOL allowEditing = (_extendType == WOAExtendTextFieldType_Normal ||
                          _extendType == WOAExtendTextFieldType_IntString ||
-                         _extendType == WOAExtendTextFieldType_TextList);
+                         _extendType == WOAExtendTextFieldType_TextList ||
+                         _extendType == WOAExtendTextFieldType_CheckUserList);
     
     if (self.delegate && [self.delegate respondsToSelector: @selector(textFieldTryBeginEditing:allowEditing:)])
         [self.delegate textFieldTryBeginEditing: textField allowEditing: allowEditing];
