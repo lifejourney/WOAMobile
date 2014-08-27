@@ -89,37 +89,41 @@
     return (extendType == WOAExtendTextFieldType_AttachFile);
 }
 
-- (UIView*) rightViewWithExtendType: (WOAExtendTextFieldType)extendType isWritable: (BOOL)isWritable viewHeight: (CGFloat)viewHeight
+//- (UIView*) rightViewWithExtendType: (WOAExtendTextFieldType)extendType isWritable: (BOOL)isWritable viewHeight: (CGFloat)viewHeight
+- (void) addRightViewForTextField: (UITextField*)textField
+                       extendType: (WOAExtendTextFieldType)extendType
+                       isWritable: (BOOL)isWritable
 {
     SEL clickSelector;
-    NSString *title;
+    UIImage *buttonImage;
     
+    UIImage *dropDownImage = [UIImage imageNamed: @"DropDownIcon"];
     switch (_extendType)
     {
         case WOAExtendTextFieldType_Normal:
         case WOAExtendTextFieldType_IntString:
             clickSelector = nil;
-            title = nil;
+            buttonImage = nil;
             break;
             
         case WOAExtendTextFieldType_DatePicker:
             clickSelector = @selector(showDatePicker:);
-            title = @"...";
+            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_TimePicker:
             clickSelector = @selector(showTimePicker:);
-            title = @"...";
+            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_DateTimePicker:
             clickSelector = @selector(showDateTimePicker:);
-            title = @"...";
+            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_PickerView:
             clickSelector = @selector(showPickerView:);
-            title = @"...";
+            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_AttachFile:
@@ -127,49 +131,41 @@
                 clickSelector = @selector(selectAttachment:);
             else
                 clickSelector = @selector(viewAttachment:);
-            title = @"...";
+            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_TextList:
             clickSelector = nil;
-            title = nil;
+            buttonImage = nil;
             break;
             
         case WOAExtendTextFieldType_CheckUserList:
             clickSelector = nil;
-            title = nil;
+            buttonImage = nil;
             break;
             
         default:
             clickSelector = nil;
-            title = nil;
+            buttonImage = nil;
             break;
     }
     
     BOOL couldShouldRightView = ((_isEditable && isWritable) || [self couldUserInteractEvenUnWritable: extendType]);
     
-    UIButton *rightButton;
-    if (title && couldShouldRightView)
+    if (buttonImage && couldShouldRightView)
     {
-        rightButton = [UIButton buttonWithType: UIButtonTypeSystem];
-        [rightButton setTitle: title forState: UIControlStateNormal];
-        [rightButton setTitleColor: [UIColor textNormalColor] forState: UIControlStateNormal];
+        textField.rightViewMode = UITextFieldViewModeAlways;
+        textField.rightView = [[UIImageView alloc] initWithImage: buttonImage];
         
         if (clickSelector != nil)
         {
-            [rightButton addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
+            [textField addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
         }
-        
-        CGFloat viewWidth = viewHeight;
-        CGRect rect = CGRectMake(0, 0, viewWidth, viewHeight);
-        [rightButton setFrame: rect];
     }
     else
     {
-        rightButton = nil;
+        textField.rightViewMode = UITextFieldViewModeNever;
     }
-    
-    return rightButton;
 }
 
 - (instancetype) initWithFrame: (CGRect)frame
@@ -208,7 +204,7 @@
         }
         
         self.extendType = [self extendTypeFromString: typeString];
-        if (self.extendType == WOAExtendTextFieldType_PickerView)
+        if (_extendType == WOAExtendTextFieldType_PickerView)
         {
             NSArray *optionArray = [WOAPacketHelper optionArrayFromDictionary: itemModel];
             
@@ -238,7 +234,7 @@
         _label.textAlignment = NSTextAlignmentLeft;
         [self addSubview: _label];
         
-        if ((self.extendType == WOAExtendTextFieldType_TextList) || (self.extendType == WOAExtendTextFieldType_CheckUserList))
+        if ((_extendType == WOAExtendTextFieldType_TextList) || (_extendType == WOAExtendTextFieldType_CheckUserList))
         {
             CGRect initiateFrame = frame;
             initiateFrame.size.width = textWidth;
@@ -259,10 +255,7 @@
         _textField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
         _textField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
         
-        //readonly
-        UIView *rightView = [self rightViewWithExtendType: self.extendType isWritable: isWritable viewHeight: kWOALayout_ItemCommonHeight];
-        _textField.rightView = rightView;
-        _textField.rightViewMode = rightView ? UITextFieldViewModeAlways : UITextFieldViewModeNever;
+        [self addRightViewForTextField: _textField extendType:_extendType isWritable: isWritable];
         
         [self addSubview: _textField];
         
@@ -318,7 +311,7 @@
     self.actionSheetDatePicker = [[VSActionSheetDatePicker alloc] init];
     
     NSString *dateFormatString;
-    switch (self.extendType)
+    switch (_extendType)
     {
         case WOAExtendTextFieldType_DatePicker:
             dateFormatString = kWOADefaultDateFormat;
@@ -393,6 +386,77 @@
     [self.hostNavigation presentViewController: imagePickerVC animated: YES completion: nil];
 }
 
+- (BOOL) isPureIntegerString: (NSString*)src
+{
+    NSScanner *scanner = [NSScanner scannerWithString: src];
+    NSInteger val;
+    
+    return ([scanner scanInteger: &val] && [scanner isAtEnd]);
+}
+
+- (NSString*) removeNumberOrderPrefix: (NSString*)src
+{
+    NSString *retString = src;
+    NSString *delimeter = @".";
+    NSRange range = [src rangeOfString: delimeter];
+    if (range.length > 0)
+    {
+        NSString *prefix = [src substringToIndex: range.location];
+        if (prefix && [prefix length] > 0)
+        {
+            if ([self isPureIntegerString: prefix])
+            {
+                NSUInteger fromIndex = range.location + range.length;
+                
+                retString = [src substringFromIndex: fromIndex];
+            }
+        }
+    }
+    
+    return retString;
+}
+
+- (NSDictionary*) toDataModelWithIndexPath
+{
+    NSNumber *sectionNum = [NSNumber numberWithInteger: self.section];
+    NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
+    
+    id value;
+    if (self.isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+    {
+        value = self.imageFileNameInServer;
+    }
+    //TO-DO:
+//    else if (_extendType == WOAExtendTextFieldType_TextList)
+//    {
+//        NSString *userInputValue = self.textField.text;
+//        NSMutableArray *arrayValue = [[NSMutableArray alloc] initWithArray: self.multiField.textsArray];
+//        if (userInputValue && [userInputValue length] > 0)
+//        {
+//            [arrayValue addObject: userInputValue];
+//        }
+//        
+//        value = arrayValue;
+//    }
+//    else if (_extendType == WOAExtendTextFieldType_CheckUserList)
+//    {
+//        value = self.multiField.textsArray;
+//    }
+    else if (self.isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
+    {
+        value = [self removeNumberOrderPrefix: self.textField.text];
+    }
+    else
+    {
+        value = self.textField.text;
+    }
+    
+    return [WOAPacketHelper packetForItemWithKey: self.label.text
+                                           value: value
+                                         section: sectionNum
+                                             row: rowNum];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -412,30 +476,9 @@
         [self.delegate textFieldDidBecameFirstResponder: textField];
 }
 
-- (NSDictionary*) toDataModelWithIndexPath
-{
-    NSNumber *sectionNum = [NSNumber numberWithInteger: self.section];
-    NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
-    
-    NSString *value;
-    if (self.isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
-    {
-        value = self.imageFileNameInServer;
-    }
-    else
-    {
-        value = self.textField.text;
-    }
-    
-    return [WOAPacketHelper packetForItemWithKey: self.label.text
-                                           value: value
-                                         section: sectionNum
-                                             row: rowNum];
-}
-
 - (void) selectDefaultValueFromPickerView
 {
-    if (self.extendType == WOAExtendTextFieldType_PickerView)
+    if (_extendType == WOAExtendTextFieldType_PickerView)
     {
         if ([_textField.text length] <= 0)
         {

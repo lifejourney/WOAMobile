@@ -167,7 +167,7 @@
 }
 
 + (NSDictionary*) packetForItemWithKey: (NSString*)key
-                                 value: (NSString*)value
+                                 value: (id)value
                                section: (NSNumber*)sectionNum
                                    row: (NSNumber*)rowNum
 {
