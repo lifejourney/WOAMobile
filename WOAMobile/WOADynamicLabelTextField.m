@@ -10,6 +10,7 @@
 #import "WOAPacketHelper.h"
 #import "VSActionSheetDatePicker.h"
 #import "VSActionSheetPickerView.h"
+#import "WOAMultiLineTextField.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
 #import "NSFileManager+AppFolder.h"
@@ -20,6 +21,7 @@
 
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) WOAMultiLineTextField *multiField;
 
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
@@ -191,9 +193,19 @@
         self.isWritable = isWritable;
         
         id itemValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
+        NSString *textValue;
+        NSArray *arrayValue;
         //TO-DO,
         if ([itemValue isKindOfClass: [NSArray class]])
-            itemValue = nil;
+        {
+            textValue = nil;
+            arrayValue = itemValue;
+        }
+        else
+        {
+            textValue = itemValue;
+            arrayValue = nil;
+        }
         
         self.extendType = [self extendTypeFromString: typeString];
         if (self.extendType == WOAExtendTextFieldType_PickerView)
@@ -208,16 +220,36 @@
         {
             self.optionArray = nil;
         }
+        
+        
+        //set frames
+        CGFloat originY = kWOALayout_ItemTopMargin;
+        CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
+        CGFloat labelOriginX = frame.origin.x;
+        CGFloat labelWidth = kWOALayout_ItemLabelWidth;
+        CGFloat textOriginX = labelOriginX + labelWidth + kWOALayout_ItemLabelTextField_Gap;
+        CGFloat textWidth = frame.size.width - textOriginX;
+        
+        
         self.label = [[UILabel alloc] initWithFrame: CGRectZero];
         _label.font = [_label.font fontWithSize: 12.0f];
         _label.text = labelText;
         _label.textAlignment = NSTextAlignmentLeft;
         [self addSubview: _label];
         
+        if ((self.extendType == WOAExtendTextFieldType_TextList) || (self.extendType == WOAExtendTextFieldType_CheckUserList))
+        {
+            CGRect initiateFrame = frame;
+            frame.size.width = textWidth;
+            self.multiField = [[WOAMultiLineTextField alloc] initWithFrame: initiateFrame textsArray: arrayValue];
+            
+            [self addSubview: _multiField];
+        }
+        
         self.textField = [[UITextField alloc] initWithFrame: CGRectZero];
         _textField.font = [_textField.font fontWithSize: 12.0f];
         _textField.delegate = self;
-        _textField.text = itemValue;
+        _textField.text = textValue;
         _textField.textAlignment = NSTextAlignmentLeft;
         _textField.borderStyle = (isEditable && isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
         _textField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
@@ -230,20 +262,15 @@
         
         [self addSubview: _textField];
         
-        
-        //set frames
-        CGFloat originY = kWOALayout_ItemTopMargin;
-        CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
-        CGFloat labelOriginX = frame.origin.x;
-        CGFloat labelWidth = kWOALayout_ItemLabelWidth;
-        CGFloat textOriginX = labelOriginX + labelWidth + kWOALayout_ItemLabelTextField_Gap;
-        CGFloat textWidth = frame.size.width - textOriginX;
+        CGFloat multiFieldHeight = _multiField ? _multiField.frame.size.height : 0;
         CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, sizeHeight);
-        CGRect textRect = CGRectMake(textOriginX, originY, textWidth, sizeHeight);
-        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, originY + sizeHeight);
+        CGRect multiFieldRect = CGRectMake(textOriginX, originY, textWidth, multiFieldHeight);
+        CGRect textRect = CGRectMake(textOriginX, originY + multiFieldHeight, textWidth, sizeHeight);
+        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, originY + sizeHeight + multiFieldHeight);
         
         [self setFrame: selfRect];
         [_label setFrame: labelRect];
+        [_multiField setFrame: multiFieldRect];
         [_textField setFrame: textRect];
     }
     
@@ -358,7 +385,8 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     BOOL allowEditing = (_extendType == WOAExtendTextFieldType_Normal ||
-                         _extendType == WOAExtendTextFieldType_IntString);
+                         _extendType == WOAExtendTextFieldType_IntString ||
+                         _extendType == WOAExtendTextFieldType_TextList);
     
     if (self.delegate && [self.delegate respondsToSelector: @selector(textFieldTryBeginEditing:allowEditing:)])
         [self.delegate textFieldTryBeginEditing: textField allowEditing: allowEditing];

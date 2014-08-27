@@ -21,6 +21,7 @@
 		4393825219541A8C00062FC9 /* VSPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825119541A8C00062FC9 /* VSPopoverController.m */; };
 		4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825419541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m */; };
 		4393825819542A2400062FC9 /* WOAListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393825719542A2400062FC9 /* WOAListViewController.m */; };
+		43E780B419AD81C200A73448 /* WOAMultiLineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E780B319AD81C200A73448 /* WOAMultiLineTextField.m */; };
 		DC2D3FB8193A10C300069BB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB7193A10C300069BB8 /* Foundation.framework */; };
 		DC2D3FBA193A10C300069BB8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FB9193A10C300069BB8 /* CoreGraphics.framework */; };
 		DC2D3FBC193A10C300069BB8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D3FBB193A10C300069BB8 /* UIKit.framework */; };
@@ -123,6 +124,8 @@
 		4393825419541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+VSPopoverViewController.m"; sourceTree = "<group>"; };
 		4393825619542A2400062FC9 /* WOAListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAListViewController.h; sourceTree = "<group>"; };
 		4393825719542A2400062FC9 /* WOAListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAListViewController.m; sourceTree = "<group>"; };
+		43E780B219AD81C200A73448 /* WOAMultiLineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMultiLineTextField.h; sourceTree = "<group>"; };
+		43E780B319AD81C200A73448 /* WOAMultiLineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMultiLineTextField.m; sourceTree = "<group>"; };
 		DC19B9AD194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DC19B9AE194F32FE00F446C4 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DC2D3FB4193A10C300069BB8 /* WOAMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WOAMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,6 +356,8 @@
 				DCA7A26F19490E48000D7EBE /* VSActionSheetPickerView.m */,
 				DCB3459F194BD8D5006519E8 /* VSSelectedTableViewCell.h */,
 				DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */,
+				43E780B219AD81C200A73448 /* WOAMultiLineTextField.h */,
+				43E780B319AD81C200A73448 /* WOAMultiLineTextField.m */,
 				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
 				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 				DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */,
@@ -598,6 +603,7 @@
 				DC834E741942176000C724BE /* WOAPacketHelper.m in Sources */,
 				DC8B0911193A28F600217F45 /* WOABrandData.m in Sources */,
 				43460A6D194EACE000E9CDDE /* NSData+HexadecimalRepresentation.m in Sources */,
+				43E780B419AD81C200A73448 /* WOAMultiLineTextField.m in Sources */,
 				DC8B0852193A159400217F45 /* WOALoginViewController.m in Sources */,
 				DC8B09AF193B89B800217F45 /* WOAWorkflowFormListViewController.m in Sources */,
 			);
