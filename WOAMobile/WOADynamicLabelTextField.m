@@ -219,7 +219,7 @@
         _textField.delegate = self;
         _textField.text = itemValue;
         _textField.textAlignment = NSTextAlignmentLeft;
-        _textField.borderStyle = isEditable ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
+        _textField.borderStyle = (isEditable && isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
         _textField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
         _textField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
         

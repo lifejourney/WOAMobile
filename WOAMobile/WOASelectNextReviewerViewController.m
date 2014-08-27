@@ -285,6 +285,7 @@
 #pragma mark - UIAlertView
 - (void) alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
+    //TO-DO, 成功以后，应该刷新列表
     [self.navigationController popToRootViewControllerAnimated: YES];
 }
 
