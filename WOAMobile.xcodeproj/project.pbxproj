@@ -83,6 +83,8 @@
 		DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */; };
 		DCB3465C194BDA20006519E8 /* WOALoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */; };
 		DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */; };
+		DCD5528219AEEBE5009777CF /* WOAStartSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */; };
+		DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +223,9 @@
 		DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOALoadingViewController.xib; sourceTree = "<group>"; };
 		DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RootViewController.h"; sourceTree = "<group>"; };
 		DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RootViewController.m"; sourceTree = "<group>"; };
+		DCD5527F19AEEBE5009777CF /* WOAStartSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAStartSettingViewController.h; sourceTree = "<group>"; };
+		DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAStartSettingViewController.m; sourceTree = "<group>"; };
+		DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAStartSettingViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +377,9 @@
 				4325F42419AC328300D25C86 /* NSFileManager+AppFolder.m */,
 				433B431A1953CC4A00B2D5D0 /* WOASplashViewController.h */,
 				433B431B1953CC4A00B2D5D0 /* WOASplashViewController.m */,
+				DCD5527F19AEEBE5009777CF /* WOAStartSettingViewController.h */,
+				DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */,
+				DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */,
 				4393824A19540E2E00062FC9 /* VSPopoverDefine.h */,
 				4393824B19540E2E00062FC9 /* VSPopoverDefine.m */,
 				4393824719540D6100062FC9 /* VSPopoverBackgroundView.h */,
@@ -533,6 +541,7 @@
 				DCA8B747195E91E900C0363B /* BackIndicatorIcon@2x.png in Resources */,
 				DCA8B73D195DC01800C0363B /* PasswordIcon@2x.png in Resources */,
 				DCA8B749195EE46B00C0363B /* checkedIcon@2x.png in Resources */,
+				DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */,
 				DCA8B6A5195B951D00C0363B /* NewWorkFlowIcon@2x.png in Resources */,
 				DCAAE25B193FE10A00AF2AF0 /* WOAAboutViewController.xib in Resources */,
 				DCAAE25D193FE61500AF2AF0 /* WOALoginViewController.xib in Resources */,
@@ -597,6 +606,7 @@
 				DC8B09A7193B89B800217F45 /* WOARootViewController.m in Sources */,
 				DC7E0ADE198DE3AF00975227 /* WOAVersionInfoViewController.m in Sources */,
 				DCAAE19D193F478A00AF2AF0 /* WOAMenuItemModel.m in Sources */,
+				DCD5528219AEEBE5009777CF /* WOAStartSettingViewController.m in Sources */,
 				DC8F5B3A195397B400C0688C /* UIColor+AppTheme.m in Sources */,
 				432C2C2A193F156F008F25F7 /* WOACheckForUpdate.m in Sources */,
 				4393824919540D6100062FC9 /* VSPopoverBackgroundView.m in Sources */,

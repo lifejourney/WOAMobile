@@ -10,7 +10,7 @@
 
 @protocol WOASplashViewControllerDelegate <NSObject>
 
-- (void) splashViewDidHiden;
+- (void) splashViewDidHiden: (BOOL)showStartSetting;
 
 @end
 

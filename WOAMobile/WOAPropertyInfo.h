@@ -12,6 +12,14 @@
 
 @interface WOAPropertyInfo : NSObject
 
+@property (nonatomic, readonly, copy) NSString *defaultServerAddress;
+@property (nonatomic, copy) NSString *serverAddress;
+
++ (NSString*) defaultServerAddress;
++ (NSString*) serverAddress;
++ (void) setServerAddress: (NSString*)addr;
++ (void) resetServerAddress;
+
 + (WOAAccountCredential*) latestLoginedAccount;
 + (void) saveLatestLoginAccount: (WOAAccountCredential*)account;
 + (void) saveLatestLoginAccountID: (NSString*)accountID password: (NSString*)password;

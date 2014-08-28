@@ -9,6 +9,7 @@
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
 #import "WOASplashViewController.h"
+#import "WOAStartSettingViewController.h"
 #import "WOALoginViewController.h"
 #import "WOALoadingViewController.h"
 #import "WOAFlowController.h"
@@ -16,7 +17,7 @@
 #import "UIColor+AppTheme.h"
 
 
-@interface WOAAppDelegate () <WOASplashViewControllerDelegate>
+@interface WOAAppDelegate () <WOASplashViewControllerDelegate, WOAStartSettingViewControllerDelegate>
 
 @property (nonatomic, strong) WOALoadingViewController *loadingVC;
 @property (nonatomic, strong) WOALoginViewController *loginVC;
@@ -164,7 +165,24 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void) splashViewDidHiden
+- (void) splashViewDidHiden: (BOOL)showStartSetting
+{
+    if (showStartSetting)
+    {
+        UIViewController *presentedVC = [self presentedViewController];
+        WOAStartSettingViewController *settingVC = [[WOAStartSettingViewController alloc] initWithDelegate: self];
+        
+        [presentedVC presentViewController: settingVC
+                                  animated: YES
+                                completion: nil];
+    }
+    else
+    {
+        [self presentLoginViewController: YES animated: NO];
+    }
+}
+
+- (void) startSettingViewDidHiden
 {
     [self presentLoginViewController: YES animated: NO];
 }

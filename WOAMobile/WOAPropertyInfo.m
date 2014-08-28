@@ -51,6 +51,37 @@
     return value;
 }
 
++ (NSString*) defaultServerAddress
+{
+    return @"http://220.162.12.167:8080";
+}
+
++ (NSString*) serverAddress
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *addr = [userDefaults stringForKey: @"serverAddress"];
+    
+    if (!addr || ([addr length] == 0))
+    {
+        addr = [self defaultServerAddress];
+    }
+    
+    return addr;
+}
+
++ (void) setServerAddress: (NSString*)addr
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setValue: addr forKey: @"serverAddress"];
+    [userDefaults synchronize];
+}
+
++ (void) resetServerAddress
+{
+    [self setServerAddress: [self defaultServerAddress]];
+}
+
 + (WOAAccountCredential*) latestLoginedAccount
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

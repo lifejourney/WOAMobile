@@ -361,11 +361,11 @@
             else
             {
                 requestResult = WOAHTTPRequestResult_JSONParseError;
-                resultDescription = [NSString stringWithFormat: @"[%@, %d]无效的响应内容[%d]:\n %@",
+                resultDescription = [NSString stringWithFormat: @"[%@, %d]\n无效的响应内容[%d]:\n %@",
                                      [NSDate date],
                                      self.httpResponse.statusCode,
                                      [tmpString length],
-                                     tmpString];
+                                     [tmpString substringToIndex: 30]];
                 
                 NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], tmpString);
             }

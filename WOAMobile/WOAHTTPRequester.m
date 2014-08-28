@@ -9,13 +9,14 @@
 #import "WOAHTTPRequester.h"
 #import "NSMutableData+AppendString.h"
 #import "WOAPacketHelper.h"
+#import "WOAPropertyInfo.h"
 
 
 @implementation WOAHTTPRequester
 
 + (NSMutableURLRequest*) URLRequestWithBodyData: (NSData*)bodyData
 {
-    NSString *urlString = @"http://220.162.12.167:8080/?action=app";
+    NSString *urlString = [NSString stringWithFormat: @"%@/?action=app", [WOAPropertyInfo serverAddress]];
     NSString *httpMethod = @"POST";
     //@"multipart/mixed; boundary=%@"
     NSDictionary *headers = @{@"Content-Type": @"application/x-www-form-urlencoded",
@@ -54,7 +55,7 @@
 + (NSMutableURLRequest*) URLRequestForUploadAttachment: (NSDictionary*)bodyDict
 {
     NSMutableData *bodyData = [[NSMutableData alloc] init];
-    NSString *urlString = @"http://220.162.12.167:8080/?action=appfile";
+    NSString *urlString = [NSString stringWithFormat: @"%@/?action=appfile", [WOAPropertyInfo serverAddress]];
     NSString *httpMethod = @"POST";
     NSString *boundary = @"WOABoundary_2014";
     NSDictionary *headers = @{@"Content-Type": [NSString stringWithFormat: @"multipart/form-data; boundary=%@", boundary],
