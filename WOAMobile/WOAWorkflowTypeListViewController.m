@@ -99,13 +99,14 @@
     CGFloat buttonTopMargin = 7;
     CGFloat filterHeight = buttonHeight + buttonTopMargin * 2;
     CGFloat listOriginY = contentTopMargin + filterHeight;
+    CGFloat tabbarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
     
     filterView.frame = CGRectMake(0, contentTopMargin, selfRect.size.width, filterHeight);
     _filterTextField.frame = CGRectMake(kWOALayout_DefaultLeftMargin,
                                         contentTopMargin + buttonTopMargin,
                                         selfRect.size.width - kWOALayout_DefaultLeftMargin - kWOALayout_DefaultRightMargin,
                                         buttonHeight);
-    _listView.frame = CGRectMake(0, listOriginY, selfRect.size.width, selfRect.size.height - listOriginY);
+    _listView.frame = CGRectMake(0, listOriginY, selfRect.size.width, selfRect.size.height - listOriginY - tabbarHeight);
     
     [self.listView reloadData];
 }

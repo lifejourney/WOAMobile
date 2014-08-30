@@ -74,6 +74,7 @@
     
     //TO-DO
     CGFloat contentOriginY = [self.topLayoutGuide length];
+    CGFloat tabbarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
     contentOriginY += self.navigationController.navigationBar.frame.origin.y;
     if (!self.navigationController.isNavigationBarHidden)
         contentOriginY += self.navigationController.navigationBar.frame.size.height;
@@ -88,7 +89,7 @@
     CGRect tableViewRect = CGRectMake(selfRect.origin.x,
                                       selfRect.origin.y + contentOriginY + searchBarHeight,
                                       selfRect.size.width,
-                                      selfRect.size.height - contentOriginY - searchBarHeight);
+                                      selfRect.size.height - contentOriginY - searchBarHeight - tabbarHeight);
     
     self.searchBar = [[UISearchBar alloc] initWithFrame: searchBarRect];
     _searchBar.showsCancelButton = YES;
