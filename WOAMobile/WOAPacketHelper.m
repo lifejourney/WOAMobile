@@ -501,6 +501,16 @@
     return [dict valueForKey: @"filePath"];
 }
 
++ (NSString*) attachmentTitleFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"title"];
+}
+
++ (NSString*) attachmentURLFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"url"];
+}
+
 @end
 
 

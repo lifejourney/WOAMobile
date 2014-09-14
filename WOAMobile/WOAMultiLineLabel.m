@@ -9,9 +9,14 @@
 #import "WOAMultiLineLabel.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
+#import "WOALinkLabel.h"
+#import "WOAPacketHelper.h"
+#import "WOAPropertyInfo.h"
 
 
-@interface WOAMultiLineLabel ()
+@interface WOAMultiLineLabel () <WOALinkLabelDelegate>
+
+@property (nonatomic, assign) BOOL isAttachment;
 
 @end
 
@@ -26,12 +31,44 @@
     return self;
 }
 
+- (NSString*) titleByIndex: (NSInteger)index
+{
+    NSString *title;
+    
+    if (index >= 0 & index < [_textsArray count])
+    {
+        NSDictionary *info = [_textsArray objectAtIndex: index];
+        title = [WOAPacketHelper attachmentTitleFromDictionary: info];
+    }
+    else
+        title = nil;
+    
+    return title;
+}
+
+- (NSString*) URLByIndex: (NSInteger)index
+{
+    NSString *URLString;
+    
+    if (index >= 0 & index < [_textsArray count])
+    {
+        NSDictionary *info = [_textsArray objectAtIndex: index];
+        URLString = [WOAPacketHelper attachmentURLFromDictionary: info];
+    }
+    else
+        URLString = nil;
+    
+    return URLString;
+}
+
 - (instancetype) initWithFrame: (CGRect)frame
-                    textsArray: (NSArray*)textsArray;
+                    textsArray: (NSArray*)textsArray
+                  isAttachment: (BOOL)isAttachment
 {
     if (self = [self initWithFrame: frame])
     {
         self.textsArray = textsArray;
+        self.isAttachment = isAttachment;
         
         CGFloat originY = 0;
         
@@ -45,7 +82,8 @@
         CGSize onelineSize;
         for (NSInteger index = 0; index < [textsArray count]; index++)
         {
-            onelineSize = [WOALayout sizeForText: [textsArray objectAtIndex: index]
+            NSString *textContent = isAttachment ? [self titleByIndex: index] : [textsArray objectAtIndex: index];
+            onelineSize = [WOALayout sizeForText: textContent
                                            width: onelineWidth
                                             font: labelFont];
             
@@ -57,20 +95,33 @@
         
         for (NSInteger index = 0; index < [textsArray count]; index++)
         {
+            NSString *textContent = isAttachment ? [self titleByIndex: index] : [textsArray objectAtIndex: index];
+            
             originY += lineMargin;
             
-            onelineSize = [WOALayout sizeForText: [textsArray objectAtIndex: index]
+            onelineSize = [WOALayout sizeForText: textContent
                                            width: onelineWidth
                                             font: labelFont];
             CGRect textRect = CGRectMake(0, originY, onelineSize.width, onelineSize.height);
             
-            UILabel *oneLineLabel = [[UILabel alloc] initWithFrame: textRect];
+            UILabel *oneLineLabel;
+            if (isAttachment)
+            {
+                WOALinkLabel *linkLabel = [[WOALinkLabel alloc] initWithFrame: textRect];
+                linkLabel.delegate = self;
+                
+                oneLineLabel = (UILabel*)linkLabel;
+            }
+            else
+            {
+                oneLineLabel = [[UILabel alloc] initWithFrame: textRect];
+            }
             oneLineLabel.font = labelFont;
             oneLineLabel.lineBreakMode = NSLineBreakByWordWrapping;
             oneLineLabel.numberOfLines = 0;
-            oneLineLabel.text = [textsArray objectAtIndex: index];
+            oneLineLabel.text = textContent;
             oneLineLabel.textAlignment = NSTextAlignmentLeft;
-            oneLineLabel.userInteractionEnabled = NO;
+            oneLineLabel.userInteractionEnabled = isAttachment;
             
             [self addSubview: oneLineLabel];
             
@@ -84,6 +135,18 @@
 - (void) layoutSubviews
 {
     [super layoutSubviews];
+}
+
+- (void) label: (WOALinkLabel *)label touchesWithTag: (NSInteger)tag
+{
+    NSString *URLString = [self URLByIndex: tag];
+    
+    if (URLString)
+    {
+        URLString = [NSString stringWithFormat: @"%@%@", [WOAPropertyInfo serverAddress], URLString];
+        
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: URLString]];
+    }
 }
 
 @end

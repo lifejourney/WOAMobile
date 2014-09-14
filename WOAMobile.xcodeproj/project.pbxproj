@@ -86,6 +86,7 @@
 		DCD5528219AEEBE5009777CF /* WOAStartSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */; };
 		DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */; };
 		DCE8117F19C548DA0052721E /* WOAMultiLineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */; };
+		DCE8118219C5C3200052721E /* WOALinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE8118119C5C3200052721E /* WOALinkLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAStartSettingViewController.xib; sourceTree = "<group>"; };
 		DCE8117D19C548DA0052721E /* WOAMultiLineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMultiLineLabel.h; sourceTree = "<group>"; };
 		DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMultiLineLabel.m; sourceTree = "<group>"; };
+		DCE8118019C5C3200052721E /* WOALinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOALinkLabel.h; sourceTree = "<group>"; };
+		DCE8118119C5C3200052721E /* WOALinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOALinkLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +371,8 @@
 				43E780B319AD81C200A73448 /* WOAMultiLineTextField.m */,
 				DCE8117D19C548DA0052721E /* WOAMultiLineLabel.h */,
 				DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */,
+				DCE8118019C5C3200052721E /* WOALinkLabel.h */,
+				DCE8118119C5C3200052721E /* WOALinkLabel.m */,
 				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
 				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 				DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */,
@@ -586,6 +591,7 @@
 				DC834F30194288A000C724BE /* NSString+PinyinInitial.m in Sources */,
 				DC57B31719ACCF4F0025B9D1 /* NSMutableData+AppendString.m in Sources */,
 				4393824C19540E2E00062FC9 /* VSPopoverDefine.m in Sources */,
+				DCE8118219C5C3200052721E /* WOALinkLabel.m in Sources */,
 				4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */,
 				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,
 				4343832819485AF200F108A3 /* WOADynamicLabelTextField.m in Sources */,

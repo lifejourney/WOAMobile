@@ -82,4 +82,7 @@
 
 + (NSString*) filePathFromDictionary: (NSDictionary*)dict;
 
++ (NSString*) attachmentTitleFromDictionary: (NSDictionary*)dict;
++ (NSString*) attachmentURLFromDictionary: (NSDictionary*)dict;
+
 @end

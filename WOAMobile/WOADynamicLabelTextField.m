@@ -300,12 +300,26 @@
             
             CGRect initiateFrame = frame;
             initiateFrame.size.width = textWidth;
-            self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame textsArray: arrayValue];
+            self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame
+                                                            textsArray: arrayValue
+                                                          isAttachment: NO];
             
             [self addSubview: _multiLabel];
             
             if (!_isWritable)
                 shouldShowInputTextField = NO;
+        }
+        else if (!_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+        {
+            CGRect initiateFrame = frame;
+            initiateFrame.size.width = textWidth;
+            self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame
+                                                            textsArray: arrayValue
+                                                          isAttachment: YES];
+            
+            [self addSubview: _multiLabel];
+            
+            shouldShowInputTextField = NO;
         }
         
         if (!_isWritable && (_extendType == WOAExtendTextFieldType_Normal))
@@ -324,7 +338,7 @@
             
             [self addSubview: _lineLabel];
         }
-        else
+        else if (shouldShowInputTextField)
         {
             if (0 && _isWritable && (_extendType == WOAExtendTextFieldType_Normal ||
                                 _extendType == WOAExtendTextFieldType_TextList ||
@@ -549,6 +563,12 @@
     else if (!_isWritable && (_extendType == WOAExtendTextFieldType_Normal))
     {
         value = self.lineLabel.text;
+    }
+    else if (!_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+    {
+        //TO-DO:
+        value = nil;
+        //value = self.multiLabel.textsArray;
     }
     else if (0 && _isWritable && (_extendType == WOAExtendTextFieldType_Normal ||
                              _extendType == WOAExtendTextFieldType_TextList ||

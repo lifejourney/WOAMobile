@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSArray *textsArray;
 
 - (instancetype) initWithFrame: (CGRect)frame
-                    textsArray: (NSArray*)textsArray;
+                    textsArray: (NSArray*)textsArray
+                  isAttachment: (BOOL)isAttachment;
 
 @end
