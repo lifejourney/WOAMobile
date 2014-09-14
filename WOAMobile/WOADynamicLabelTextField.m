@@ -18,7 +18,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 
-@interface WOADynamicLabelTextField () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface WOADynamicLabelTextField () <UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) WOAMultiLineTextField *multiField;
@@ -304,7 +304,7 @@
             
             [self addSubview: _multiLabel];
             
-            if (!isWritable)
+            if (!_isWritable)
                 shouldShowInputTextField = NO;
         }
         
@@ -326,40 +326,72 @@
         }
         else
         {
-            self.lineTextField = [[UITextField alloc] initWithFrame: CGRectZero];
-            _lineTextField.font = [_lineTextField.font fontWithSize: kWOALayout_DetailItemFontSize];
-            _lineTextField.delegate = self;
-            _lineTextField.text = textValue;
-            _lineTextField.textAlignment = NSTextAlignmentLeft;
-            _lineTextField.borderStyle = (isEditable && isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
-            _lineTextField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
-            _lineTextField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
-            
-            [self addRightViewForTextField: _lineTextField extendType:_extendType isWritable: isWritable];
-            
-            [self addSubview: _lineTextField];
+            if (0 && _isWritable && (_extendType == WOAExtendTextFieldType_Normal ||
+                                _extendType == WOAExtendTextFieldType_TextList ||
+                                _extendType == WOAExtendTextFieldType_CheckUserList))
+            {
+                NSString *testString = @"test1\r\n\test2";
+                CGSize testSize = [WOALayout sizeForText: testString
+                                                   width: textWidth
+                                                    font: labelFont];
+                CGSize textViewSize = [WOALayout sizeForText: textValue
+                                                       width: textWidth
+                                                        font: labelFont];
+                textViewSize.height = MAX(testSize.height, textViewSize.height);
+                
+                self.lineTextView = [[UITextView alloc] initWithFrame: CGRectMake(0, 0, textViewSize.width, textViewSize.height)];
+                _lineTextView.font = [_lineTextView.font fontWithSize: kWOALayout_DetailItemFontSize];
+                _lineTextView.delegate = self;
+                _lineTextView.text = textValue;
+                _lineTextView.textAlignment = NSTextAlignmentLeft;
+                _lineTextView.userInteractionEnabled = YES;
+                _lineTextView.keyboardType = UIKeyboardTypeDefault;
+                
+                [self addSubview: _lineTextView];
+            }
+            else
+            {
+                self.lineTextField = [[UITextField alloc] initWithFrame: CGRectZero];
+                _lineTextField.font = [_lineTextField.font fontWithSize: kWOALayout_DetailItemFontSize];
+                _lineTextField.delegate = self;
+                _lineTextField.text = textValue;
+                _lineTextField.textAlignment = NSTextAlignmentLeft;
+                _lineTextField.borderStyle = (isEditable && _isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
+                _lineTextField.userInteractionEnabled = _isWritable || [self couldUserInteractEvenUnWritable: _extendType];
+                _lineTextField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
+                
+                [self addRightViewForTextField: _lineTextField extendType:_extendType isWritable: _isWritable];
+                
+                [self addSubview: _lineTextField];
+            }
         }
         
         CGFloat multiLabelHeight = _multiLabel ? _multiLabel.frame.size.height : 0;
         CGFloat titleSizeHeight = MAX(sizeHeight, originY + _titleLabel.frame.size.height);
         CGFloat lineLabelHeight = _lineLabel ? _lineLabel.frame.size.height : 0;
         CGFloat textFieldSizeHeight = _lineTextField ? sizeHeight : 0;
+        CGFloat textViewSizeHeight = _lineTextView ? _lineTextView.frame.size.height : 0;
         if (!shouldShowInputTextField)
         {
             if (multiLabelHeight != 0)
+            {
                 textFieldSizeHeight = 0;
+                textViewSizeHeight = 0;
+            }
         }
-        CGFloat placeHolderSizeHeight = originY + multiLabelHeight + lineLabelHeight + textFieldSizeHeight;
+        CGFloat placeHolderSizeHeight = originY + multiLabelHeight + lineLabelHeight + textFieldSizeHeight + textViewSizeHeight;
         CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, titleSizeHeight);
         CGRect multiLabelRect = CGRectMake(textOriginX, originY, textWidth, multiLabelHeight);
-        CGRect textRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textFieldSizeHeight);
+        CGRect textFieldRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textFieldSizeHeight);
+        CGRect textViewRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textViewSizeHeight);
         CGRect lineLabelRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, lineLabelHeight);
         CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, MAX(titleSizeHeight, placeHolderSizeHeight));
         
         [self setFrame: selfRect];
         [_titleLabel setFrame: labelRect];
         [_multiLabel setFrame: multiLabelRect];
-        [_lineTextField setFrame: textRect];
+        [_lineTextField setFrame: textFieldRect];
+        [_lineTextView setFrame: textViewRect];
         [_lineLabel setFrame: lineLabelRect];
     }
     
@@ -506,11 +538,25 @@
     NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
     
     id value;
-    if (self.isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+    if (_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
     {
         value = self.imageFileNameInServer;
     }
-    //TO-DO:
+    else if (_isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
+    {
+        value = [self removeNumberOrderPrefix: self.lineTextField.text];
+    }
+    else if (!_isWritable && (_extendType == WOAExtendTextFieldType_Normal))
+    {
+        value = self.lineLabel.text;
+    }
+    else if (0 && _isWritable && (_extendType == WOAExtendTextFieldType_Normal ||
+                             _extendType == WOAExtendTextFieldType_TextList ||
+                             _extendType == WOAExtendTextFieldType_CheckUserList))
+    {
+        value = self.lineTextView.text;
+    }
+//TO-DO:
 //    else if (_extendType == WOAExtendTextFieldType_TextList)
 //    {
 //        NSString *userInputValue = self.lineTextField.text;
@@ -519,21 +565,13 @@
 //        {
 //            [arrayValue addObject: userInputValue];
 //        }
-//        
+//
 //        value = arrayValue;
 //    }
 //    else if (_extendType == WOAExtendTextFieldType_CheckUserList)
 //    {
 //        value = self.multiLabel.textsArray;
 //    }
-    else if (self.isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
-    {
-        value = [self removeNumberOrderPrefix: self.lineTextField.text];
-    }
-    else if (!self.isWritable && (_extendType == WOAExtendTextFieldType_Normal))
-    {
-        value = self.lineLabel.text;
-    }
     else
     {
         value = self.lineTextField.text;
