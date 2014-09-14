@@ -90,9 +90,9 @@
 
 - (void) closeSelfByUser
 {
-    [self.closeTimer invalidate];
-    
-    [self closeSelf: YES];
+//    [self.closeTimer invalidate];
+//    
+//    [self closeSelf: YES];
 }
 
 @end

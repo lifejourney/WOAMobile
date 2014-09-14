@@ -10,14 +10,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WOAAppDelegate.h"
 #import "WOARootViewController.h"
+#import "WOAStartSettingViewController.h"
 #import "WOAPropertyInfo.h"
 
 
-@interface WOALoginViewController () <UITextFieldDelegate>
+@interface WOALoginViewController () <UITextFieldDelegate, WOAStartSettingViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *accountTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
 @property (nonatomic, strong) IBOutlet UIButton *loginButton;
+@property (nonatomic, strong) IBOutlet UIButton *settingButton;
 
 - (IBAction) onLoginAction: (id)sender;
 
@@ -97,10 +99,10 @@
     _accountTextField.text = latestAccount.accountID;
     _passwordTextField.text = latestAccount.password;
     
-    if ([_accountTextField.text length] > 0)
-        [_passwordTextField becomeFirstResponder];
-    else
-        [_accountTextField becomeFirstResponder];
+//    if ([_accountTextField.text length] > 0)
+//        [_passwordTextField becomeFirstResponder];
+//    else
+//        [_accountTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -175,6 +177,22 @@
     {
         [self onLoginAction: self.loginButton];
     }
+}
+
+- (IBAction) onSettingAction: (id)sender
+{
+    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    UIViewController *presentedVC = [appDelegate presentedViewController];
+    WOAStartSettingViewController *settingVC = [[WOAStartSettingViewController alloc] initWithDelegate: self];
+    
+    [presentedVC presentViewController: settingVC
+                              animated: YES
+                            completion: nil];
+}
+
+- (void) startSettingViewDidHiden
+{
+    
 }
 
 @end

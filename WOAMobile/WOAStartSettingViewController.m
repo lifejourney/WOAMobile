@@ -64,6 +64,8 @@
 
 - (IBAction) finishSetting: (id)sender
 {
+    [self updateServerAddr: sender];
+    
     [self dismissViewControllerAnimated: NO completion: ^
      {
          if (_delegate && [_delegate respondsToSelector: @selector(startSettingViewDidHiden)])
