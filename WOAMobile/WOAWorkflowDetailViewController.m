@@ -417,7 +417,7 @@
 {
     [self tapOutsideKeyboardAction];
     
-    WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    //WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     WOARequestContent *requestContent;
     
     //TO-DO: WOAFLowActionType_GetDraftWorkflowList

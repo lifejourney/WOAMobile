@@ -34,6 +34,7 @@
         
         CGFloat originY = 0;
         
+        CGFloat lineMargin = 0;//kWOALayout_ItemTopMargin;
         CGFloat oneLineHeight = /*kWOALayout_ItemTopMargin + */kWOALayout_ItemCommonHeight;
         CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, oneLineHeight * [textsArray count]);
         [self setFrame: selfRect];
@@ -41,7 +42,7 @@
         for (NSInteger index = 0; index < [textsArray count]; index++)
         {
             UITextField *oneLineField = [[UITextField alloc] initWithFrame: CGRectZero];
-            oneLineField.font = [oneLineField.font fontWithSize: 12.0f];
+            oneLineField.font = [oneLineField.font fontWithSize: kWOALayout_DetailItemFontSize];
             oneLineField.delegate = self;
             oneLineField.text = [textsArray objectAtIndex: index];
             oneLineField.textAlignment = NSTextAlignmentLeft;
@@ -53,7 +54,7 @@
             [self addSubview: oneLineField];
             
             //set frames
-            //originY += kWOALayout_ItemTopMargin;
+            originY += lineMargin;
             CGFloat sizeHeight = kWOALayout_ItemCommonHeight;
             CGRect textRect = CGRectMake(0, originY, frame.size.width, sizeHeight);
             

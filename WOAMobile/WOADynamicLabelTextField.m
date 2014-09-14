@@ -11,6 +11,7 @@
 #import "VSActionSheetDatePicker.h"
 #import "VSActionSheetPickerView.h"
 #import "WOAMultiLineTextField.h"
+#import "WOAMultiLineLabel.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
 #import "NSFileManager+AppFolder.h"
@@ -19,9 +20,12 @@
 
 @interface WOADynamicLabelTextField () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) WOAMultiLineTextField *multiField;
+@property (nonatomic, strong) WOAMultiLineLabel *multiLabel;
+@property (nonatomic, strong) UITextField *lineTextField;
+@property (nonatomic, strong) UILabel *lineLabel;
+@property (nonatomic, strong) UITextView *lineTextView;
 
 @property (nonatomic, assign) NSInteger section;
 @property (nonatomic, assign) NSInteger row;
@@ -90,40 +94,32 @@
 }
 
 //- (UIView*) rightViewWithExtendType: (WOAExtendTextFieldType)extendType isWritable: (BOOL)isWritable viewHeight: (CGFloat)viewHeight
-- (void) addRightViewForTextField: (UITextField*)textField
-                       extendType: (WOAExtendTextFieldType)extendType
-                       isWritable: (BOOL)isWritable
+- (SEL) clickSelectorWithExtendType: (WOAExtendTextFieldType)extendType
+                         isWritable: (BOOL)isWritable
 {
     SEL clickSelector;
-    UIImage *buttonImage;
     
-    UIImage *dropDownImage = [UIImage imageNamed: @"DropDownIcon"];
     switch (_extendType)
     {
         case WOAExtendTextFieldType_Normal:
         case WOAExtendTextFieldType_IntString:
             clickSelector = nil;
-            buttonImage = nil;
             break;
             
         case WOAExtendTextFieldType_DatePicker:
             clickSelector = @selector(showDatePicker:);
-            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_TimePicker:
             clickSelector = @selector(showTimePicker:);
-            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_DateTimePicker:
             clickSelector = @selector(showDateTimePicker:);
-            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_PickerView:
             clickSelector = @selector(showPickerView:);
-            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_AttachFile:
@@ -131,41 +127,93 @@
                 clickSelector = @selector(selectAttachment:);
             else
                 clickSelector = @selector(viewAttachment:);
-            buttonImage = dropDownImage;
             break;
             
         case WOAExtendTextFieldType_TextList:
             clickSelector = nil;
-            buttonImage = nil;
             break;
             
         case WOAExtendTextFieldType_CheckUserList:
             clickSelector = nil;
-            buttonImage = nil;
             break;
             
         default:
             clickSelector = nil;
+            break;
+    }
+    
+    
+    BOOL couldShouldRightView = ((_isEditable && isWritable) || [self couldUserInteractEvenUnWritable: extendType]);
+    
+    if (!couldShouldRightView)
+    {
+        clickSelector = nil;
+    }
+
+    return clickSelector;
+}
+
+- (UIImageView*) rightViewWithExtendType: (WOAExtendTextFieldType)extendType
+                              isWritable: (BOOL)isWritable
+{
+    UIImage *buttonImage;
+    UIImage *dropDownImage = [UIImage imageNamed: @"DropDownIcon"];
+    
+    switch (_extendType)
+    {
+        case WOAExtendTextFieldType_Normal:
+        case WOAExtendTextFieldType_IntString:
+            buttonImage = nil;
+            break;
+            
+        case WOAExtendTextFieldType_DatePicker:
+        case WOAExtendTextFieldType_TimePicker:
+        case WOAExtendTextFieldType_DateTimePicker:
+            buttonImage = dropDownImage;
+            break;
+            
+        case WOAExtendTextFieldType_PickerView:
+            buttonImage = dropDownImage;
+            break;
+            
+        case WOAExtendTextFieldType_AttachFile:
+            buttonImage = dropDownImage;
+            break;
+            
+        case WOAExtendTextFieldType_TextList:
+            buttonImage = nil;
+            break;
+            
+        case WOAExtendTextFieldType_CheckUserList:
+            buttonImage = nil;
+            break;
+            
+        default:
             buttonImage = nil;
             break;
     }
     
+    
     BOOL couldShouldRightView = ((_isEditable && isWritable) || [self couldUserInteractEvenUnWritable: extendType]);
     
-    if (buttonImage && couldShouldRightView)
+    if (!couldShouldRightView)
     {
-        textField.rightViewMode = UITextFieldViewModeAlways;
-        textField.rightView = [[UIImageView alloc] initWithImage: buttonImage];
-        
-        if (clickSelector != nil)
-        {
-            [textField addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
-        }
+        buttonImage = nil;
     }
-    else
-    {
-        textField.rightViewMode = UITextFieldViewModeNever;
-    }
+
+    return buttonImage ? [[UIImageView alloc] initWithImage: buttonImage] : nil;
+}
+
+- (void) addRightViewForTextField: (UITextField*)textField
+                       extendType: (WOAExtendTextFieldType)extendType
+                       isWritable: (BOOL)isWritable
+{
+    SEL clickSelector = [self clickSelectorWithExtendType: extendType isWritable: isWritable];
+    UIImageView *rightView = [self rightViewWithExtendType: extendType isWritable: isWritable];
+    
+    [textField addTarget: self action: clickSelector forControlEvents: UIControlEventTouchDown];
+    textField.rightView = rightView;
+    textField.rightViewMode = rightView ? UITextFieldViewModeAlways : UITextFieldViewModeNever;
 }
 
 - (instancetype) initWithFrame: (CGRect)frame
@@ -218,6 +266,8 @@
         }
         
         
+        UILabel *testLabel = [[UILabel alloc] initWithFrame: CGRectZero];
+        UIFont *labelFont = [testLabel.font fontWithSize: kWOALayout_DetailItemFontSize];
         BOOL shouldShowInputTextField = YES;
         //set frames
         CGFloat originY = kWOALayout_ItemTopMargin;
@@ -228,55 +278,89 @@
         CGFloat textWidth = frame.size.width - textOriginX;
         
         
-        self.label = [[UILabel alloc] initWithFrame: CGRectZero];
-        _label.font = [_label.font fontWithSize: 12.0f];
-        _label.text = labelText;
-        _label.textAlignment = NSTextAlignmentLeft;
-        [self addSubview: _label];
+        CGSize titleLabelSize = [WOALayout sizeForText: labelText
+                                                 width: labelWidth
+                                                  font: labelFont];
+        self.titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, titleLabelSize.width, titleLabelSize.height)];
+        _titleLabel.font = labelFont;
+        _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        _titleLabel.numberOfLines = 0;
+        _titleLabel.text = labelText;
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        [self addSubview: _titleLabel];
         
         if ((_extendType == WOAExtendTextFieldType_TextList) || (_extendType == WOAExtendTextFieldType_CheckUserList))
         {
+            //TO-DO, temporarily
+            if (_extendType == WOAExtendTextFieldType_CheckUserList)
+            {
+                if (!arrayValue && textValue)
+                    arrayValue = @[textValue];
+            }
+            
             CGRect initiateFrame = frame;
             initiateFrame.size.width = textWidth;
-            self.multiField = [[WOAMultiLineTextField alloc] initWithFrame: initiateFrame textsArray: arrayValue];
+            self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame textsArray: arrayValue];
             
-            [self addSubview: _multiField];
+            [self addSubview: _multiLabel];
             
             if (!isWritable)
                 shouldShowInputTextField = NO;
         }
         
-        self.textField = [[UITextField alloc] initWithFrame: CGRectZero];
-        _textField.font = [_textField.font fontWithSize: 12.0f];
-        _textField.delegate = self;
-        _textField.text = textValue;
-        _textField.textAlignment = NSTextAlignmentLeft;
-        _textField.borderStyle = (isEditable && isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
-        _textField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
-        _textField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
+        if (!_isWritable && (_extendType == WOAExtendTextFieldType_Normal))
+        {
+            CGSize onelineSize = [WOALayout sizeForText: textValue
+                                                  width: textWidth
+                                                   font: labelFont];
+            
+            self.lineLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, onelineSize.width, onelineSize.height)];
+            _lineLabel.font = labelFont;
+            _lineLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            _lineLabel.numberOfLines = 0;
+            _lineLabel.text = textValue;
+            _lineLabel.textAlignment = NSTextAlignmentLeft;
+            _lineLabel.userInteractionEnabled = NO;
+            
+            [self addSubview: _lineLabel];
+        }
+        else
+        {
+            self.lineTextField = [[UITextField alloc] initWithFrame: CGRectZero];
+            _lineTextField.font = [_lineTextField.font fontWithSize: kWOALayout_DetailItemFontSize];
+            _lineTextField.delegate = self;
+            _lineTextField.text = textValue;
+            _lineTextField.textAlignment = NSTextAlignmentLeft;
+            _lineTextField.borderStyle = (isEditable && isWritable) ? UITextBorderStyleRoundedRect : UITextBorderStyleNone;
+            _lineTextField.userInteractionEnabled = isWritable || [self couldUserInteractEvenUnWritable: _extendType];
+            _lineTextField.keyboardType = (_extendType == WOAExtendTextFieldType_IntString) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDefault;
+            
+            [self addRightViewForTextField: _lineTextField extendType:_extendType isWritable: isWritable];
+            
+            [self addSubview: _lineTextField];
+        }
         
-        [self addRightViewForTextField: _textField extendType:_extendType isWritable: isWritable];
-        
-        [self addSubview: _textField];
-        
-        CGFloat multiFieldHeight = _multiField ? _multiField.frame.size.height : 0;
-        CGFloat labelSizeHeight = sizeHeight;
-        CGFloat textFieldSizeHeight = sizeHeight;
+        CGFloat multiLabelHeight = _multiLabel ? _multiLabel.frame.size.height : 0;
+        CGFloat titleSizeHeight = MAX(sizeHeight, originY + _titleLabel.frame.size.height);
+        CGFloat lineLabelHeight = _lineLabel ? _lineLabel.frame.size.height : 0;
+        CGFloat textFieldSizeHeight = _lineTextField ? sizeHeight : 0;
         if (!shouldShowInputTextField)
         {
-            if (multiFieldHeight != 0)
+            if (multiLabelHeight != 0)
                 textFieldSizeHeight = 0;
         }
-        CGFloat placeHolderSizeHeight = multiFieldHeight + textFieldSizeHeight;
-        CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, labelSizeHeight);
-        CGRect multiFieldRect = CGRectMake(textOriginX, originY, textWidth, multiFieldHeight);
-        CGRect textRect = CGRectMake(textOriginX, originY + multiFieldHeight, textWidth, textFieldSizeHeight);
-        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, originY + placeHolderSizeHeight);
+        CGFloat placeHolderSizeHeight = originY + multiLabelHeight + lineLabelHeight + textFieldSizeHeight;
+        CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, titleSizeHeight);
+        CGRect multiLabelRect = CGRectMake(textOriginX, originY, textWidth, multiLabelHeight);
+        CGRect textRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textFieldSizeHeight);
+        CGRect lineLabelRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, lineLabelHeight);
+        CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, MAX(titleSizeHeight, placeHolderSizeHeight));
         
         [self setFrame: selfRect];
-        [_label setFrame: labelRect];
-        [_multiField setFrame: multiFieldRect];
-        [_textField setFrame: textRect];
+        [_titleLabel setFrame: labelRect];
+        [_multiLabel setFrame: multiLabelRect];
+        [_lineTextField setFrame: textRect];
+        [_lineLabel setFrame: lineLabelRect];
     }
     
     return self;
@@ -291,7 +375,7 @@
 {
     self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
     
-    NSInteger selectedRow = [self.optionArray indexOfObject: self.textField.text];
+    NSInteger selectedRow = [self.optionArray indexOfObject: self.lineTextField.text];
     
     [self.actionSheetPickerView shownPickerViewInView: self.popoverShowInView
                                             dataModel: self.optionArray
@@ -299,7 +383,7 @@
                                       selectedHandler: ^(NSInteger row)
     {
         if (row >= 0)
-            self.textField.text = [self.optionArray objectAtIndex: row];
+            self.lineTextField.text = [self.optionArray objectAtIndex: row];
     }
                                      cancelledHandler: ^
     {
@@ -332,11 +416,11 @@
     
     [self.actionSheetDatePicker showInView: self.popoverShowInView
                             datePickerMode: datePickerMode
-                         currentDateString: self.textField.text
+                         currentDateString: self.lineTextField.text
                           dateFormatString: dateFormatString
                            selectedHandler: ^(NSString *selectedDateString)
     {
-        self.textField.text = selectedDateString;
+        self.lineTextField.text = selectedDateString;
     }
                      cancelledHandler: ^
     {
@@ -360,7 +444,7 @@
 
 - (void) viewAttachment: (id)sender
 {
-    NSString *filePath = self.textField.text;
+    NSString *filePath = self.lineTextField.text;
     
     if (filePath && [filePath length] > 0)
     {
@@ -429,8 +513,8 @@
     //TO-DO:
 //    else if (_extendType == WOAExtendTextFieldType_TextList)
 //    {
-//        NSString *userInputValue = self.textField.text;
-//        NSMutableArray *arrayValue = [[NSMutableArray alloc] initWithArray: self.multiField.textsArray];
+//        NSString *userInputValue = self.lineTextField.text;
+//        NSMutableArray *arrayValue = [[NSMutableArray alloc] initWithArray: self.multiLabel.textsArray];
 //        if (userInputValue && [userInputValue length] > 0)
 //        {
 //            [arrayValue addObject: userInputValue];
@@ -440,18 +524,22 @@
 //    }
 //    else if (_extendType == WOAExtendTextFieldType_CheckUserList)
 //    {
-//        value = self.multiField.textsArray;
+//        value = self.multiLabel.textsArray;
 //    }
     else if (self.isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
     {
-        value = [self removeNumberOrderPrefix: self.textField.text];
+        value = [self removeNumberOrderPrefix: self.lineTextField.text];
+    }
+    else if (!self.isWritable && (_extendType == WOAExtendTextFieldType_Normal))
+    {
+        value = self.lineLabel.text;
     }
     else
     {
-        value = self.textField.text;
+        value = self.lineTextField.text;
     }
     
-    return [WOAPacketHelper packetForItemWithKey: self.label.text
+    return [WOAPacketHelper packetForItemWithKey: self.titleLabel.text
                                            value: value
                                          section: sectionNum
                                              row: rowNum];
@@ -482,9 +570,9 @@
 {
     if (_extendType == WOAExtendTextFieldType_PickerView)
     {
-        if ([_textField.text length] <= 0)
+        if ([_lineTextField.text length] <= 0)
         {
-            _textField.text = [self.optionArray firstObject];
+            _lineTextField.text = [self.optionArray firstObject];
         }
     }
 }
@@ -502,7 +590,7 @@
         self.imageFileName = [defaultRepresentation filename];
         self.imageFileSize = [defaultRepresentation size];
         
-        self.textField.text = self.imageFileName;
+        self.lineTextField.text = self.imageFileName;
         
         NSString *tempPath = [NSFileManager currentAccountTempPath];
         self.imageFullFileName = [NSString stringWithFormat: @"%@/%@", tempPath, self.imageFileName];

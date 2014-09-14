@@ -14,9 +14,11 @@
 #define kWOALayout_DefaultBottomMargin 10
 
 #define kWOALayout_ItemCommonHeight (24)
-#define kWOALayout_ItemLabelWidth (90)
+#define kWOALayout_ItemLabelWidth (80)
 #define kWOALayout_ItemTopMargin (4)
 #define kWOALayout_ItemLabelTextField_Gap (2)
+
+#define kWOALayout_DetailItemFontSize (12.0f)
 
 #define kWOADefaultDateFormat @"YYYY-MM-dd"
 #define kWOADefaultTimeFormat @"hh:mm"
@@ -25,6 +27,7 @@
 @interface WOALayout : NSObject
 
 + (CGRect) rectForNavigationTitleView;
++ (CGSize) sizeForText: (NSString*)text width: (CGFloat)width font: (UIFont*)font;
 + (UILabel*) lableForNavigationTitleView: (NSString*)text;
 + (UIBarButtonItem*) backBarButtonItemWithTarget:(id)target action:(SEL)action;
 

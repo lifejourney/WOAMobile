@@ -17,6 +17,30 @@
     return CGRectMake(0, 0, 100, 30);
 }
 
++ (CGSize) sizeForText: (NSString*)text width: (CGFloat)width font: (UIFont*)font
+{
+    CGFloat height = kWOALayout_ItemCommonHeight;
+    CGSize size;
+    
+    if (text && font)
+    {
+        NSDictionary *attribute = @{NSFontAttributeName: font};
+        
+        CGRect rect = [text boundingRectWithSize: CGSizeMake(width, 0)
+                                         options: NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                      attributes: attribute
+                                         context: nil];
+        
+        size = rect.size;
+    }
+    else
+    {
+        size = CGSizeMake(width, height);
+    }
+    
+    return size;
+}
+
 + (UILabel*) lableForNavigationTitleView: (NSString*)text
 {
     UILabel *titleView = [[UILabel alloc] initWithFrame: [WOALayout rectForNavigationTitleView]];

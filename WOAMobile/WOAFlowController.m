@@ -365,7 +365,7 @@
                                      [NSDate date],
                                      self.httpResponse.statusCode,
                                      [tmpString length],
-                                     [tmpString substringToIndex: 30]];
+                                     [tmpString substringToIndex: MIN(30, [tmpString length])]];
                 
                 NSLog(@"Request fail during JSON parsing. error: %@\n respone body: %@", [error localizedDescription], tmpString);
             }

@@ -85,6 +85,7 @@
 		DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */; };
 		DCD5528219AEEBE5009777CF /* WOAStartSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */; };
 		DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */; };
+		DCE8117F19C548DA0052721E /* WOAMultiLineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +227,8 @@
 		DCD5527F19AEEBE5009777CF /* WOAStartSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAStartSettingViewController.h; sourceTree = "<group>"; };
 		DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAStartSettingViewController.m; sourceTree = "<group>"; };
 		DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAStartSettingViewController.xib; sourceTree = "<group>"; };
+		DCE8117D19C548DA0052721E /* WOAMultiLineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAMultiLineLabel.h; sourceTree = "<group>"; };
+		DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAMultiLineLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +366,8 @@
 				DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */,
 				43E780B219AD81C200A73448 /* WOAMultiLineTextField.h */,
 				43E780B319AD81C200A73448 /* WOAMultiLineTextField.m */,
+				DCE8117D19C548DA0052721E /* WOAMultiLineLabel.h */,
+				DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */,
 				4343832619485AF200F108A3 /* WOADynamicLabelTextField.h */,
 				4343832719485AF200F108A3 /* WOADynamicLabelTextField.m */,
 				DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */,
@@ -595,6 +600,7 @@
 				DC8B09A5193B89B800217F45 /* WOAMoreFeatureViewController.m in Sources */,
 				DC83A85C1940C2F1003C7AB6 /* WOAResponeContent.m in Sources */,
 				DC8B09A8193B89B800217F45 /* WOASelectNextReviewerViewController.m in Sources */,
+				DCE8117F19C548DA0052721E /* WOAMultiLineLabel.m in Sources */,
 				433871EB19470B18007FD6D5 /* VSActionSheetDatePicker.m in Sources */,
 				4325F42519AC328300D25C86 /* NSFileManager+AppFolder.m in Sources */,
 				4393824F195415F900062FC9 /* VSPopoverView.m in Sources */,
