@@ -53,8 +53,8 @@
 
 + (NSString*) defaultServerAddress
 {
-    return @"http://220.162.12.167:8080";
-    //return @"http://www.qz5z.com";
+    //return @"http://220.162.12.167:8080";
+    return @"http://www.qz5z.com";
 }
 
 + (NSString*) serverAddress
