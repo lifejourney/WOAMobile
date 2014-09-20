@@ -25,9 +25,12 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString: urlString]
                                                            cachePolicy: NSURLRequestReloadIgnoringCacheData
                                                        timeoutInterval: 30];
+    NSString *dataString = [[NSString alloc] initWithData: bodyData encoding: NSUTF8StringEncoding];
+    dataString = [dataString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    
     [request setHTTPMethod: httpMethod];
     [request setAllHTTPHeaderFields: headers];
-    [request setHTTPBody: bodyData];
+    [request setHTTPBody: [dataString dataUsingEncoding: NSUTF8StringEncoding]];
     [request setHTTPShouldHandleCookies: NO];
     
     return request;
