@@ -108,7 +108,7 @@
                                                        timeoutInterval: 30];
     [request setHTTPMethod: httpMethod];
     [request setAllHTTPHeaderFields: headers];
-    [request setValue: [NSString stringWithFormat: @"%d", [bodyData length]] forHTTPHeaderField: @"Content-Length"];
+    [request setValue: [NSString stringWithFormat: @"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField: @"Content-Length"];
     [request setHTTPBody: bodyData];
     [request setHTTPShouldHandleCookies: NO];
     
