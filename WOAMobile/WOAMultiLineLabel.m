@@ -7,6 +7,7 @@
 //
 
 #import "WOAMultiLineLabel.h"
+#import "WOAURLNavigationViewController.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
 #import "WOALinkLabel.h"
@@ -146,7 +147,20 @@
     {
         URLString = [NSString stringWithFormat: @"%@%@", [WOAPropertyInfo serverAddress], URLString];
         
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: URLString]];
+        NSURL *url = [NSURL URLWithString: URLString];
+        
+        if (self.delegate && [self.delegate respondsToSelector: @selector(hostNavigation)])
+        {
+            WOAURLNavigationViewController *navigationVC = [[WOAURLNavigationViewController alloc] init];
+            navigationVC.url = url;
+            navigationVC.urlTitle = label.text;
+            
+            [[self.delegate hostNavigation] pushViewController: navigationVC animated: YES];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL: url];
+        }
     }
 }
 

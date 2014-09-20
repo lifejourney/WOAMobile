@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class WOAMultiLineLabel;
+
+@protocol WOAMultiLineLabelDelegate <NSObject>
+
+- (UINavigationController*) hostNavigation;
+
+@end
+
 @interface WOAMultiLineLabel : UIView
 
+@property (nonatomic, weak) NSObject<WOAMultiLineLabelDelegate> *delegate;
 @property (nonatomic, strong) NSArray *textsArray;
 
 - (instancetype) initWithFrame: (CGRect)frame

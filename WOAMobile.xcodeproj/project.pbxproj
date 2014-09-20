@@ -85,6 +85,8 @@
 		DCB345A1194BD8D5006519E8 /* VSSelectedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB345A0194BD8D5006519E8 /* VSSelectedTableViewCell.m */; };
 		DCB3465C194BDA20006519E8 /* WOALoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */; };
 		DCB45BBF19CCEE3D00515F2F /* WOALabelButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB45BBE19CCEE3D00515F2F /* WOALabelButtonTableViewCell.m */; };
+		DCB45BC619CD032D00515F2F /* WOAURLNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB45BC419CD032D00515F2F /* WOAURLNavigationViewController.m */; };
+		DCB45BC719CD032D00515F2F /* WOAURLNavigationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCB45BC519CD032D00515F2F /* WOAURLNavigationViewController.xib */; };
 		DCC82DC3194D9927001FE18B /* UINavigationController+RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */; };
 		DCD5528219AEEBE5009777CF /* WOAStartSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5528019AEEBE5009777CF /* WOAStartSettingViewController.m */; };
 		DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCD5528119AEEBE5009777CF /* WOAStartSettingViewController.xib */; };
@@ -232,6 +234,9 @@
 		DCB3465B194BDA20006519E8 /* WOALoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOALoadingViewController.xib; sourceTree = "<group>"; };
 		DCB45BBD19CCEE3D00515F2F /* WOALabelButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOALabelButtonTableViewCell.h; sourceTree = "<group>"; };
 		DCB45BBE19CCEE3D00515F2F /* WOALabelButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOALabelButtonTableViewCell.m; sourceTree = "<group>"; };
+		DCB45BC319CD032D00515F2F /* WOAURLNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAURLNavigationViewController.h; sourceTree = "<group>"; };
+		DCB45BC419CD032D00515F2F /* WOAURLNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOAURLNavigationViewController.m; sourceTree = "<group>"; };
+		DCB45BC519CD032D00515F2F /* WOAURLNavigationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WOAURLNavigationViewController.xib; sourceTree = "<group>"; };
 		DCC82DC1194D9927001FE18B /* UINavigationController+RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RootViewController.h"; sourceTree = "<group>"; };
 		DCC82DC2194D9927001FE18B /* UINavigationController+RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RootViewController.m"; sourceTree = "<group>"; };
 		DCD5527F19AEEBE5009777CF /* WOAStartSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOAStartSettingViewController.h; sourceTree = "<group>"; };
@@ -382,6 +387,9 @@
 				DCE8117E19C548DA0052721E /* WOAMultiLineLabel.m */,
 				DCE8118019C5C3200052721E /* WOALinkLabel.h */,
 				DCE8118119C5C3200052721E /* WOALinkLabel.m */,
+				DCB45BC319CD032D00515F2F /* WOAURLNavigationViewController.h */,
+				DCB45BC419CD032D00515F2F /* WOAURLNavigationViewController.m */,
+				DCB45BC519CD032D00515F2F /* WOAURLNavigationViewController.xib */,
 				DCB45BBD19CCEE3D00515F2F /* WOALabelButtonTableViewCell.h */,
 				DCB45BBE19CCEE3D00515F2F /* WOALabelButtonTableViewCell.m */,
 				DC520DCA19CAFF560006BBD5 /* WOAFileSelectorView.h */,
@@ -565,6 +573,7 @@
 				DCA8B6A6195B951D00C0363B /* NewWorkFlowSelectedIcon@2x.png in Resources */,
 				DCA8B747195E91E900C0363B /* BackIndicatorIcon@2x.png in Resources */,
 				DCA8B73D195DC01800C0363B /* PasswordIcon@2x.png in Resources */,
+				DCB45BC719CD032D00515F2F /* WOAURLNavigationViewController.xib in Resources */,
 				DCA8B749195EE46B00C0363B /* checkedIcon@2x.png in Resources */,
 				DCD5528319AEEBE5009777CF /* WOAStartSettingViewController.xib in Resources */,
 				DCA8B6A5195B951D00C0363B /* NewWorkFlowIcon@2x.png in Resources */,
@@ -608,6 +617,7 @@
 				DC57B31719ACCF4F0025B9D1 /* NSMutableData+AppendString.m in Sources */,
 				4393824C19540E2E00062FC9 /* VSPopoverDefine.m in Sources */,
 				DCE8118219C5C3200052721E /* WOALinkLabel.m in Sources */,
+				DCB45BC619CD032D00515F2F /* WOAURLNavigationViewController.m in Sources */,
 				4393825519541CD000062FC9 /* UIBarButtonItem+VSPopoverViewController.m in Sources */,
 				DC8B0855193A173B00217F45 /* WOAPropertyInfo.m in Sources */,
 				4343832819485AF200F108A3 /* WOADynamicLabelTextField.m in Sources */,

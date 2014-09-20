@@ -19,7 +19,8 @@
 
 @interface WOADynamicLabelTextField () <UITextFieldDelegate,
                                         UITextViewDelegate,
-                                        WOAFileSelectorViewDelegate>
+                                        WOAFileSelectorViewDelegate,
+                                        WOAMultiLineLabelDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) WOAMultiLineTextField *multiField;
@@ -328,6 +329,7 @@
                 self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame
                                                                 textsArray: arrayValue
                                                               isAttachment: YES];
+                _multiLabel.delegate = self;
                 
                 [self addSubview: _multiLabel];
             }
