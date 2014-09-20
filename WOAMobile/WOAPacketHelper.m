@@ -204,6 +204,7 @@
                                     tableID: (NSString*)tableID
                                      itemID: (NSString*)itemID
                                    filePath: (NSString*)filePath
+                                      title: (NSString*)title
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
@@ -212,6 +213,7 @@
     [dict setValue: tableID forKey: @"tableID"];
     [dict setValue: itemID forKey: @"itemID"];
     [dict setValue: filePath forKey: @"filePath"];
+    [dict setValue: title forKey: @"att_title"];
     
     return dict;
 }
@@ -501,6 +503,11 @@
 + (NSString*) filePathFromDictionary: (NSDictionary*)dict
 {
     return [dict valueForKey: @"filePath"];
+}
+
++ (NSString*) attTitleFromDictionary: (NSDictionary*)dict
+{
+    return [dict valueForKey: @"att_title"];
 }
 
 + (NSString*) attachmentTitleFromDictionary: (NSDictionary*)dict

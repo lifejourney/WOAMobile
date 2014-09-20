@@ -36,7 +36,8 @@
 + (NSDictionary*) packetForUploadAttachment: (NSString*)workID
                                     tableID: (NSString*)tableID
                                      itemID: (NSString*)itemID
-                                   filePath: (NSString*)filePath;
+                                   filePath: (NSString*)filePath
+                                      title: (NSString*)title;
 + (NSDictionary*) packetForInitiateWorkflow: (NSString*)workID
                                     tableID: (NSString*)tableID
                                   tableName: (NSString*)tableName
@@ -82,6 +83,7 @@
 + (NSString*) createTimeFromDictionary: (NSDictionary*)dict;
 
 + (NSString*) filePathFromDictionary: (NSDictionary*)dict;
++ (NSString*) attTitleFromDictionary: (NSDictionary*)dict;
 
 + (NSString*) attachmentTitleFromDictionary: (NSDictionary*)dict;
 + (NSString*) attachmentURLFromDictionary: (NSDictionary*)dict;

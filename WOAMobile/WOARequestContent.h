@@ -25,7 +25,8 @@
 + (WOARequestContent*) contentForUploadAttachment: (NSString*)workID
                                           tableID: (NSString*)tableID
                                            itemID: (NSString*)itemID
-                                    filePathArray: (NSArray*)filePathArray;
+                                    filePathArray: (NSArray*)filePathArray
+                                       titleArray: (NSArray*)titleArray;
 + (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName

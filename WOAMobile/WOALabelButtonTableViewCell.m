@@ -83,7 +83,7 @@
     CGFloat leftMargin = 12;
     CGFloat rightMargin = 4;
     CGFloat itemMargin = 1;
-    CGFloat topMargin = 0;
+    CGFloat topMargin = 2;
     CGFloat buttonWidth = 40;
     CGFloat buttonOriginX = self.contentView.frame.size.width - rightMargin - buttonWidth;
     CGFloat labelWidth = buttonOriginX - itemMargin -leftMargin;

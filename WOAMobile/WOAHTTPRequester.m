@@ -72,6 +72,7 @@
     NSString *tableID = [WOAPacketHelper tableIDFromTableDictionary: bodyDict];
     NSString *itemID = [WOAPacketHelper itemIDFromDictionary: bodyDict];
     NSString *filePath = [WOAPacketHelper filePathFromDictionary: bodyDict];
+    NSString *title = [WOAPacketHelper attTitleFromDictionary: bodyDict];
     
     NSString *fileName = [filePath lastPathComponent];
     NSString *contentDis;
@@ -90,7 +91,7 @@
     [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"itemID" value: itemID];
     [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"fieldname" value: @"附件"];
     [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"fieldtype" value: @"attfile"];
-    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"att_title" value: @"附件标题...."];
+    [self appendToData: bodyData prefixBoundary: boundaryWithPrefix key: @"att_title" value: title];
     
     [bodyData appendString: boundaryWithPrefix];
     contentDis = [NSString stringWithFormat: @"Content-disposition: form-data; name=\"att_file\"; filename=\"%@\"\r\n", fileName];

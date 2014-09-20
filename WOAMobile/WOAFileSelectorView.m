@@ -46,7 +46,7 @@
         UIFont *itemFont = [UIFont systemFontOfSize: kWOALayout_DetailItemFontSize];
         CGSize testSize = [WOALayout sizeForText: @"T" width: 20 font: itemFont];
         self.itemHeight = ceilf(testSize.height);
-        self.cellHeight = _itemHeight + 2;
+        self.cellHeight = _itemHeight + 4;
         
         NSString *addButtonTitle = @"添加附件";
         NSDictionary *attribute = @{NSFontAttributeName: itemFont,

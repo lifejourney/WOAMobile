@@ -436,7 +436,8 @@
             requestContent = [WOARequestContent contentForUploadAttachment: self.workID
                                                                    tableID: self.tableID
                                                                     itemID: @"0"
-                                                             filePathArray: self.attachmentField.imageFullFileNameArray];
+                                                             filePathArray: self.attachmentField.imageFullFileNameArray
+                                                                titleArray: self.attachmentField.imageTitleArray];
         }
         else
         {
