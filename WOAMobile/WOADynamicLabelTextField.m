@@ -12,17 +12,19 @@
 #import "VSActionSheetPickerView.h"
 #import "WOAMultiLineTextField.h"
 #import "WOAMultiLineLabel.h"
+#import "WOAFileSelectorView.h"
 #import "WOALayout.h"
 #import "UIColor+AppTheme.h"
-#import "NSFileManager+AppFolder.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 
-@interface WOADynamicLabelTextField () <UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface WOADynamicLabelTextField () <UITextFieldDelegate,
+                                        UITextViewDelegate,
+                                        WOAFileSelectorViewDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) WOAMultiLineTextField *multiField;
 @property (nonatomic, strong) WOAMultiLineLabel *multiLabel;
+@property (nonatomic, strong) WOAFileSelectorView *fileSelectorView;
 @property (nonatomic, strong) UITextField *lineTextField;
 @property (nonatomic, strong) UILabel *lineLabel;
 @property (nonatomic, strong) UITextView *lineTextView;
@@ -32,14 +34,11 @@
 @property (nonatomic, assign) BOOL isEditable;
 @property (nonatomic, assign) BOOL isWritable;
 
-//Attachment
-@property (nonatomic, copy) NSString *imageFileName;
-@property (nonatomic, assign) long long imageFileSize;
-
 //TO-DO: weak? strong?
 @property (nonatomic, weak) UIView *popoverShowInView;
 
 @property (nonatomic, assign) WOAExtendTextFieldType extendType;
+@property (nonatomic, assign) NSString *extendTypeString;
 @property (nonatomic, strong) NSArray *optionArray;
 
 @property (nonatomic, strong) VSActionSheetDatePicker *actionSheetDatePicker;
@@ -51,9 +50,13 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame])
+    {
+        self.imageFullFileNameArray = [[NSMutableArray alloc] initWithCapacity: 3];
+        self.imageTitleArray = [[NSMutableArray alloc] initWithCapacity: 3];
+        self.imageURLArray = [[NSMutableArray alloc] initWithCapacity: 3];
     }
+    
     return self;
 }
 
@@ -123,10 +126,7 @@
             break;
             
         case WOAExtendTextFieldType_AttachFile:
-            if (isWritable)
-                clickSelector = @selector(selectAttachment:);
-            else
-                clickSelector = @selector(viewAttachment:);
+            clickSelector = nil;
             break;
             
         case WOAExtendTextFieldType_TextList:
@@ -234,6 +234,7 @@
         NSString *labelText = [WOAPacketHelper itemNameFromDictionary: itemModel];
         BOOL isWritable = [WOAPacketHelper itemWritableFromDictionary: itemModel];
         
+        self.extendTypeString = typeString;
         self.isWritable = isWritable;
         
         id itemValue = [WOAPacketHelper itemValueFromDictionary: itemModel];
@@ -289,6 +290,9 @@
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview: _titleLabel];
         
+        CGRect initiateFrame = frame;
+        initiateFrame.size.width = textWidth;
+        
         if ((_extendType == WOAExtendTextFieldType_TextList) || (_extendType == WOAExtendTextFieldType_CheckUserList))
         {
             //TO-DO, temporarily
@@ -309,15 +313,24 @@
             if (!_isWritable)
                 shouldShowInputTextField = NO;
         }
-        else if (!_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+        else if (_extendType == WOAExtendTextFieldType_AttachFile)
         {
-            CGRect initiateFrame = frame;
-            initiateFrame.size.width = textWidth;
-            self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame
-                                                            textsArray: arrayValue
-                                                          isAttachment: YES];
-            
-            [self addSubview: _multiLabel];
+            if (_isWritable)
+            {
+                self.fileSelectorView = [[WOAFileSelectorView alloc] initWithFrame: initiateFrame
+                                                                          delegate: self];
+                
+                [self addSubview: _fileSelectorView];
+                
+            }
+            else
+            {
+                self.multiLabel = [[WOAMultiLineLabel alloc] initWithFrame: initiateFrame
+                                                                textsArray: arrayValue
+                                                              isAttachment: YES];
+                
+                [self addSubview: _multiLabel];
+            }
             
             shouldShowInputTextField = NO;
         }
@@ -383,6 +396,7 @@
         CGFloat multiLabelHeight = _multiLabel ? _multiLabel.frame.size.height : 0;
         CGFloat titleSizeHeight = MAX(sizeHeight, originY + _titleLabel.frame.size.height);
         CGFloat lineLabelHeight = _lineLabel ? _lineLabel.frame.size.height : 0;
+        CGFloat fileSelectorHeight = _fileSelectorView ? _fileSelectorView.frame.size.height : 0;
         CGFloat textFieldSizeHeight = _lineTextField ? sizeHeight : 0;
         CGFloat textViewSizeHeight = _lineTextView ? _lineTextView.frame.size.height : 0;
         if (!shouldShowInputTextField)
@@ -393,12 +407,13 @@
                 textViewSizeHeight = 0;
             }
         }
-        CGFloat placeHolderSizeHeight = originY + multiLabelHeight + lineLabelHeight + textFieldSizeHeight + textViewSizeHeight;
+        CGFloat placeHolderSizeHeight = originY + multiLabelHeight + lineLabelHeight + fileSelectorHeight + textFieldSizeHeight + textViewSizeHeight;
         CGRect labelRect = CGRectMake(labelOriginX, originY, labelWidth, titleSizeHeight);
         CGRect multiLabelRect = CGRectMake(textOriginX, originY, textWidth, multiLabelHeight);
         CGRect textFieldRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textFieldSizeHeight);
         CGRect textViewRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, textViewSizeHeight);
         CGRect lineLabelRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, lineLabelHeight);
+        CGRect fileSelectorRect = CGRectMake(textOriginX, originY + multiLabelHeight, textWidth, fileSelectorHeight);
         CGRect selfRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, MAX(titleSizeHeight, placeHolderSizeHeight));
         
         [self setFrame: selfRect];
@@ -407,6 +422,7 @@
         [_lineTextField setFrame: textFieldRect];
         [_lineTextView setFrame: textViewRect];
         [_lineLabel setFrame: lineLabelRect];
+        [_fileSelectorView setFrame: fileSelectorRect];
     }
     
     return self;
@@ -488,34 +504,6 @@
     [self showActionSheetDatePicker: sender datePickerMode: UIDatePickerModeDateAndTime];
 }
 
-- (void) viewAttachment: (id)sender
-{
-    NSString *filePath = self.lineTextField.text;
-    
-    if (filePath && [filePath length] > 0)
-    {
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString: filePath]];
-    }
-}
-
-- (void) selectAttachment: (id)sender
-{
-    UIImagePickerControllerSourceType sourceType;
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum])
-        sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    else
-        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
-    imagePickerVC.allowsEditing = NO;
-    imagePickerVC.sourceType = sourceType;
-    //imagePickerVC.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: sourceType];
-    imagePickerVC.mediaTypes = @[@"public.image"];
-    imagePickerVC.delegate = self;
-    
-    [self.hostNavigation presentViewController: imagePickerVC animated: YES completion: nil];
-}
-
 - (BOOL) isPureIntegerString: (NSString*)src
 {
     NSScanner *scanner = [NSScanner scannerWithString: src];
@@ -552,11 +540,8 @@
     NSNumber *rowNum = [NSNumber numberWithInteger: self.row];
     
     id value;
-    if (_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
-    {
-        value = self.imageFileNameInServer;
-    }
-    else if (_isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
+    
+    if (_isWritable && (_extendType == WOAExtendTextFieldType_PickerView))
     {
         value = [self removeNumberOrderPrefix: self.lineTextField.text];
     }
@@ -564,11 +549,28 @@
     {
         value = self.lineLabel.text;
     }
-    else if (!_isWritable && (_extendType == WOAExtendTextFieldType_AttachFile))
+    else if (_extendType == WOAExtendTextFieldType_AttachFile)
     {
-        //TO-DO:
-        value = nil;
-        //value = self.multiLabel.textsArray;
+        if (_isWritable)
+        {
+            NSMutableArray *attachmentArray = [[NSMutableArray alloc] initWithCapacity: _imageURLArray.count];
+            
+            for (NSInteger index = 0; index < _imageURLArray.count; index++)
+            {
+                NSDictionary *attachmentInfo = @{@"title": self.imageTitleArray[index],
+                                                 @"url": self.imageURLArray[index]};
+                
+                [attachmentArray addObject: attachmentInfo];
+            }
+            
+            value = attachmentArray;
+        }
+        else
+        {
+            value = nil;
+            //TO-DO:
+            //value = self.multiLabel.textsArray;
+        }
     }
     else if (0 && _isWritable && (_extendType == WOAExtendTextFieldType_Normal ||
                              _extendType == WOAExtendTextFieldType_TextList ||
@@ -599,6 +601,7 @@
     
     return [WOAPacketHelper packetForItemWithKey: self.titleLabel.text
                                            value: value
+                                      typeString: self.extendTypeString
                                          section: sectionNum
                                              row: rowNum];
 }
@@ -635,54 +638,36 @@
     }
 }
 
+#pragma mark -
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void) imagePickerController: (UIImagePickerController *)picker
- didFinishPickingMediaWithInfo: (NSDictionary *)info
+- (NSArray*) fileInfoArray
 {
-    NSURL *imageURL = [info valueForKey: UIImagePickerControllerReferenceURL];
-    
-    ALAssetsLibraryAssetForURLResultBlock resultBlock = ^(ALAsset *targetAsset)
-    {
-        ALAssetRepresentation *defaultRepresentation = [targetAsset defaultRepresentation];
-        self.imageFileName = [defaultRepresentation filename];
-        self.imageFileSize = [defaultRepresentation size];
-        
-        self.lineTextField.text = self.imageFileName;
-        
-        NSString *tempPath = [NSFileManager currentAccountTempPath];
-        self.imageFullFileName = [NSString stringWithFormat: @"%@/%@", tempPath, self.imageFileName];
-        self.imageFileNameInServer = nil;
-        
-        [NSFileManager createDirectoryIfNotExists: tempPath];
-        
-        Byte *buffer = (Byte*)malloc((unsigned long) self.imageFileSize);
-        NSUInteger length = [defaultRepresentation getBytes: buffer fromOffset: 0.0 length: (NSUInteger)self.imageFileSize error: nil];
-        NSData *data = [[NSData alloc] initWithBytesNoCopy: buffer length: length freeWhenDone: YES];
-        if (![data writeToFile: self.imageFullFileName atomically: YES])
-        {
-            NSLog(@"Dump image failed.");
-        }
-        
-        [picker dismissViewControllerAnimated: YES completion: nil];
-    };
-    
-    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error)
-    {
-        NSLog(@"image picker error: %@", error);
-        
-        [picker dismissViewControllerAnimated: YES completion: nil];
-    };
-    
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    [assetsLibrary assetForURL: imageURL
-                   resultBlock: resultBlock
-                  failureBlock: failureBlock];
+    return _imageTitleArray;
 }
 
-- (void) imagePickerControllerDidCancel: (UIImagePickerController *)picker
+- (void) fileSelectorView: (WOAFileSelectorView *)fileSelectorView
+              addFilePath: (NSString *)filePath
+                withTitle: (NSString *)title
 {
-    [picker dismissViewControllerAnimated: YES completion: nil];
+    fileSelectorView.delegate = nil;
+    
+    [self.imageFullFileNameArray addObject: filePath];
+    [self.imageTitleArray addObject: title];
+    
+    fileSelectorView.delegate = self;
+    [fileSelectorView fileInfoUpdated];
+}
+
+- (void) fileSelectorView: (WOAFileSelectorView *)fileSelectorView
+              deleteAtRow:(NSInteger)row
+{
+    fileSelectorView.delegate = nil;
+    
+    [self.imageFullFileNameArray removeObjectAtIndex: row];
+    [self.imageTitleArray removeObjectAtIndex: row];
+    
+    fileSelectorView.delegate = self;
+    [fileSelectorView fileInfoUpdated];
 }
 
 @end

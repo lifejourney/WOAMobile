@@ -168,6 +168,7 @@
 
 + (NSDictionary*) packetForItemWithKey: (NSString*)key
                                  value: (id)value
+                            typeString: (NSString*)typeString
                                section: (NSNumber*)sectionNum
                                    row: (NSNumber*)rowNum
 {
@@ -175,6 +176,7 @@
     
     [dict setValue: key forKey: @"name"];
     [dict setValue: value forKey: @"value"];
+    [dict setValue: typeString forKey: @"type"];
     [dict setValue: sectionNum forKey: kWOAItemIndexPath_SectionKey];
     [dict setValue: rowNum forKey: kWOAItemIndexPath_RowKey];
     

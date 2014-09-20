@@ -27,6 +27,7 @@
 + (NSDictionary*) packetForWorkflowTypeDetail: (NSString*)tableID;
 + (NSDictionary*) packetForItemWithKey: (NSString*)key
                                  value: (id)value
+                            typeString: (NSString*)typeString
                                section: (NSNumber*)sectionNum
                                    row: (NSNumber*)rowNum;
 + (NSDictionary*) itemWithoutIndexPathFromDictionary: (NSDictionary*)fromDict;

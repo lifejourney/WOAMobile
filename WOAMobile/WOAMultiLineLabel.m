@@ -120,6 +120,7 @@
             oneLineLabel.lineBreakMode = NSLineBreakByWordWrapping;
             oneLineLabel.numberOfLines = 0;
             oneLineLabel.text = textContent;
+            oneLineLabel.tag = index;
             oneLineLabel.textAlignment = NSTextAlignmentLeft;
             oneLineLabel.userInteractionEnabled = isAttachment;
             

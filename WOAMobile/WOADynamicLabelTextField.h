@@ -35,8 +35,9 @@ typedef NS_ENUM(NSInteger, WOAExtendTextFieldType)
 @property (nonatomic, weak) id<WOADynamicLabelTextFieldDelegate> delegate;
 @property (nonatomic, strong) UINavigationController *hostNavigation;
 
-@property (nonatomic, copy) NSString *imageFullFileName;
-@property (nonatomic, copy) NSString *imageFileNameInServer;
+@property (nonatomic, strong) NSMutableArray *imageFullFileNameArray;
+@property (nonatomic, strong) NSMutableArray *imageTitleArray;
+@property (nonatomic, strong) NSMutableArray *imageURLArray;
 
 - (instancetype) initWithFrame: (CGRect)frame
              popoverShowInView: (UIView*)popoverShowInView

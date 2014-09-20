@@ -16,13 +16,16 @@
 
 @interface WOAFlowController () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong) WOAResponeContent *responseContent;
-@property (nonatomic, strong) WOARequestContent *requestContent;
+@property (nonatomic, strong) WOAResponeContent *finalResponseContent;
+@property (nonatomic, strong) WOARequestContent *initialRequestContent;
 @property (nonatomic, copy) void (^completionHandler)(WOAResponeContent *responseContent);
 @property (nonatomic, assign) BOOL completeOnMainQueue;
 
 @property (nonatomic, assign) WOAFLowActionType currentActionType;
 @property (nonatomic, assign) BOOL hasRefreshSession;
+
+@property (nonatomic, strong) NSArray *multiBodyArray;
+@property (nonatomic, assign) NSInteger requestingIndex;
 
 @property (nonatomic, strong) NSThread *currentThread;
 @property (nonatomic, strong) NSURLConnection *httpConnection;
@@ -42,7 +45,9 @@
         self.currentActionType = WOAFLowActionType_None;
         self.hasRefreshSession = NO;
         
-        self.responseContent = [[WOAResponeContent alloc] init];
+        self.finalResponseContent = [[WOAResponeContent alloc] init];
+        
+        self.requestingIndex = -1;
     }
     
     
@@ -56,7 +61,7 @@
 {
     if (self = [self init])
     {
-        self.requestContent = requestContent;
+        self.initialRequestContent = requestContent;
         self.completionHandler = handler;
         self.completeOnMainQueue = completeOnMainQueue;
     }
@@ -131,8 +136,8 @@
         }
         else
         {
-            self.responseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
-            self.responseContent.resultDescription = @"无效的上传: 附件不存在.";
+            self.finalResponseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
+            self.finalResponseContent.resultDescription = @"无效的上传: 附件不存在.";
             
             NSLog(@"Request fail during JSON serialization. filePath: %@", filePath);
             
@@ -141,8 +146,8 @@
     }
     else
     {
-        self.responseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
-        self.responseContent.resultDescription = @"无效的上传: 附件名称.";
+        self.finalResponseContent.requestResult = WOAHTTPRequestResult_InvalidAttachmentFile;
+        self.finalResponseContent.resultDescription = @"无效的上传: 附件名称.";
         
         NSLog(@"Request fail during upload attachment.");
         
@@ -154,6 +159,12 @@
 {
     if (requestContent.flowActionType == WOAFLowActionType_UploadAttachment)
     {
+        self.multiBodyArray = requestContent.multiBodyArray;
+        self.finalResponseContent.multiBodyArray = [[NSMutableArray alloc] initWithCapacity: self.multiBodyArray.count];
+        
+        self.requestingIndex = 0;
+        requestContent.bodyDictionary = self.multiBodyArray[self.requestingIndex];
+        
         [self sendUploadAttachmentWithContent: requestContent];
         
         return;
@@ -186,8 +197,8 @@
         }
         else
         {
-            self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
-            self.responseContent.resultDescription = @"无效的请求内容.";
+            self.finalResponseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
+            self.finalResponseContent.resultDescription = @"无效的请求内容.";
             
             NSLog(@"Request fail during JSON serialization. error: %@\n request body: %@", [error localizedDescription], requestContent.bodyDictionary);
             
@@ -196,8 +207,8 @@
     }
     else
     {
-        self.responseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
-        self.responseContent.resultDescription = @"无效的请求.";
+        self.finalResponseContent.requestResult = WOAHTTPRequestResult_JSONSerializationError;
+        self.finalResponseContent.resultDescription = @"无效的请求.";
         
         NSLog(@"Request fail during JSON serialization.");
         
@@ -207,19 +218,19 @@
 
 - (void) actionForCommonError
 {
-    if (!self.responseContent || self.isCancelled)
+    if (!self.finalResponseContent || self.isCancelled)
         return;
     
     
-    if (self.responseContent.requestResult != WOAHTTPRequestResult_Success)
+    if (self.finalResponseContent.requestResult != WOAHTTPRequestResult_Success)
     {
-        if (self.responseContent.requestResult == WOAHTTPRequestResult_InvalidSession)
+        if (self.finalResponseContent.requestResult == WOAHTTPRequestResult_InvalidSession)
         {
             WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
             [appDelegate presentLoginViewController: NO animated: NO];
         }
         
-        NSString *msgContent = self.responseContent.resultDescription;
+        NSString *msgContent = self.finalResponseContent.resultDescription;
         
         if (msgContent && ([msgContent length] > 0))
         {
@@ -236,15 +247,15 @@
 
 - (void) main
 {
-    self.responseContent.flowActionType = self.requestContent.flowActionType;
-    self.responseContent.requestResult = WOAHTTPRequestResult_Unknown;
+    self.finalResponseContent.flowActionType = self.initialRequestContent.flowActionType;
+    self.finalResponseContent.requestResult = WOAHTTPRequestResult_Unknown;
     
     if (!self.isCancelled)
     {
         self.currentThread = [NSThread currentThread];
         self.httpConnection = nil;
         
-        [self sendRequestWithContent: self.requestContent];
+        [self sendRequestWithContent: self.initialRequestContent];
         
         while (self.httpConnection)
         {
@@ -254,7 +265,7 @@
         self.currentThread = nil;
     }
     else
-        self.responseContent.requestResult = WOAHTTPRequestResult_Cancelled;
+        self.finalResponseContent.requestResult = WOAHTTPRequestResult_Cancelled;
     
     if (self.completionHandler)
     {
@@ -262,14 +273,14 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^
             {
-                self.completionHandler(self.responseContent);
+                self.completionHandler(self.finalResponseContent);
                 
                 [self actionForCommonError];
             });
         }
         else
         {
-            self.completionHandler(self.responseContent);
+            self.completionHandler(self.finalResponseContent);
             
             [self performSelectorOnMainThread: @selector(actionForCommonError) withObject: nil waitUntilDone: YES];
         }
@@ -377,32 +388,49 @@
         resultDescription = @"无响应内容";
     }
     
-    self.responseContent.HTTPStatus = self.httpResponse.statusCode;
-    self.responseContent.requestResult = requestResult;
-    self.responseContent.resultDescription = resultDescription;
-    self.responseContent.bodyDictionary = bodyDictionary;
+    self.finalResponseContent.HTTPStatus = self.httpResponse.statusCode;
+    self.finalResponseContent.requestResult = requestResult;
+    self.finalResponseContent.resultDescription = resultDescription;
+    self.finalResponseContent.bodyDictionary = bodyDictionary;
     
     if (requestResult == WOAHTTPRequestResult_Success)
     {
-        if (self.currentActionType == WOAFLowActionType_Login)
+        if (self.currentActionType == self.finalResponseContent.flowActionType)
         {
-            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            BOOL allRequestDone = YES;
             
-            appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: bodyDictionary];
+            if (self.currentActionType == WOAFLowActionType_Login)
+            {
+                WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                
+                appDelegate.sessionID = [WOAPacketHelper sessionIDFromPacketDictionary: bodyDictionary];
+                
+                appDelegate.latestLoginRequestContent = self.initialRequestContent;
+            }
+            else if (self.currentActionType == WOAFLowActionType_UploadAttachment)
+            {
+                [self.finalResponseContent.multiBodyArray addObject: bodyDictionary];
+                
+                self.requestingIndex++;
+                if (self.requestingIndex < self.multiBodyArray.count)
+                {
+                    self.initialRequestContent.bodyDictionary = self.multiBodyArray[self.requestingIndex];
+                    
+                    [self sendUploadAttachmentWithContent: self.initialRequestContent];
+                    
+                    allRequestDone = NO;
+                }
+            }
             
-            appDelegate.latestLoginRequestContent = self.requestContent;
-        }
-        
-        if (self.currentActionType == self.responseContent.flowActionType)
-        {
-            self.responseContent.bodyDictionary = bodyDictionary;
-            
-            self.httpConnection = nil;
+            if (allRequestDone)
+            {
+                self.httpConnection = nil;
+            }
         }
         else
         {
             //Resend the request
-            [self sendRequestWithContent: self.requestContent];
+            [self sendRequestWithContent: self.initialRequestContent];
         }
     }
     else if (requestResult == WOAHTTPRequestResult_InvalidSession)
@@ -410,9 +438,9 @@
         WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         appDelegate.sessionID = nil;
         
-        if (self.currentActionType == self.responseContent.flowActionType)
+        if (self.currentActionType == self.finalResponseContent.flowActionType)
         {
-            if (self.responseContent.flowActionType == WOAFLowActionType_Login)
+            if (self.finalResponseContent.flowActionType == WOAFLowActionType_Login)
             {
                 NSLog(@"Request fail for invalid session (login). error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
                 
@@ -439,7 +467,7 @@
         }
         else
         {
-            NSLog(@"currentAction: %lu, origin action: %lu", self.currentActionType, self.responseContent.flowActionType);
+            NSLog(@"currentAction: %lu, origin action: %lu", self.currentActionType, self.finalResponseContent.flowActionType);
             NSLog(@"Request fail for invalid session (login when retrying). error: %@\n respone body: %@", [error localizedDescription], bodyDictionary);
             
             self.httpConnection = nil;
@@ -459,8 +487,8 @@
     NSLog(@"Connection error[%ld] reason: %@. \n response: %@", (long)[error code], [error localizedFailureReason], self.httpResponse);
     self.connectionError = error;
     
-    self.responseContent.requestResult = WOAHTTPRequestResult_NetError;
-    self.responseContent.resultDescription = [NSString stringWithFormat: @"网络连接失败: %ld", (long)[error code]];
+    self.finalResponseContent.requestResult = WOAHTTPRequestResult_NetError;
+    self.finalResponseContent.resultDescription = [NSString stringWithFormat: @"网络连接失败: %ld", (long)[error code]];
     
     self.httpConnection = nil;
 }

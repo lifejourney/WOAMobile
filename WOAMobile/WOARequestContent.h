@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) WOAFLowActionType flowActionType;
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
+@property (nonatomic, strong) NSArray *multiBodyArray;
 
 + (WOARequestContent*) contentForLogin: (NSString*)accountID
                               password: (NSString*)password
@@ -24,7 +25,7 @@
 + (WOARequestContent*) contentForUploadAttachment: (NSString*)workID
                                           tableID: (NSString*)tableID
                                            itemID: (NSString*)itemID
-                                         filePath: (NSString*)filePath;
+                                    filePathArray: (NSArray*)filePathArray;
 + (WOARequestContent*) contentForInitiateWorkflow: (NSString*)workID
                                           tableID: (NSString*)tableID
                                         tableName: (NSString*)tableName

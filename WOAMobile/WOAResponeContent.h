@@ -19,5 +19,6 @@
 @property (nonatomic, copy) NSString *resultDescription;
 
 @property (nonatomic, strong) NSDictionary *bodyDictionary;
+@property (nonatomic, strong) NSMutableArray *multiBodyArray;
 
 @end

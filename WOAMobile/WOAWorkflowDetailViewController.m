@@ -190,7 +190,7 @@
             continue;
         
         WOADynamicLabelTextField *subTextField = (WOADynamicLabelTextField*)subView;
-        if ([subTextField imageFullFileName])
+        if (subTextField.imageFullFileNameArray.count > 0)
         {
             return subTextField;
         }
@@ -389,7 +389,13 @@
      {
          if (responseContent.flowActionType == WOAFLowActionType_UploadAttachment)
          {
-             self.attachmentField.imageFileNameInServer = [WOAPacketHelper resultUploadedFileNameFromPacketDictionary: responseContent.bodyDictionary];
+             [self.attachmentField.imageURLArray removeAllObjects];
+             for (NSInteger index = 0; index < responseContent.multiBodyArray.count; index++)
+             {
+                 NSDictionary *bodyDictionary = responseContent.multiBodyArray[index];
+                 NSString *fileURL = [WOAPacketHelper resultUploadedFileNameFromPacketDictionary: bodyDictionary];
+                 [self.attachmentField.imageURLArray addObject: fileURL];
+             }
              
              WOARequestContent *initiateRequestContent = [WOARequestContent contentForInitiateWorkflow: self.workID
                                                                                                tableID: self.tableID
@@ -423,14 +429,14 @@
     //TO-DO: WOAFLowActionType_GetDraftWorkflowList
     if (_detailActionType == WOAFLowActionType_InitiateWorkflow)
     {
-        //TO-DO: Only support one attachment
+        //TO-DO: Only support one attachment field
         self.attachmentField = [self selectedAttachmentField];
         if (self.attachmentField)
         {
             requestContent = [WOARequestContent contentForUploadAttachment: self.workID
                                                                    tableID: self.tableID
                                                                     itemID: @"0"
-                                                                  filePath: self.attachmentField.imageFullFileName];
+                                                             filePathArray: self.attachmentField.imageFullFileNameArray];
         }
         else
         {

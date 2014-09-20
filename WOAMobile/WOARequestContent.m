@@ -62,14 +62,20 @@
 + (WOARequestContent*) contentForUploadAttachment: (NSString*)workID
                                           tableID: (NSString*)tableID
                                            itemID: (NSString*)itemID
-                                         filePath: (NSString*)filePath;
+                                    filePathArray: (NSArray*)filePathArray;
 {
     WOARequestContent *content = [[WOARequestContent alloc] initWithFlowActionType: WOAFLowActionType_UploadAttachment];
     
-    content.bodyDictionary = [WOAPacketHelper packetForUploadAttachment: workID
+    NSMutableArray *multiBodyArray = [[NSMutableArray alloc] initWithCapacity: [filePathArray count]];
+    for (NSInteger index = 0; index < filePathArray.count; index++)
+    {
+        NSDictionary *body = [WOAPacketHelper packetForUploadAttachment: workID
                                                                 tableID: tableID
                                                                  itemID: itemID
-                                                               filePath: filePath];
+                                                               filePath: filePathArray[index]];
+        [multiBodyArray addObject: body];
+    }
+    content.multiBodyArray = multiBodyArray;
     
     return content;
 }
