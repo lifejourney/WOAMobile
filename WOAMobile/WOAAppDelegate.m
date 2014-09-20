@@ -85,8 +85,18 @@
     
     self.loadingVC = [[WOALoadingViewController alloc] init];
     
-    UIRemoteNotificationType apnsType = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes: apnsType];
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([app respondsToSelector: @selector(registerUserNotificationSettings:)])
+    {
+        UIUserNotificationType settingType = UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge;
+        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes: settingType categories: nil];
+        [app registerUserNotificationSettings: setting];
+    }
+    else
+    {
+        UIRemoteNotificationType apnsType = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: apnsType];
+    }
     
     
     [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor: [UIColor mainItemBgColor]];
