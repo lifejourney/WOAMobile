@@ -12,11 +12,13 @@
 #import "WOAStartWorkflowActionReqeust.h"
 #import "WOALayout.h"
 #import "WOADynamicLabelTextField.h"
-#import "VSActionSheetPickerView.h"
+#import "WOAPickerViewController.h"
 #import "WOASelectNextReviewerViewController.h"
 
 
-@interface WOAWorkflowDetailViewController () <WOADynamicLabelTextFieldDelegate, UIAlertViewDelegate>
+@interface WOAWorkflowDetailViewController () <WOADynamicLabelTextFieldDelegate,
+                                                WOAPickerViewControllerDelegate,
+                                                UIAlertViewDelegate>
 
 @property (nonatomic, copy) NSString *workID;
 @property (nonatomic, copy) NSString *tableID;
@@ -29,7 +31,7 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *latestFirstResponderTextField;
-@property (nonatomic, strong) VSActionSheetPickerView *actionSheetPickerView;
+@property (nonatomic, strong) WOAPickerViewController *pickerVC;
 
 - (void) tapOutsideKeyboardAction;
 
@@ -251,38 +253,14 @@
     
     NSArray *processNameArray = [WOAPacketHelper processNameArrayFromProcessArray: self.processArray];
     
-    self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
-    [_actionSheetPickerView shownPickerViewInView: self.view
-                                        dataModel: processNameArray
-                                      selectedRow: -1
-                                  selectedHandler: ^(NSInteger row)
-    {
-        if (row >= 0)
-        {
-            //TO-DO: assume that workID is same to preview step
-            NSString *processID = [WOAPacketHelper processIDFromDictionary: [self.processArray objectAtIndex: row]];
-            
-            WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-            WOARequestContent *requestContent = [WOARequestContent contentForSelectNextStep: self.workID
-                                                                                  processID: processID];
-            
-            [appDelegate sendRequest: requestContent
-                          onSuccuess:^(WOAResponeContent *responseContent)
-             {
-                 [self parseSelectNextStepResponse: responseContent.bodyDictionary];
-                 
-             }
-                           onFailure:^(WOAResponeContent *responseContent)
-             {
-                 NSLog(@"SelectNextStep [Initiate workflow] fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
-             }];
-        }
-    }
-                                 cancelledHandler: ^
-    {
-        //TO-DO
-        //could just resubmit? or should popop up to top
-    }];
+    _pickerVC = [[WOAPickerViewController alloc] initWithDelgate: self
+                                                           title: @""
+                                                       dataModel: processNameArray
+                                                     selectedRow: -1];
+    _pickerVC.shouldShowBackBarItem = NO;
+    _pickerVC.shouldPopWhenSelected = NO;
+    
+    [self.navigationController pushViewController: _pickerVC animated: YES];
 }
 
 - (void) parseSelectNextStepResponse: (NSDictionary*)content
@@ -477,6 +455,44 @@
     {
         [self.latestFirstResponderTextField resignFirstResponder];
     }
+}
+
+#pragma mark -
+
+- (void) pickerViewController: (WOAPickerViewController *)pickerViewController
+                  selectAtRow: (NSInteger)row
+                fromDataModel:(NSArray *)dataModel
+{
+    if (row >= 0)
+    {
+        //TO-DO: assume that workID is same to preview step
+        NSString *processID = [WOAPacketHelper processIDFromDictionary: [self.processArray objectAtIndex: row]];
+        
+        WOAAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        WOARequestContent *requestContent = [WOARequestContent contentForSelectNextStep: self.workID
+                                                                              processID: processID];
+        
+        [appDelegate sendRequest: requestContent
+                      onSuccuess:^(WOAResponeContent *responseContent)
+         {
+             [self parseSelectNextStepResponse: responseContent.bodyDictionary];
+             
+         }
+                       onFailure:^(WOAResponeContent *responseContent)
+         {
+             NSLog(@"SelectNextStep [Initiate workflow] fail: %lu, HTTPStatus=%ld", responseContent.requestResult, (long)responseContent.HTTPStatus);
+         }];
+    }
+    
+    _pickerVC = nil;
+}
+
+- (void) pickerViewControllerCancelled: (WOAPickerViewController *)pickerViewController
+{
+    //TO-DO
+    //could just resubmit? or should popop up to top
+    
+    _pickerVC = nil;
 }
 
 #pragma mark - UIAlertView

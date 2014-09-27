@@ -8,8 +8,8 @@
 
 #import "WOADynamicLabelTextField.h"
 #import "WOAPacketHelper.h"
-#import "VSActionSheetDatePicker.h"
-#import "VSActionSheetPickerView.h"
+#import "WOAPickerViewController.h"
+#import "WOADateTimePickerViewController.h"
 #import "WOAMultiLineTextField.h"
 #import "WOAMultiLineLabel.h"
 #import "WOAFileSelectorView.h"
@@ -20,7 +20,9 @@
 @interface WOADynamicLabelTextField () <UITextFieldDelegate,
                                         UITextViewDelegate,
                                         WOAFileSelectorViewDelegate,
-                                        WOAMultiLineLabelDelegate>
+                                        WOAMultiLineLabelDelegate,
+                                        WOAPickerViewControllerDelegate,
+                                        WOADateTimePickerViewControllerDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) WOAMultiLineTextField *multiField;
@@ -42,8 +44,8 @@
 @property (nonatomic, assign) NSString *extendTypeString;
 @property (nonatomic, strong) NSArray *optionArray;
 
-@property (nonatomic, strong) VSActionSheetDatePicker *actionSheetDatePicker;
-@property (nonatomic, strong) VSActionSheetPickerView *actionSheetPickerView;
+@property (nonatomic, strong) WOAPickerViewController *pickerVC;
+@property (nonatomic, strong) WOADateTimePickerViewController *datePickerVC;
 
 @end
 
@@ -111,15 +113,9 @@
             break;
             
         case WOAExtendTextFieldType_DatePicker:
-            clickSelector = @selector(showDatePicker:);
-            break;
-            
         case WOAExtendTextFieldType_TimePicker:
-            clickSelector = @selector(showTimePicker:);
-            break;
-            
         case WOAExtendTextFieldType_DateTimePicker:
-            clickSelector = @selector(showDateTimePicker:);
+            clickSelector = @selector(showDatePickerView:);
             break;
             
         case WOAExtendTextFieldType_PickerView:
@@ -437,27 +433,18 @@
 
 - (void) showPickerView: (id)sender
 {
-    self.actionSheetPickerView = [[VSActionSheetPickerView alloc] init];
-    
     NSInteger selectedRow = [self.optionArray indexOfObject: self.lineTextField.text];
     
-    [self.actionSheetPickerView shownPickerViewInView: self.popoverShowInView
-                                            dataModel: self.optionArray
-                                          selectedRow: selectedRow
-                                      selectedHandler: ^(NSInteger row)
-    {
-        if (row >= 0)
-            self.lineTextField.text = [self.optionArray objectAtIndex: row];
-    }
-                                     cancelledHandler: ^
-    {
-    }];
+    _pickerVC = [[WOAPickerViewController alloc] initWithDelgate: self
+                                                           title: _titleLabel.text
+                                                       dataModel: _optionArray
+                                                     selectedRow: selectedRow];
+    
+    [[self hostNavigation] pushViewController: _pickerVC animated: NO];
 }
 
-- (void) showActionSheetDatePicker: (id)sender datePickerMode: (UIDatePickerMode)datePickerMode
+- (void) showDatePickerView: (id)sender
 {
-    self.actionSheetDatePicker = [[VSActionSheetDatePicker alloc] init];
-    
     NSString *dateFormatString;
     switch (_extendType)
     {
@@ -478,32 +465,12 @@
             break;
     }
     
-    [self.actionSheetDatePicker showInView: self.popoverShowInView
-                            datePickerMode: datePickerMode
-                         currentDateString: self.lineTextField.text
-                          dateFormatString: dateFormatString
-                           selectedHandler: ^(NSString *selectedDateString)
-    {
-        self.lineTextField.text = selectedDateString;
-    }
-                     cancelledHandler: ^
-    {
-    }];
-}
-
-- (void) showDatePicker: (id)sender
-{
-    [self showActionSheetDatePicker: sender datePickerMode: UIDatePickerModeDate];
-}
-
-- (void) showTimePicker: (id)sender
-{
-    [self showActionSheetDatePicker: sender datePickerMode: UIDatePickerModeTime];
-}
-
-- (void) showDateTimePicker: (id)sender
-{
-    [self showActionSheetDatePicker: sender datePickerMode: UIDatePickerModeDateAndTime];
+    _datePickerVC = [[WOADateTimePickerViewController alloc] initWithDelgate: self
+                                                                       title: _titleLabel.text
+                                                           defaultDateString: _lineTextField.text
+                                                                formatString: dateFormatString];
+    
+    [[self hostNavigation] pushViewController: _datePickerVC animated: NO];
 }
 
 - (BOOL) isPureIntegerString: (NSString*)src
@@ -670,6 +637,40 @@
     
     fileSelectorView.delegate = self;
     [fileSelectorView fileInfoUpdated];
+}
+
+#pragma mark - 
+
+- (void) pickerViewController: (WOAPickerViewController *)pickerViewController
+                  selectAtRow: (NSInteger)row
+                fromDataModel:(NSArray *)dataModel
+{
+    if (row >= 0)
+    {
+        self.lineTextField.text = [dataModel objectAtIndex: row];
+    }
+    
+    _pickerVC = nil;
+}
+
+- (void) pickerViewControllerCancelled: (WOAPickerViewController *)pickerViewController
+{
+    _pickerVC = nil;
+}
+
+#pragma mark - 
+
+- (void) dateTimePickerViewController: (WOADateTimePickerViewController *)dateTimePickerViewController
+                   selectedDateString: (NSString *)selectedDateString
+{
+    self.lineTextField.text = selectedDateString;
+    
+    _datePickerVC = nil;
+}
+
+- (void) dateTimePickerViewControllerCancelled: (WOADateTimePickerViewController *)dateTimePickerViewController
+{
+    _datePickerVC = nil;
 }
 
 @end

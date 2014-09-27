@@ -74,10 +74,12 @@
     
     //TO-DO
     CGFloat contentOriginY = [self.topLayoutGuide length];
-    CGFloat tabbarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
     contentOriginY += self.navigationController.navigationBar.frame.origin.y;
     if (!self.navigationController.isNavigationBarHidden)
+    {
         contentOriginY += self.navigationController.navigationBar.frame.size.height;
+    }
+    CGFloat tabbarHeight = self.navigationController.tabBarController.tabBar.frame.size.height;
     
     
     CGFloat searchBarHeight = 44;
