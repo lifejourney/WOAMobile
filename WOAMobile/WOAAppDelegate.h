@@ -138,5 +138,15 @@
     BrandData
  */
 
-
+/**
+ Ver 1.02.02:
+ Initial Submit
+ 
+ Ver 1.03.02:
+ 1. Support iOS8.
+ 2. Support upload multiple attachments.
+ 3. View the attachment in app.
+ 4. Support show content in multiple lines.
+ 5. Add server setting entry in the login view.
+ */
 

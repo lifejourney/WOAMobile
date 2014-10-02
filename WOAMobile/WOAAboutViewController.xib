@@ -155,7 +155,7 @@ Cg
                                 </paragraphStyle>
                             </attributes>
                         </fragment>
-                        <fragment content="泉州移动互联网事业开拓者之一，为客户提供最专业的移动互联解决方案。承接各类IOS开发、Android开发、web开发。">
+                        <fragment content="泉州移动互联网事业开拓者之一，为客户提供最专业的移动互联解决方案。">
                             <attributes>
                                 <color key="NSColor" red="0.29411764705882354" green="0.29411764705882354" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="14" name="STHeitiSC-Light"/>
