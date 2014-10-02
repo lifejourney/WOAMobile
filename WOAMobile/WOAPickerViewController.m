@@ -26,12 +26,30 @@
 @implementation WOAPickerViewController
 
 
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+    }
+    return self;
+}
+
+- (instancetype) init
+{
+    if (self = [self initWithNibName: nil bundle: nil])
+    {
+    }
+    
+    return self;
+}
+
 - (instancetype) initWithDelgate: (NSObject<WOAPickerViewControllerDelegate>*)delegate
                            title: (NSString*)title
                        dataModel: (NSArray*)dataModel
                      selectedRow: (NSInteger)selectedRow
 {
-    if (self = [super init])
+    if (self = [self init])
     {
         self.rowHeight = 40;
         
@@ -46,6 +64,11 @@
     }
     
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
 }
 
 - (void)viewDidLoad
@@ -77,8 +100,11 @@
     CGFloat listOriginY = selfRect.origin.y + contentOriginY;
     CGFloat listHeight = selfRect.size.height - contentOriginY - tabbarHeight;
     
-    listOriginY = selfRect.origin.y;
-    listHeight = selfRect.size.height - tabbarHeight;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        listOriginY = selfRect.origin.y;
+        listHeight = selfRect.size.height - tabbarHeight;
+    }
     
     CGRect listRect = CGRectMake(selfRect.origin.x, listOriginY, selfRect.size.width, listHeight);
     self.listView = [[UITableView alloc] initWithFrame: listRect style: UITableViewStylePlain];
@@ -86,6 +112,8 @@
     _listView.delegate = self;
     
     [self.view addSubview: _listView];
+    
+    [_listView reloadData];
     
     if (_defaultRow >= 0)
     {
