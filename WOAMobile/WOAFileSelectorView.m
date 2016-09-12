@@ -68,7 +68,7 @@
         
         CGFloat addButtonHeight = _itemHeight;
         CGFloat seperatorHeight = 1;
-        CGFloat fileListHeight = _cellHeight  * 3;
+        CGFloat fileListHeight = _cellHeight  * (3 + 0.5); //half list for prompt that there're more items.
         
         CGRect buttonRect = CGRectMake(0, 0, 80, addButtonHeight);
         CGRect fileListRect = CGRectMake(0, addButtonHeight + seperatorHeight, frame.size.width, fileListHeight);

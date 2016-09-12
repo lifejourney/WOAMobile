@@ -10,7 +10,6 @@
 #import "WOAPacketHelper.h"
 #import "WOAPickerViewController.h"
 #import "WOADateTimePickerViewController.h"
-#import "WOAMultiLineTextField.h"
 #import "WOAMultiLineLabel.h"
 #import "WOAFileSelectorView.h"
 #import "WOALayout.h"
@@ -25,7 +24,6 @@
                                         WOADateTimePickerViewControllerDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) WOAMultiLineTextField *multiField;
 @property (nonatomic, strong) WOAMultiLineLabel *multiLabel;
 @property (nonatomic, strong) WOAFileSelectorView *fileSelectorView;
 @property (nonatomic, strong) UITextField *lineTextField;
